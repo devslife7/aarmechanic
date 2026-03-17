@@ -359,7 +359,7 @@ export default function DarkChromeDesign() {
                   <p className="text-gray-300 flex-grow mb-8 relative z-10 leading-relaxed">"{review.quote}"</p>
                   <div className="mt-auto relative z-10">
                     <div className="font-bold text-white tracking-wide">{review.author}</div>
-                    <div className="text-xs text-gray-500 uppercase tracking-widest mt-1">{review.location}</div>
+                    <div className="text-xs text-gray-500 uppercase tracking-widest mt-1">{review.loc}</div>
                   </div>
                 </div>
               ))}
