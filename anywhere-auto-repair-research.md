@@ -166,3 +166,5 @@ Before building, it would help to get:
 - **WhatsApp integration**: Direct link `https://wa.me/16104636087` with pre-filled message
 - **Google Business Profile**: Should be set up if not already (huge for local SEO)
 - **Schema markup**: LocalBusiness + AutoRepair for search visibility
+
+make sure to add a contact me form
