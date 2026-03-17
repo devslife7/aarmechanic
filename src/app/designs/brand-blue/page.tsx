@@ -6,10 +6,11 @@ import { useState } from "react";
 
 export default function BrandBlueDesign() {
   const [lang, setLang] = useState<"en" | "es">("en");
+  const [formSubmitted, setFormSubmitted] = useState(false);
 
   const t = {
     en: {
-      nav: { how: "How It Works", services: "Services", coverage: "Coverage", book: "Book Now" },
+      nav: { how: "How It Works", services: "Services", coverage: "Coverage", contact: "Contact", book: "Book Now" },
       hero: {
         badge: "Mobile Mechanic • DC | MD | VA",
         title1: "Your mechanic,",
@@ -34,12 +35,12 @@ export default function BrandBlueDesign() {
         title: "Everything your car needs.",
         desc: "We handle maintenance and repairs on the spot, so you can skip the tow truck and the dealership markup.",
         items: [
-          { name: "Diagnostics", desc: "Professional grade repairs performed right at your location with high-quality parts." },
-          { name: "Brake Repair", desc: "Professional grade repairs performed right at your location with high-quality parts." },
-          { name: "Oil Changes", desc: "Professional grade repairs performed right at your location with high-quality parts." },
-          { name: "Battery & Electrical", desc: "Professional grade repairs performed right at your location with high-quality parts." },
-          { name: "A/C & Cooling", desc: "Professional grade repairs performed right at your location with high-quality parts." },
-          { name: "Tune-Ups", desc: "Professional grade repairs performed right at your location with high-quality parts." }
+          { name: "Diagnostics", desc: "Professional grade repairs performed right at your location with high-quality parts.", img: "https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?q=80&w=800&auto=format&fit=crop" },
+          { name: "Brake Repair", desc: "Professional grade repairs performed right at your location with high-quality parts.", img: "https://images.unsplash.com/photo-1626668893632-6f3a4466d22f?q=80&w=800&auto=format&fit=crop" },
+          { name: "Oil Changes", desc: "Professional grade repairs performed right at your location with high-quality parts.", img: "https://images.unsplash.com/photo-1635514569146-9a9607ecf303?q=80&w=800&auto=format&fit=crop" },
+          { name: "Battery & Electrical", desc: "Professional grade repairs performed right at your location with high-quality parts.", img: "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=800&auto=format&fit=crop" },
+          { name: "A/C & Cooling", desc: "Professional grade repairs performed right at your location with high-quality parts.", img: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?q=80&w=800&auto=format&fit=crop" },
+          { name: "Tune-Ups", desc: "Professional grade repairs performed right at your location with high-quality parts.", img: "https://images.unsplash.com/photo-1487754180451-c456f719a1fc?q=80&w=800&auto=format&fit=crop" }
         ]
       },
       coverage: {
@@ -72,10 +73,27 @@ export default function BrandBlueDesign() {
         title: "Need a fix today?",
         desc: "Send us a message with your car's issue and we'll get back to you with a free quote.",
         btn: "Contact on WhatsApp"
+      },
+      contact: {
+        tag: "Contact Us",
+        title: "Get a free quote.",
+        name: "Your Name",
+        namePh: "John Doe",
+        phone: "Phone Number",
+        phonePh: "(555) 123-4567",
+        vehicle: "Vehicle",
+        vehiclePh: "e.g. 2019 Honda Civic",
+        issue: "Describe the Issue",
+        issuePh: "What's going on with your car?",
+        submit: "Send Message",
+        or: "or reach us directly",
+        successTitle: "Message sent!",
+        successDesc: "We'll get back to you shortly with a free quote.",
+        another: "Send another"
       }
     },
     es: {
-      nav: { how: "Cómo Funciona", services: "Servicios", coverage: "Cobertura", book: "Reservar" },
+      nav: { how: "Cómo Funciona", services: "Servicios", coverage: "Cobertura", contact: "Contacto", book: "Reservar" },
       hero: {
         badge: "Mecánico Móvil • DC | MD | VA",
         title1: "Tu mecánico,",
@@ -100,12 +118,12 @@ export default function BrandBlueDesign() {
         title: "Todo lo que tu auto necesita.",
         desc: "Manejamos mantenimiento y reparaciones en el lugar, para que puedas evitar la grúa y los precios del concesionario.",
         items: [
-          { name: "Diagnósticos", desc: "Reparaciones de nivel profesional realizadas directamente en tu ubicación con piezas de alta calidad." },
-          { name: "Frenos", desc: "Reparaciones de nivel profesional realizadas directamente en tu ubicación con piezas de alta calidad." },
-          { name: "Cambio de Aceite", desc: "Reparaciones de nivel profesional realizadas directamente en tu ubicación con piezas de alta calidad." },
-          { name: "Batería y Eléctrico", desc: "Reparaciones de nivel profesional realizadas directamente en tu ubicación con piezas de alta calidad." },
-          { name: "A/C y Enfriamiento", desc: "Reparaciones de nivel profesional realizadas directamente en tu ubicación con piezas de alta calidad." },
-          { name: "Afinaciones", desc: "Reparaciones de nivel profesional realizadas directamente en tu ubicación con piezas de alta calidad." }
+          { name: "Diagnósticos", desc: "Reparaciones de nivel profesional realizadas directamente en tu ubicación con piezas de alta calidad.", img: "https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?q=80&w=800&auto=format&fit=crop" },
+          { name: "Frenos", desc: "Reparaciones de nivel profesional realizadas directamente en tu ubicación con piezas de alta calidad.", img: "https://images.unsplash.com/photo-1626668893632-6f3a4466d22f?q=80&w=800&auto=format&fit=crop" },
+          { name: "Cambio de Aceite", desc: "Reparaciones de nivel profesional realizadas directamente en tu ubicación con piezas de alta calidad.", img: "https://images.unsplash.com/photo-1635514569146-9a9607ecf303?q=80&w=800&auto=format&fit=crop" },
+          { name: "Batería y Eléctrico", desc: "Reparaciones de nivel profesional realizadas directamente en tu ubicación con piezas de alta calidad.", img: "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=800&auto=format&fit=crop" },
+          { name: "A/C y Enfriamiento", desc: "Reparaciones de nivel profesional realizadas directamente en tu ubicación con piezas de alta calidad.", img: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?q=80&w=800&auto=format&fit=crop" },
+          { name: "Afinaciones", desc: "Reparaciones de nivel profesional realizadas directamente en tu ubicación con piezas de alta calidad.", img: "https://images.unsplash.com/photo-1487754180451-c456f719a1fc?q=80&w=800&auto=format&fit=crop" }
         ]
       },
       coverage: {
@@ -138,6 +156,23 @@ export default function BrandBlueDesign() {
         title: "¿Necesitas una reparación hoy?",
         desc: "Envíanos un mensaje con el problema de tu auto y te responderemos con una cotización gratuita.",
         btn: "Contactar por WhatsApp"
+      },
+      contact: {
+        tag: "Contáctanos",
+        title: "Obtén una cotización gratis.",
+        name: "Tu Nombre",
+        namePh: "Juan Pérez",
+        phone: "Teléfono",
+        phonePh: "(555) 123-4567",
+        vehicle: "Vehículo",
+        vehiclePh: "ej. 2019 Honda Civic",
+        issue: "Describe el Problema",
+        issuePh: "¿Qué le pasa a tu carro?",
+        submit: "Enviar Mensaje",
+        or: "o contáctanos directamente",
+        successTitle: "¡Mensaje enviado!",
+        successDesc: "Te responderemos pronto con una cotización gratuita.",
+        another: "Enviar otro"
       }
     }
   }[lang];
@@ -160,6 +195,7 @@ export default function BrandBlueDesign() {
             <a href="#how-it-works" className="hover:text-slate-600 transition-colors">{t.nav.how}</a>
             <a href="#services" className="hover:text-slate-600 transition-colors">{t.nav.services}</a>
             <a href="#coverage" className="hover:text-slate-600 transition-colors">{t.nav.coverage}</a>
+            <Link href="/designs/brand-blue/contact" className="hover:text-slate-600 transition-colors">{t.nav.contact}</Link>
           </div>
           <div className="flex items-center gap-4">
             <div className="flex items-center bg-gray-100 rounded-full p-1 border border-gray-200">
@@ -279,12 +315,14 @@ export default function BrandBlueDesign() {
 
             <div className="grid md:grid-cols-3 gap-8">
               {t.services.items.map((service, i) => (
-                <div key={i} className="bg-gray-50 rounded-2xl p-8 border border-gray-200 hover:border-slate-300 hover:shadow-lg transition-all group">
-                  <div className="w-14 h-14 bg-slate-100 rounded-xl flex items-center justify-center text-slate-600 mb-6 group-hover:bg-slate-600 group-hover:text-white transition-colors">
-                    <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                <div key={i} className="bg-gray-50 rounded-2xl overflow-hidden border border-gray-200 hover:border-slate-300 hover:shadow-lg transition-all group flex flex-col">
+                  <div className="h-48 relative overflow-hidden bg-slate-200">
+                    <img src={service.img} alt={service.name} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500" />
                   </div>
-                  <h4 className="text-xl font-bold text-slate-900 mb-2">{service.name}</h4>
-                  <p className="text-gray-600 text-sm">{service.desc}</p>
+                  <div className="p-8 flex-1">
+                    <h4 className="text-xl font-bold text-slate-900 mb-2">{service.name}</h4>
+                    <p className="text-gray-600 text-sm">{service.desc}</p>
+                  </div>
                 </div>
               ))}
             </div>
@@ -342,7 +380,7 @@ export default function BrandBlueDesign() {
             <div className="bg-slate-50 rounded-3xl p-8 md:p-16 border border-slate-200">
               <div className="grid md:grid-cols-2 gap-12 items-center">
                 <div className="aspect-square bg-slate-200 rounded-2xl overflow-hidden relative flex items-center justify-center border border-slate-300">
-                  <div className="text-slate-400 font-medium tracking-widest uppercase">Photo of Tyler</div>
+                  <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=800&auto=format&fit=crop" alt="Tyler" className="object-cover w-full h-full" />
                 </div>
                 <div>
                   <h2 className="text-blue-600 font-bold tracking-wide uppercase text-sm mb-2">{t.about.tag}</h2>
@@ -392,15 +430,79 @@ export default function BrandBlueDesign() {
           </div>
         </section>
 
-        {/* CTA */}
-        <section className="py-20 bg-slate-50 border-t border-gray-200">
-          <div className="max-w-4xl mx-auto px-4 text-center">
-            <h2 className="text-3xl font-extrabold text-slate-950 mb-6">{t.cta.title}</h2>
-            <p className="text-lg text-gray-700 mb-8">{t.cta.desc}</p>
-            <a href="https://wa.me/16104636087" className="inline-flex items-center gap-2 bg-slate-600 hover:bg-slate-700 text-white px-8 py-4 rounded-full font-bold transition-all shadow-lg hover:shadow-xl text-lg">
-              {t.cta.btn}
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-            </a>
+        {/* CONTACT */}
+        <section id="contact" className="py-24 bg-slate-900 text-white border-t border-slate-800">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid md:grid-cols-2 gap-16 items-start">
+              <div>
+                <h2 className="text-blue-400 font-bold tracking-wide uppercase text-sm mb-2">{t.contact.tag}</h2>
+                <h3 className="text-3xl sm:text-4xl font-extrabold mb-4">{t.contact.title}</h3>
+                <p className="text-slate-300 text-lg mb-8 leading-relaxed">{t.cta.desc}</p>
+
+                <div className="space-y-4">
+                  <p className="text-slate-400 text-sm font-medium uppercase tracking-wider">{t.contact.or}</p>
+                  <a href="https://wa.me/16104636087" className="flex items-center gap-4 bg-slate-800 hover:bg-slate-700 rounded-xl p-4 border border-slate-700 transition-colors group">
+                    <div className="w-10 h-10 bg-green-500/20 rounded-full flex items-center justify-center shrink-0">
+                      <svg className="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+                    </div>
+                    <div className="flex-1">
+                      <div className="font-bold text-white">WhatsApp</div>
+                      <div className="text-sm text-slate-400">{t.cta.btn}</div>
+                    </div>
+                    <svg className="w-5 h-5 text-slate-500 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                  </a>
+                  <a href="tel:+16104636087" className="flex items-center gap-4 bg-slate-800 hover:bg-slate-700 rounded-xl p-4 border border-slate-700 transition-colors group">
+                    <div className="w-10 h-10 bg-blue-500/20 rounded-full flex items-center justify-center shrink-0">
+                      <svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                    </div>
+                    <div className="flex-1">
+                      <div className="font-bold text-white">(610) 463-6087</div>
+                      <div className="text-sm text-slate-400">{t.cta.title}</div>
+                    </div>
+                    <svg className="w-5 h-5 text-slate-500 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                  </a>
+                </div>
+              </div>
+
+              <div className="bg-slate-800 rounded-2xl p-8 border border-slate-700">
+                {formSubmitted ? (
+                  <div className="text-center py-8">
+                    <div className="w-16 h-16 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <svg className="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
+                    </div>
+                    <h4 className="text-xl font-bold mb-2">{t.contact.successTitle}</h4>
+                    <p className="text-slate-400 mb-6">{t.contact.successDesc}</p>
+                    <button onClick={() => setFormSubmitted(false)} className="text-blue-400 font-semibold hover:text-blue-300 transition-colors">
+                      {t.contact.another}
+                    </button>
+                  </div>
+                ) : (
+                  <form onSubmit={(e) => { e.preventDefault(); setFormSubmitted(true); }} className="space-y-4">
+                    <div className="grid sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm font-semibold text-slate-300 mb-1.5">{t.contact.name}</label>
+                        <input type="text" required placeholder={t.contact.namePh} className="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-600 text-white placeholder:text-slate-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all" />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-semibold text-slate-300 mb-1.5">{t.contact.phone}</label>
+                        <input type="tel" required placeholder={t.contact.phonePh} className="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-600 text-white placeholder:text-slate-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all" />
+                      </div>
+                    </div>
+                    <div>
+                      <label className="block text-sm font-semibold text-slate-300 mb-1.5">{t.contact.vehicle}</label>
+                      <input type="text" required placeholder={t.contact.vehiclePh} className="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-600 text-white placeholder:text-slate-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all" />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-semibold text-slate-300 mb-1.5">{t.contact.issue}</label>
+                      <textarea required rows={3} placeholder={t.contact.issuePh} className="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-600 text-white placeholder:text-slate-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all resize-none"></textarea>
+                    </div>
+                    <button type="submit" className="w-full bg-blue-500 hover:bg-blue-400 text-slate-950 px-6 py-3.5 rounded-full font-bold transition-transform hover:-translate-y-0.5 shadow-xl shadow-blue-500/20">
+                      {t.contact.submit}
+                    </button>
+                  </form>
+                )}
+              </div>
+            </div>
           </div>
         </section>
       </main>

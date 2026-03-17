@@ -23,12 +23,12 @@ export default function DarkChromeDesign() {
         tag: "Our Expertise",
         title: "Everything Your Car Needs.",
         items: [
-          { name: "Diagnostics", desc: "High-quality repairs performed right at your location, no tow truck required." },
-          { name: "Brake Repair", desc: "High-quality repairs performed right at your location, no tow truck required." },
-          { name: "Oil Changes", desc: "High-quality repairs performed right at your location, no tow truck required." },
-          { name: "Battery & Electrical", desc: "High-quality repairs performed right at your location, no tow truck required." },
-          { name: "A/C & Cooling", desc: "High-quality repairs performed right at your location, no tow truck required." },
-          { name: "Tune-Ups", desc: "High-quality repairs performed right at your location, no tow truck required." }
+          { name: "Diagnostics", desc: "High-quality repairs performed right at your location, no tow truck required.", img: "https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?q=80&w=800&auto=format&fit=crop" },
+          { name: "Brake Repair", desc: "High-quality repairs performed right at your location, no tow truck required.", img: "https://images.unsplash.com/photo-1626668893632-6f3a4466d22f?q=80&w=800&auto=format&fit=crop" },
+          { name: "Oil Changes", desc: "High-quality repairs performed right at your location, no tow truck required.", img: "https://images.unsplash.com/photo-1635514569146-9a9607ecf303?q=80&w=800&auto=format&fit=crop" },
+          { name: "Battery & Electrical", desc: "High-quality repairs performed right at your location, no tow truck required.", img: "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=800&auto=format&fit=crop" },
+          { name: "A/C & Cooling", desc: "High-quality repairs performed right at your location, no tow truck required.", img: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?q=80&w=800&auto=format&fit=crop" },
+          { name: "Tune-Ups", desc: "High-quality repairs performed right at your location, no tow truck required.", img: "https://images.unsplash.com/photo-1487754180451-c456f719a1fc?q=80&w=800&auto=format&fit=crop" }
         ]
       },
       process: {
@@ -87,12 +87,12 @@ export default function DarkChromeDesign() {
         tag: "Nuestra Experiencia",
         title: "Todo lo que Tu Auto Necesita.",
         items: [
-          { name: "Diagnósticos", desc: "Reparaciones de alta calidad realizadas directamente en tu ubicación, sin necesidad de grúa." },
-          { name: "Reparación de Frenos", desc: "Reparaciones de alta calidad realizadas directamente en tu ubicación, sin necesidad de grúa." },
-          { name: "Cambios de Aceite", desc: "Reparaciones de alta calidad realizadas directamente en tu ubicación, sin necesidad de grúa." },
-          { name: "Batería y Eléctrico", desc: "Reparaciones de alta calidad realizadas directamente en tu ubicación, sin necesidad de grúa." },
-          { name: "A/C y Enfriamiento", desc: "Reparaciones de alta calidad realizadas directamente en tu ubicación, sin necesidad de grúa." },
-          { name: "Afinaciones", desc: "Reparaciones de alta calidad realizadas directamente en tu ubicación, sin necesidad de grúa." }
+          { name: "Diagnósticos", desc: "Reparaciones de alta calidad realizadas directamente en tu ubicación, sin necesidad de grúa.", img: "https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?q=80&w=800&auto=format&fit=crop" },
+          { name: "Reparación de Frenos", desc: "Reparaciones de alta calidad realizadas directamente en tu ubicación, sin necesidad de grúa.", img: "https://images.unsplash.com/photo-1626668893632-6f3a4466d22f?q=80&w=800&auto=format&fit=crop" },
+          { name: "Cambios de Aceite", desc: "Reparaciones de alta calidad realizadas directamente en tu ubicación, sin necesidad de grúa.", img: "https://images.unsplash.com/photo-1635514569146-9a9607ecf303?q=80&w=800&auto=format&fit=crop" },
+          { name: "Batería y Eléctrico", desc: "Reparaciones de alta calidad realizadas directamente en tu ubicación, sin necesidad de grúa.", img: "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=800&auto=format&fit=crop" },
+          { name: "A/C y Enfriamiento", desc: "Reparaciones de alta calidad realizadas directamente en tu ubicación, sin necesidad de grúa.", img: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?q=80&w=800&auto=format&fit=crop" },
+          { name: "Afinaciones", desc: "Reparaciones de alta calidad realizadas directamente en tu ubicación, sin necesidad de grúa.", img: "https://images.unsplash.com/photo-1487754180451-c456f719a1fc?q=80&w=800&auto=format&fit=crop" }
         ]
       },
       process: {
@@ -260,12 +260,14 @@ export default function DarkChromeDesign() {
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {t.services.items.map((service, i) => (
-                <div key={i} className="group bg-[#0a101d] border border-gray-800 hover:border-blue-500 p-6 rounded-xl transition-all">
-                  <div className="w-12 h-12 bg-gray-900 border border-gray-800 rounded-lg flex items-center justify-center text-gray-400 group-hover:text-blue-400 group-hover:border-blue-500/30 transition-all mb-4">
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                <div key={i} className="group bg-[#0a101d] border border-gray-800 hover:border-blue-500 rounded-xl transition-all overflow-hidden flex flex-col">
+                  <div className="h-40 bg-gray-900 border-b border-gray-800 relative overflow-hidden">
+                    <img src={service.img} alt={service.name} className="object-cover w-full h-full opacity-60 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500 mix-blend-luminosity group-hover:mix-blend-normal" />
                   </div>
-                  <h4 className="text-xl font-bold text-white mb-2">{service.name}</h4>
-                  <p className="text-gray-500 text-sm">{service.desc}</p>
+                  <div className="p-6 flex-1">
+                    <h4 className="text-xl font-bold text-white mb-2">{service.name}</h4>
+                    <p className="text-gray-500 text-sm">{service.desc}</p>
+                  </div>
                 </div>
               ))}
             </div>
@@ -318,14 +320,20 @@ export default function DarkChromeDesign() {
             {/* About */}
             <div id="about" className="relative">
               <div className="absolute inset-0 bg-blue-600/5 rounded-3xl border border-gray-800 transform rotate-2"></div>
-              <div className="relative bg-[#05080f] p-8 sm:p-12 rounded-3xl border border-gray-800 h-full flex flex-col justify-center">
-                <h2 className="text-blue-500 font-bold tracking-widest uppercase text-sm mb-4">{t.about.tag}</h2>
-                <h3 className="text-3xl sm:text-4xl font-black text-white mb-6">{t.about.title}</h3>
-                <p className="text-gray-400 text-lg mb-6 leading-relaxed">
-                  {t.about.desc}
-                </p>
-                <div className="inline-block border border-gray-700 bg-gray-900/50 text-white px-4 py-2 rounded-lg font-bold text-sm w-fit">
-                  {t.about.badge}
+              <div className="relative bg-[#05080f] rounded-3xl border border-gray-800 h-full flex flex-col justify-end overflow-hidden group">
+                <div className="absolute inset-0">
+                  <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=800&auto=format&fit=crop" alt="Tyler" className="object-cover w-full h-full opacity-40 mix-blend-luminosity group-hover:opacity-60 transition-opacity duration-500" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#05080f] via-[#05080f]/80 to-transparent"></div>
+                </div>
+                <div className="relative p-8 sm:p-12 mt-32">
+                  <h2 className="text-blue-500 font-bold tracking-widest uppercase text-sm mb-4">{t.about.tag}</h2>
+                  <h3 className="text-3xl sm:text-4xl font-black text-white mb-6">{t.about.title}</h3>
+                  <p className="text-gray-400 text-lg mb-6 leading-relaxed">
+                    {t.about.desc}
+                  </p>
+                  <div className="inline-block border border-gray-700 bg-gray-900/50 text-white px-4 py-2 rounded-lg font-bold text-sm w-fit backdrop-blur-md">
+                    {t.about.badge}
+                  </div>
                 </div>
               </div>
             </div>
