@@ -1,7 +1,143 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function DarkChromeDesign() {
+  const [lang, setLang] = useState<"en" | "es">("en");
+
+  const t = {
+    en: {
+      nav: { services: "Services", about: "About", quote: "Get Quote" },
+      hero: {
+        badge: "SERVING DC • MD • VA",
+        title1: "The Garage",
+        title2: "Comes to You.",
+        desc: "Expert mobile mechanic service. We diagnose, repair, and maintain your vehicle right in your driveway. Skip the wait and the tow.",
+        btn1: "Text Us a Video/Photo",
+        btn2: "Call (610) 463-6087"
+      },
+      stats: { s1: "100%", l1: "MOBILE", s2: "EN/ES", l2: "BILINGUAL", s3: "24/7", l3: "MESSAGING", s4: "0", l4: "HIDDEN FEES" },
+      services: {
+        tag: "Our Expertise",
+        title: "Everything Your Car Needs.",
+        items: [
+          { name: "Diagnostics", desc: "High-quality repairs performed right at your location, no tow truck required." },
+          { name: "Brake Repair", desc: "High-quality repairs performed right at your location, no tow truck required." },
+          { name: "Oil Changes", desc: "High-quality repairs performed right at your location, no tow truck required." },
+          { name: "Battery & Electrical", desc: "High-quality repairs performed right at your location, no tow truck required." },
+          { name: "A/C & Cooling", desc: "High-quality repairs performed right at your location, no tow truck required." },
+          { name: "Tune-Ups", desc: "High-quality repairs performed right at your location, no tow truck required." }
+        ]
+      },
+      process: {
+        tag: "The Process",
+        title: "Skip the Dealership.",
+        desc: "A streamlined, stress-free experience from start to finish.",
+        steps: [
+          { num: "01", title: "Reach Out", desc: "Text or WhatsApp us with your car's issue. Photos and videos help us diagnose faster and give you an accurate quote." },
+          { num: "02", title: "Get a Quote", desc: "We'll give you an honest, upfront estimate. Parts and labor, all included. No surprises when the job is done." },
+          { num: "03", title: "We Fix It", desc: "We arrive at your location fully equipped. We handle the repair right there, getting you back on the road." }
+        ]
+      },
+      coverage: {
+        tag: "Service Area",
+        title: "Covering the DMV.",
+        areas: [
+          { state: "Washington, D.C.", desc: "All quadrants & neighborhoods" },
+          { state: "Maryland", desc: "Silver Spring, Bethesda, PG County" },
+          { state: "Virginia", desc: "Arlington, Alexandria, Springfield" }
+        ]
+      },
+      about: {
+        tag: "Meet Your Mechanic",
+        title: "Hey, I'm Tyler.",
+        desc: "Getting your car fixed shouldn't mean losing a whole day at the shop. I bring professional-grade tools directly to your driveway, office, or roadside. Honest work, transparent quotes, and zero upsells.",
+        badge: "✓ Hablo Español"
+      },
+      reviews: {
+        title: "Don't Take Our Word For It.",
+        items: [
+          { quote: "Tyler came to my apartment complex and replaced my brakes in under two hours. Super professional, fair price, and I didn't have to miss work. Highly recommend!", author: "Marcus T.", loc: "Arlington, VA" },
+          { quote: "Lo mejor es que habla español. Me explicó todo lo que estaba mal con mi carro y no me cobró de más. Excelente servicio, lo recomiendo 100%.", author: "Carlos R.", loc: "Silver Spring, MD" },
+          { quote: "My car wouldn't start and Tyler was at my house within an hour. Turned out it was the alternator — he had it fixed by the end of the day. Saved me a tow bill too.", author: "Jessica M.", loc: "Washington, DC" }
+        ]
+      },
+      contact: {
+        title: "Stop Waiting at the Shop.",
+        desc: "Take a photo or video of your issue, send it to us on WhatsApp, and we'll give you a transparent quote instantly.",
+        label: "VEHICLE ISSUE",
+        ph: "What's going wrong?",
+        btn: "Send Inquiry"
+      }
+    },
+    es: {
+      nav: { services: "Servicios", about: "Nosotros", quote: "Cotización" },
+      hero: {
+        badge: "SIRVIENDO DC • MD • VA",
+        title1: "El Taller",
+        title2: "Va Hacia Ti.",
+        desc: "Servicio mecánico móvil experto. Diagnosticamos, reparamos y damos mantenimiento a tu vehículo en tu propia entrada. Evita la espera y la grúa.",
+        btn1: "Envíanos un Video/Foto",
+        btn2: "Llama (610) 463-6087"
+      },
+      stats: { s1: "100%", l1: "MÓVIL", s2: "EN/ES", l2: "BILINGÜE", s3: "24/7", l3: "MENSAJES", s4: "0", l4: "TARIFAS OCULTAS" },
+      services: {
+        tag: "Nuestra Experiencia",
+        title: "Todo lo que Tu Auto Necesita.",
+        items: [
+          { name: "Diagnósticos", desc: "Reparaciones de alta calidad realizadas directamente en tu ubicación, sin necesidad de grúa." },
+          { name: "Reparación de Frenos", desc: "Reparaciones de alta calidad realizadas directamente en tu ubicación, sin necesidad de grúa." },
+          { name: "Cambios de Aceite", desc: "Reparaciones de alta calidad realizadas directamente en tu ubicación, sin necesidad de grúa." },
+          { name: "Batería y Eléctrico", desc: "Reparaciones de alta calidad realizadas directamente en tu ubicación, sin necesidad de grúa." },
+          { name: "A/C y Enfriamiento", desc: "Reparaciones de alta calidad realizadas directamente en tu ubicación, sin necesidad de grúa." },
+          { name: "Afinaciones", desc: "Reparaciones de alta calidad realizadas directamente en tu ubicación, sin necesidad de grúa." }
+        ]
+      },
+      process: {
+        tag: "El Proceso",
+        title: "Olvídate del Concesionario.",
+        desc: "Una experiencia fluida y sin estrés de principio a fin.",
+        steps: [
+          { num: "01", title: "Contáctanos", desc: "Envíanos un mensaje o WhatsApp con el problema de tu auto. Fotos y videos nos ayudan a diagnosticar más rápido y darte una cotización precisa." },
+          { num: "02", title: "Recibe una Cotización", desc: "Te daremos un estimado honesto y transparente. Piezas y mano de obra, todo incluido. Sin sorpresas al terminar el trabajo." },
+          { num: "03", title: "Lo Reparamos", desc: "Llegamos a tu ubicación totalmente equipados. Manejamos la reparación ahí mismo, para que vuelvas al camino." }
+        ]
+      },
+      coverage: {
+        tag: "Área de Servicio",
+        title: "Cubriendo el DMV.",
+        areas: [
+          { state: "Washington, D.C.", desc: "Todos los cuadrantes y vecindarios" },
+          { state: "Maryland", desc: "Silver Spring, Bethesda, PG County" },
+          { state: "Virginia", desc: "Arlington, Alexandria, Springfield" }
+        ]
+      },
+      about: {
+        tag: "Conoce a tu Mecánico",
+        title: "Hola, soy Tyler.",
+        desc: "Arreglar tu auto no debería significar perder un día entero en el taller. Llevo herramientas de nivel profesional directamente a tu entrada, oficina o en la carretera. Trabajo honesto, cotizaciones transparentes y sin ventas engañosas.",
+        badge: "✓ Hablo Español"
+      },
+      reviews: {
+        title: "No te quedes solo con nuestra palabra.",
+        items: [
+          { quote: "Tyler came to my apartment complex and replaced my brakes in under two hours. Super professional, fair price, and I didn't have to miss work. Highly recommend!", author: "Marcus T.", loc: "Arlington, VA" },
+          { quote: "Lo mejor es que habla español. Me explicó todo lo que estaba mal con mi carro y no me cobró de más. Excelente servicio, lo recomiendo 100%.", author: "Carlos R.", loc: "Silver Spring, MD" },
+          { quote: "My car wouldn't start and Tyler was at my house within an hour. Turned out it was the alternator — he had it fixed by the end of the day. Saved me a tow bill too.", author: "Jessica M.", loc: "Washington, DC" }
+        ]
+      },
+      contact: {
+        title: "Deja de Esperar en el Taller.",
+        desc: "Toma una foto o video de tu problema, envíanoslo por WhatsApp, y te daremos una cotización transparente al instante.",
+        label: "PROBLEMA DEL VEHÍCULO",
+        ph: "¿Qué está fallando?",
+        btn: "Enviar Consulta"
+      }
+    }
+  }[lang];
+
   return (
     <div className="min-h-screen bg-[#05080f] font-sans text-gray-200 selection:bg-blue-500 selection:text-white">
       {/* HEADER */}
@@ -19,11 +155,27 @@ export default function DarkChromeDesign() {
           
           <div className="flex items-center gap-6">
             <div className="hidden md:flex gap-6 text-sm font-medium text-gray-400">
-              <a href="#services" className="hover:text-white transition-colors">Services</a>
-              <a href="#about" className="hover:text-white transition-colors">About</a>
+              <a href="#services" className="hover:text-white transition-colors">{t.nav.services}</a>
+              <a href="#about" className="hover:text-white transition-colors">{t.nav.about}</a>
             </div>
-            <a href="https://wa.me/16104636087" className="bg-white text-slate-950 px-6 py-2.5 rounded-lg font-bold text-sm hover:bg-blue-300 transition-colors">
-              Get Quote
+            
+            <div className="flex bg-gray-900 rounded-lg p-1 border border-gray-800">
+              <button 
+                onClick={() => setLang("en")}
+                className={`px-3 py-1 rounded text-xs font-bold transition-all ${lang === 'en' ? 'bg-blue-500 text-white' : 'text-gray-500 hover:text-gray-300'}`}
+              >
+                EN
+              </button>
+              <button 
+                onClick={() => setLang("es")}
+                className={`px-3 py-1 rounded text-xs font-bold transition-all ${lang === 'es' ? 'bg-blue-500 text-white' : 'text-gray-500 hover:text-gray-300'}`}
+              >
+                ES
+              </button>
+            </div>
+
+            <a href="https://wa.me/16104636087" className="hidden sm:block bg-white text-slate-950 px-6 py-2.5 rounded-lg font-bold text-sm hover:bg-blue-300 transition-colors">
+              {t.nav.quote}
             </a>
           </div>
         </div>
@@ -41,34 +193,33 @@ export default function DarkChromeDesign() {
             <div className="mb-8 p-1 rounded-full bg-gradient-to-r from-gray-800 to-slate-900 inline-block">
               <div className="bg-[#05080f] rounded-full px-4 py-1.5 text-xs font-semibold text-blue-400 tracking-wider flex items-center gap-2">
                 <div className="w-1.5 h-1.5 rounded-full bg-blue-400"></div>
-                SERVING DC • MD • VA
+                {t.hero.badge}
               </div>
             </div>
             
             <h1 className="text-5xl sm:text-7xl lg:text-8xl font-black text-white tracking-tighter mb-8 uppercase leading-[0.9]">
-              The Garage <br className="hidden sm:block" />
+              {t.hero.title1} <br className="hidden sm:block" />
               <span className="text-transparent bg-clip-text bg-gradient-to-br from-gray-100 via-gray-400 to-gray-600">
-                Comes to You.
+                {t.hero.title2}
               </span>
             </h1>
             
             <p className="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto mb-10 font-light">
-              Expert mobile mechanic service. We diagnose, repair, and maintain your vehicle right in your driveway. Skip the wait and the tow.
+              {t.hero.desc}
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
               <a href="https://wa.me/16104636087" className="w-full sm:w-auto justify-center bg-blue-500 hover:bg-blue-400 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all flex items-center gap-2 shadow-[0_0_30px_rgba(74,144,217,0.3)]">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
-                Text Us a Video/Photo
+                {t.hero.btn1}
               </a>
               <a href="tel:+16104636087" className="w-full sm:w-auto justify-center bg-gray-900 hover:bg-gray-800 text-white border border-gray-800 px-8 py-4 rounded-xl font-bold text-lg transition-all flex items-center gap-2">
-                Call (610) 463-6087
+                {t.hero.btn2}
               </a>
             </div>
 
             <div className="mt-20 w-full max-w-4xl mx-auto">
               <div className="relative aspect-video sm:aspect-[21/9] rounded-2xl overflow-hidden border border-gray-800 shadow-2xl bg-slate-950 flex items-center justify-center p-8">
-                {/* Abstract visualization replacing actual photography */}
                 <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center opacity-30 mix-blend-luminosity"></div>
                 <div className="absolute inset-0 bg-gradient-to-t from-[#05080f] via-transparent to-transparent"></div>
                 <Image src="/logo.png" alt="AAR Logo Large" width={300} height={300} className="relative z-10 drop-shadow-[0_0_50px_rgba(74,144,217,0.5)] rounded-full" />
@@ -82,20 +233,20 @@ export default function DarkChromeDesign() {
         <section className="py-10 border-y border-gray-800/50 bg-[#080c16]">
           <div className="max-w-7xl mx-auto px-4 flex flex-wrap justify-center gap-x-16 gap-y-8 text-center">
             <div>
-              <div className="text-3xl font-black text-white mb-1">100%</div>
-              <div className="text-sm font-semibold text-gray-500 tracking-wider">MOBILE</div>
+              <div className="text-3xl font-black text-white mb-1">{t.stats.s1}</div>
+              <div className="text-sm font-semibold text-gray-500 tracking-wider">{t.stats.l1}</div>
             </div>
             <div>
-              <div className="text-3xl font-black text-white mb-1">EN/ES</div>
-              <div className="text-sm font-semibold text-gray-500 tracking-wider">BILINGUAL</div>
+              <div className="text-3xl font-black text-white mb-1">{t.stats.s2}</div>
+              <div className="text-sm font-semibold text-gray-500 tracking-wider">{t.stats.l2}</div>
             </div>
             <div>
-              <div className="text-3xl font-black text-white mb-1">24/7</div>
-              <div className="text-sm font-semibold text-gray-500 tracking-wider">MESSAGING</div>
+              <div className="text-3xl font-black text-white mb-1">{t.stats.s3}</div>
+              <div className="text-sm font-semibold text-gray-500 tracking-wider">{t.stats.l3}</div>
             </div>
             <div>
-              <div className="text-3xl font-black text-white mb-1">0</div>
-              <div className="text-sm font-semibold text-gray-500 tracking-wider">HIDDEN FEES</div>
+              <div className="text-3xl font-black text-white mb-1">{t.stats.s4}</div>
+              <div className="text-sm font-semibold text-gray-500 tracking-wider">{t.stats.l4}</div>
             </div>
           </div>
         </section>
@@ -104,17 +255,17 @@ export default function DarkChromeDesign() {
         <section id="services" className="py-24 relative overflow-hidden bg-[#05080f]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-3xl mx-auto mb-16">
-              <h2 className="text-blue-500 font-bold tracking-widest uppercase text-sm mb-4">Our Expertise</h2>
-              <h3 className="text-3xl sm:text-5xl font-black text-white mb-6">Everything Your Car Needs.</h3>
+              <h2 className="text-blue-500 font-bold tracking-widest uppercase text-sm mb-4">{t.services.tag}</h2>
+              <h3 className="text-3xl sm:text-5xl font-black text-white mb-6">{t.services.title}</h3>
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {['Diagnostics', 'Brake Repair', 'Oil Changes', 'Battery & Electrical', 'A/C & Cooling', 'Tune-Ups'].map((service, i) => (
+              {t.services.items.map((service, i) => (
                 <div key={i} className="group bg-[#0a101d] border border-gray-800 hover:border-blue-500 p-6 rounded-xl transition-all">
                   <div className="w-12 h-12 bg-gray-900 border border-gray-800 rounded-lg flex items-center justify-center text-gray-400 group-hover:text-blue-400 group-hover:border-blue-500/30 transition-all mb-4">
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                   </div>
-                  <h4 className="text-xl font-bold text-white mb-2">{service}</h4>
-                  <p className="text-gray-500 text-sm">High-quality repairs performed right at your location, no tow truck required.</p>
+                  <h4 className="text-xl font-bold text-white mb-2">{service.name}</h4>
+                  <p className="text-gray-500 text-sm">{service.desc}</p>
                 </div>
               ))}
             </div>
@@ -125,19 +276,15 @@ export default function DarkChromeDesign() {
         <section id="how-it-works" className="py-24 relative overflow-hidden bg-[#080c16] border-y border-gray-800/50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-3xl mx-auto mb-16">
-              <h2 className="text-blue-500 font-bold tracking-widest uppercase text-sm mb-4">The Process</h2>
-              <h3 className="text-3xl sm:text-5xl font-black text-white mb-6">Skip the Dealership.</h3>
-              <p className="text-gray-400 text-lg">A streamlined, stress-free experience from start to finish.</p>
+              <h2 className="text-blue-500 font-bold tracking-widest uppercase text-sm mb-4">{t.process.tag}</h2>
+              <h3 className="text-3xl sm:text-5xl font-black text-white mb-6">{t.process.title}</h3>
+              <p className="text-gray-400 text-lg">{t.process.desc}</p>
             </div>
 
             <div className="grid md:grid-cols-3 gap-8">
-              {[
-                { step: "01", title: "Reach Out", desc: "Text or WhatsApp us with your car's issue. Photos and videos help us diagnose faster and give you an accurate quote." },
-                { step: "02", title: "Get a Quote", desc: "We'll give you an honest, upfront estimate. Parts and labor, all included. No surprises when the job is done." },
-                { step: "03", title: "We Fix It", desc: "We arrive at your location fully equipped. We handle the repair right there, getting you back on the road." }
-              ].map((item, i) => (
+              {t.process.steps.map((item, i) => (
                 <div key={i} className="bg-[#05080f] border border-gray-800 p-8 rounded-2xl relative group hover:border-blue-500/50 transition-colors">
-                  <div className="text-5xl font-black text-gray-800 group-hover:text-blue-500/20 transition-colors mb-6">{item.step}</div>
+                  <div className="text-5xl font-black text-gray-800 group-hover:text-blue-500/20 transition-colors mb-6">{item.num}</div>
                   <h4 className="text-2xl font-bold text-white mb-4">{item.title}</h4>
                   <p className="text-gray-400 leading-relaxed">{item.desc}</p>
                 </div>
@@ -152,15 +299,11 @@ export default function DarkChromeDesign() {
             {/* Coverage */}
             <div id="coverage">
               <div className="mb-8">
-                <h2 className="text-blue-500 font-bold tracking-widest uppercase text-sm mb-4">Service Area</h2>
-                <h3 className="text-3xl sm:text-5xl font-black text-white">Covering the DMV.</h3>
+                <h2 className="text-blue-500 font-bold tracking-widest uppercase text-sm mb-4">{t.coverage.tag}</h2>
+                <h3 className="text-3xl sm:text-5xl font-black text-white">{t.coverage.title}</h3>
               </div>
               <ul className="space-y-6">
-                {[
-                  { state: "Washington, D.C.", desc: "All quadrants & neighborhoods" },
-                  { state: "Maryland", desc: "Silver Spring, Bethesda, PG County" },
-                  { state: "Virginia", desc: "Arlington, Alexandria, Springfield" }
-                ].map((loc, i) => (
+                {t.coverage.areas.map((loc, i) => (
                   <li key={i} className="flex gap-4">
                     <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-2.5 shrink-0 shadow-[0_0_10px_rgba(74,144,217,0.8)]"></div>
                     <div>
@@ -176,13 +319,13 @@ export default function DarkChromeDesign() {
             <div id="about" className="relative">
               <div className="absolute inset-0 bg-blue-600/5 rounded-3xl border border-gray-800 transform rotate-2"></div>
               <div className="relative bg-[#05080f] p-8 sm:p-12 rounded-3xl border border-gray-800 h-full flex flex-col justify-center">
-                <h2 className="text-blue-500 font-bold tracking-widest uppercase text-sm mb-4">Meet Your Mechanic</h2>
-                <h3 className="text-3xl sm:text-4xl font-black text-white mb-6">Hey, I'm Tyler.</h3>
+                <h2 className="text-blue-500 font-bold tracking-widest uppercase text-sm mb-4">{t.about.tag}</h2>
+                <h3 className="text-3xl sm:text-4xl font-black text-white mb-6">{t.about.title}</h3>
                 <p className="text-gray-400 text-lg mb-6 leading-relaxed">
-                  Getting your car fixed shouldn't mean losing a whole day at the shop. I bring professional-grade tools directly to your driveway, office, or roadside. Honest work, transparent quotes, and zero upsells.
+                  {t.about.desc}
                 </p>
                 <div className="inline-block border border-gray-700 bg-gray-900/50 text-white px-4 py-2 rounded-lg font-bold text-sm w-fit">
-                  ✓ Hablo Español
+                  {t.about.badge}
                 </div>
               </div>
             </div>
@@ -192,26 +335,10 @@ export default function DarkChromeDesign() {
         {/* REVIEWS */}
         <section className="py-24 relative overflow-hidden bg-[#05080f]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl sm:text-5xl font-black text-white mb-16 text-center">Don't Take Our Word For It.</h2>
+            <h2 className="text-3xl sm:text-5xl font-black text-white mb-16 text-center">{t.reviews.title}</h2>
             
             <div className="grid md:grid-cols-3 gap-8">
-              {[
-                {
-                  quote: "Tyler came to my apartment complex and replaced my brakes in under two hours. Super professional, fair price, and I didn't have to miss work. Highly recommend!",
-                  author: "Marcus T.",
-                  location: "Arlington, VA"
-                },
-                {
-                  quote: "Lo mejor es que habla español. Me explicó todo lo que estaba mal con mi carro y no me cobró de más. Excelente servicio, lo recomiendo 100%.",
-                  author: "Carlos R.",
-                  location: "Silver Spring, MD"
-                },
-                {
-                  quote: "My car wouldn't start and Tyler was at my house within an hour. Turned out it was the alternator — he had it fixed by the end of the day. Saved me a tow bill too.",
-                  author: "Jessica M.",
-                  location: "Washington, DC"
-                }
-              ].map((review, i) => (
+              {t.reviews.items.map((review, i) => (
                 <div key={i} className="bg-[#0a101d] p-8 rounded-2xl border border-gray-800 flex flex-col relative overflow-hidden group hover:border-blue-500/50 transition-colors">
                   <div className="absolute top-0 right-0 p-6 opacity-10">
                     <svg className="w-16 h-16 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" /></svg>
@@ -235,15 +362,15 @@ export default function DarkChromeDesign() {
         {/* CONTACT BANNER */}
         <section className="py-24 relative overflow-hidden">
           <div className="max-w-4xl mx-auto px-4 text-center">
-            <h2 className="text-3xl sm:text-5xl font-black text-white mb-6">Stop Waiting at the Shop.</h2>
-            <p className="text-gray-400 text-lg mb-10 max-w-2xl mx-auto">Take a photo or video of your issue, send it to us on WhatsApp, and we'll give you a transparent quote instantly.</p>
+            <h2 className="text-3xl sm:text-5xl font-black text-white mb-6">{t.contact.title}</h2>
+            <p className="text-gray-400 text-lg mb-10 max-w-2xl mx-auto">{t.contact.desc}</p>
             <form className="max-w-md mx-auto bg-[#0a101d] p-6 rounded-2xl border border-gray-800 text-left shadow-2xl">
               <div className="mb-4">
-                <label className="block text-xs font-bold text-gray-400 tracking-wider mb-2">VEHICLE ISSUE</label>
-                <textarea className="w-full bg-[#05080f] border border-gray-800 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500" rows={3} placeholder="What's going wrong?"></textarea>
+                <label className="block text-xs font-bold text-gray-400 tracking-wider mb-2">{t.contact.label}</label>
+                <textarea className="w-full bg-[#05080f] border border-gray-800 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500" rows={3} placeholder={t.contact.ph}></textarea>
               </div>
               <button type="button" className="w-full bg-white text-slate-950 font-bold py-3 rounded-lg hover:bg-gray-200 transition-colors">
-                Send Inquiry
+                {t.contact.btn}
               </button>
             </form>
           </div>
