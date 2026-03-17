@@ -168,3 +168,4 @@ Before building, it would help to get:
 - **Schema markup**: LocalBusiness + AutoRepair for search visibility
 
 make sure to add a contact me form
+in the contact form add a way to enter what type of inquiry this is

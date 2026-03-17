@@ -1,1 +1,36 @@
 @import "tailwindcss";
+
+@theme {
+  /* === Anywhere Auto Repair — Color Palette === */
+
+  /* Primary: Steel Blues */
+  --color-primary-50: #e8eff8;
+  --color-primary-100: #c5d6ed;
+  --color-primary-200: #9fbde1;
+  --color-primary-300: #6ca6e0;
+  --color-primary-400: #5b8fcf;
+  --color-primary-500: #3b6fb5;
+  --color-primary-600: #2b4c7e;
+  --color-primary-700: #223d66;
+  --color-primary-800: #1a2a44;
+  --color-primary-900: #111c2e;
+  --color-primary-950: #0a1119;
+
+  /* Chrome/Silver: Metallic tones */
+  --color-chrome-50: #f5f6f8;
+  --color-chrome-100: #e8eaef;
+  --color-chrome-200: #d4d8e0;
+  --color-chrome-300: #c0c8d4;
+  --color-chrome-400: #a8b2c2;
+  --color-chrome-500: #8a96aa;
+  --color-chrome-600: #6b7a92;
+  --color-chrome-700: #526078;
+  --color-chrome-800: #3c4a5e;
+  --color-chrome-900: #2a3444;
+
+  /* Accent: Spark Blue */
+  --color-accent-300: #a3cff0;
+  --color-accent-400: #6ca6e0;
+  --color-accent-500: #4a90d9;
+  --color-accent-600: #3578c2;
+}

@@ -148,6 +148,9 @@
       padding: 140px 40px 100px;
       position: relative;
       z-index: 1;
+      background-image: linear-gradient(to right, var(--midnight) 30%, rgba(12, 17, 32, 0.8) 60%, rgba(12, 17, 32, 0.2) 100%), url('https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?q=80&w=2000&auto=format&fit=crop');
+      background-size: cover;
+      background-position: center right;
     }
     .hero::after {
       content: '';
@@ -251,6 +254,19 @@
 
     /* HERO RIGHT CARD */
     .hero-right { position: relative; z-index: 1; }
+    .hero-img-box {
+      width: 100%;
+      height: 320px;
+      border-radius: 28px;
+      overflow: hidden;
+      margin-bottom: 24px;
+      border: 1px solid var(--cream-ghost);
+    }
+    .hero-img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
     .hero-trust-card {
       background: linear-gradient(145deg, var(--slate) 0%, var(--deep) 100%);
       border: 1px solid var(--cream-ghost);
@@ -486,10 +502,11 @@
       background: var(--midnight);
       border: 1px solid var(--cream-ghost);
       border-radius: 20px;
-      padding: 36px 30px;
       transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
       position: relative;
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
     }
     .svc:hover {
       border-color: rgba(232, 151, 63, 0.3);
@@ -508,20 +525,30 @@
       transition: opacity 0.4s;
     }
     .svc:hover::after { opacity: 1; }
+    .svc-img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-bottom: 1px solid var(--cream-ghost);
+    }
+    .svc-content {
+      padding: 30px;
+      flex: 1;
+    }
     .svc-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 12px;
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
       background: var(--amber-dim);
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 20px;
-      font-size: 1.2rem;
+      margin-bottom: 16px;
+      font-size: 1.1rem;
       transition: background 0.3s;
     }
     .svc:hover .svc-icon { background: rgba(232, 151, 63, 0.2); }
-    .svc-icon svg { width: 22px; height: 22px; color: var(--amber); }
+    .svc-icon svg { width: 20px; height: 20px; color: var(--amber); }
     .svc h3 {
       font-family: var(--serif);
       font-size: 1.15rem;
@@ -1077,6 +1104,9 @@
         </div>
       </div>
       <div class="hero-right reveal reveal-delay-2">
+        <div class="hero-img-box">
+          <img src="https://images.unsplash.com/photo-1487754180451-c456f719a1fc?q=80&w=1000&auto=format&fit=crop" alt="Mobile Mechanic Working">
+        </div>
         <div class="hero-trust-card">
           <div class="htc-header">
             <div class="htc-icon">
@@ -1170,67 +1200,64 @@
       </div>
       <div class="services-grid">
         <div class="svc reveal">
-          <div class="svc-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <img src="https://images.unsplash.com/photo-1486262715619-670810a079e1?q=80&w=800&auto=format&fit=crop" alt="Diagnostics" class="svc-img">
+          <div class="svc-content">
+            <div class="svc-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </div>
+            <h3>Diagnostics</h3>
+            <p>Check engine light, error codes, and complete vehicle troubleshooting.</p>
           </div>
-          <h3>Diagnostics</h3>
-          <p>Check engine light, error codes, and complete vehicle troubleshooting.</p>
         </div>
         <div class="svc reveal reveal-delay-1">
-          <div class="svc-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v6m0 0a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm0 8v6"/></svg>
+          <img src="https://images.unsplash.com/photo-1635514569146-9a9607ecf303?q=80&w=800&auto=format&fit=crop" alt="Oil Changes" class="svc-img">
+          <div class="svc-content">
+            <div class="svc-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v6m0 0a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm0 8v6"/></svg>
+            </div>
+            <h3>Oil Changes</h3>
+            <p>Synthetic and conventional oil changes with quality filters included.</p>
           </div>
-          <h3>Oil Changes</h3>
-          <p>Synthetic and conventional oil changes with quality filters included.</p>
         </div>
         <div class="svc reveal reveal-delay-2">
-          <div class="svc-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>
+          <img src="https://images.unsplash.com/photo-1626668893632-6f3a4466d22f?q=80&w=800&auto=format&fit=crop" alt="Brake Repair" class="svc-img">
+          <div class="svc-content">
+            <div class="svc-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>
+            </div>
+            <h3>Brake Repair</h3>
+            <p>Pads, rotors, brake fluid flush &mdash; everything to keep you stopping safely.</p>
           </div>
-          <h3>Brake Repair</h3>
-          <p>Pads, rotors, brake fluid flush &mdash; everything to keep you stopping safely.</p>
         </div>
         <div class="svc reveal">
-          <div class="svc-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="6" width="18" height="12" rx="2"/><line x1="23" y1="10" x2="23" y2="14"/></svg>
+          <img src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=800&auto=format&fit=crop" alt="Battery & Electrical" class="svc-img">
+          <div class="svc-content">
+            <div class="svc-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="6" width="18" height="12" rx="2"/><line x1="23" y1="10" x2="23" y2="14"/></svg>
+            </div>
+            <h3>Battery &amp; Electrical</h3>
+            <p>Battery replacement, jump starts, alternator and starter repairs.</p>
           </div>
-          <h3>Battery &amp; Electrical</h3>
-          <p>Battery replacement, jump starts, alternator and starter repairs.</p>
         </div>
         <div class="svc reveal reveal-delay-1">
-          <div class="svc-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+          <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?q=80&w=800&auto=format&fit=crop" alt="A/C & Cooling" class="svc-img">
+          <div class="svc-content">
+            <div class="svc-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            </div>
+            <h3>A/C &amp; Cooling</h3>
+            <p>A/C recharge, coolant flush, radiator and water pump service.</p>
           </div>
-          <h3>A/C &amp; Cooling</h3>
-          <p>A/C recharge, coolant flush, radiator and water pump service.</p>
         </div>
         <div class="svc reveal reveal-delay-2">
-          <div class="svc-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+          <img src="https://images.unsplash.com/photo-1487754180451-c456f719a1fc?q=80&w=800&auto=format&fit=crop" alt="Tune-Ups" class="svc-img">
+          <div class="svc-content">
+            <div class="svc-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+            </div>
+            <h3>Tune-Ups</h3>
+            <p>Spark plugs, serpentine belts, power steering, and general maintenance.</p>
           </div>
-          <h3>Tune-Ups</h3>
-          <p>Spark plugs, serpentine belts, power steering, and general maintenance.</p>
-        </div>
-        <div class="svc reveal">
-          <div class="svc-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 9h6v6H9z"/><path d="M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/></svg>
-          </div>
-          <h3>Pre-Purchase Inspection</h3>
-          <p>Buying a used car? We'll inspect it thoroughly before you commit.</p>
-        </div>
-        <div class="svc reveal reveal-delay-1">
-          <div class="svc-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-          </div>
-          <h3>Tire Service</h3>
-          <p>Tire rotation, flat tire repair, and roadside tire assistance.</p>
-        </div>
-        <div class="svc reveal reveal-delay-2">
-          <div class="svc-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-          </div>
-          <h3>Emergency Service</h3>
-          <p>Roadside assistance and emergency repairs when you need help fast.</p>
         </div>
       </div>
     </div>

@@ -167,6 +167,9 @@
       padding: 120px 40px 80px;
       position: relative;
       overflow: hidden;
+      background-image: linear-gradient(to right, var(--cream) 45%, rgba(247, 243, 238, 0) 100%), url('https://images.unsplash.com/photo-1486262715619-670810a079e1?q=80&w=2000&auto=format&fit=crop');
+      background-size: cover;
+      background-position: center right;
     }
     .hero-inner {
       max-width: 1240px;
@@ -486,27 +489,39 @@
       gap: 24px;
     }
     .service-card {
-      padding: 36px 32px;
       border-radius: 16px;
       background: var(--cream);
       transition: all 0.35s ease;
       position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
     }
     .service-card:hover {
       background: var(--white);
       box-shadow: var(--shadow-hover);
       transform: translateY(-4px);
     }
+    .service-img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-bottom: 1px solid var(--cream-mid);
+    }
+    .service-content {
+      padding: 32px;
+      flex: 1;
+    }
     .service-icon {
-      width: 48px;
-      height: 48px;
+      width: 44px;
+      height: 44px;
       background: var(--terracotta-light);
       border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.3rem;
-      margin-bottom: 20px;
+      font-size: 1.2rem;
+      margin-bottom: 16px;
       transition: background 0.35s;
     }
     .service-card:hover .service-icon {
@@ -1135,6 +1150,9 @@
         </div>
       </div>
       <div class="hero-visual animate animate-d4">
+        <div class="hero-img-wrap" style="border-radius: 20px; overflow: hidden; margin-bottom: 24px; box-shadow: var(--shadow-md); height: 320px;">
+          <img src="https://images.unsplash.com/photo-1542228262-3d663b306a53?q=80&w=1000&auto=format&fit=crop" style="width: 100%; height: 100%; object-fit: cover; display: block;" alt="Mechanic">
+        </div>
         <div class="hero-card">
           <div class="hero-card-title">We Come to You</div>
           <div class="hero-card-sub">Same-day service across the entire DMV area. Bilingual &mdash; English &amp; Spanish.</div>
@@ -1223,49 +1241,52 @@
       </div>
       <div class="services-grid">
         <div class="service-card">
-          <div class="service-icon">&#128269;</div>
-          <h3>Diagnostics</h3>
-          <p>Check engine light, error codes, and complete vehicle troubleshooting.</p>
+          <img src="https://images.unsplash.com/photo-1486262715619-670810a079e1?q=80&w=800&auto=format&fit=crop" alt="Diagnostics" class="service-img">
+          <div class="service-content">
+            <div class="service-icon">&#128269;</div>
+            <h3>Diagnostics</h3>
+            <p>Check engine light, error codes, and complete vehicle troubleshooting.</p>
+          </div>
         </div>
         <div class="service-card">
-          <div class="service-icon">&#128167;</div>
-          <h3>Oil Changes</h3>
-          <p>Synthetic and conventional oil changes with quality filters.</p>
+          <img src="https://images.unsplash.com/photo-1635514569146-9a9607ecf303?q=80&w=800&auto=format&fit=crop" alt="Oil Changes" class="service-img">
+          <div class="service-content">
+            <div class="service-icon">&#128167;</div>
+            <h3>Oil Changes</h3>
+            <p>Synthetic and conventional oil changes with quality filters.</p>
+          </div>
         </div>
         <div class="service-card">
-          <div class="service-icon">&#9899;</div>
-          <h3>Brake Repair</h3>
-          <p>Pads, rotors, brake fluid flush &mdash; everything to keep you stopping safely.</p>
+          <img src="https://images.unsplash.com/photo-1626668893632-6f3a4466d22f?q=80&w=800&auto=format&fit=crop" alt="Brake Repair" class="service-img">
+          <div class="service-content">
+            <div class="service-icon">&#9899;</div>
+            <h3>Brake Repair</h3>
+            <p>Pads, rotors, brake fluid flush &mdash; everything to keep you stopping safely.</p>
+          </div>
         </div>
         <div class="service-card">
-          <div class="service-icon">&#128267;</div>
-          <h3>Battery &amp; Electrical</h3>
-          <p>Battery replacement, jump starts, alternator and starter repairs.</p>
+          <img src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=800&auto=format&fit=crop" alt="Battery & Electrical" class="service-img">
+          <div class="service-content">
+            <div class="service-icon">&#128267;</div>
+            <h3>Battery &amp; Electrical</h3>
+            <p>Battery replacement, jump starts, alternator and starter repairs.</p>
+          </div>
         </div>
         <div class="service-card">
-          <div class="service-icon">&#10052;&#65039;</div>
-          <h3>A/C &amp; Cooling</h3>
-          <p>A/C recharge, coolant flush, radiator and water pump service.</p>
+          <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?q=80&w=800&auto=format&fit=crop" alt="A/C & Cooling" class="service-img">
+          <div class="service-content">
+            <div class="service-icon">&#10052;&#65039;</div>
+            <h3>A/C &amp; Cooling</h3>
+            <p>A/C recharge, coolant flush, radiator and water pump service.</p>
+          </div>
         </div>
         <div class="service-card">
-          <div class="service-icon">&#128736;</div>
-          <h3>Tune-Ups</h3>
-          <p>Spark plugs, serpentine belts, power steering, and general maintenance.</p>
-        </div>
-        <div class="service-card">
-          <div class="service-icon">&#128270;</div>
-          <h3>Pre-Purchase Inspection</h3>
-          <p>Buying a used car? We'll inspect it before you commit.</p>
-        </div>
-        <div class="service-card">
-          <div class="service-icon">&#9981;</div>
-          <h3>Tire Service</h3>
-          <p>Tire rotation, flat tire repair, and roadside tire assistance.</p>
-        </div>
-        <div class="service-card">
-          <div class="service-icon">&#127384;</div>
-          <h3>Emergency Service</h3>
-          <p>Roadside assistance and emergency repairs when you need help fast.</p>
+          <img src="https://images.unsplash.com/photo-1487754180451-c456f719a1fc?q=80&w=800&auto=format&fit=crop" alt="Tune-Ups" class="service-img">
+          <div class="service-content">
+            <div class="service-icon">&#128736;</div>
+            <h3>Tune-Ups</h3>
+            <p>Spark plugs, serpentine belts, power steering, and general maintenance.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -1331,7 +1352,9 @@
     <div class="container">
       <div class="about-content">
         <div class="about-photo-frame">
-          <div class="about-photo">&#128104;&#8205;&#128295;</div>
+          <div class="about-photo" style="padding:0; background:transparent;">
+            <img src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=800&auto=format&fit=crop" style="width:100%; height:100%; object-fit:cover; border-radius: 20px;" alt="Mechanic">
+          </div>
           <div class="about-frame-accent"></div>
         </div>
         <div class="about-text">

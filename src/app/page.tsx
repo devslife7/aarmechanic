@@ -33,6 +33,18 @@ export default function Home() {
         >
           Design E — Eco Modern
         </a>
+        <a
+          href="/designs/brand-blue"
+          className="px-6 py-3 border border-blue-500/50 rounded-lg text-sm font-medium hover:bg-blue-500/20 transition-colors text-blue-100"
+        >
+          Design F — Brand Blue
+        </a>
+        <a
+          href="/designs/dark-chrome"
+          className="px-6 py-3 border border-gray-400/50 rounded-lg text-sm font-medium hover:bg-gray-800 transition-colors text-gray-200"
+        >
+          Design G — Dark Chrome
+        </a>
       </div>
     </div>
   );

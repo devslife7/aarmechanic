@@ -84,6 +84,36 @@
       color: var(--white) !important;
     }
 
+    /* LANGUAGE TOGGLE */
+    .lang-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-left: 10px;
+    }
+    .lang-toggle button {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      padding: 6px 12px;
+      border: none;
+      cursor: pointer;
+      background: transparent;
+      color: var(--text-muted);
+      transition: all 0.3s;
+    }
+    .lang-toggle button.active {
+      background: var(--primary);
+      color: var(--white);
+    }
+    .lang-toggle button:not(.active):hover {
+      background: var(--border);
+    }
+
     /* HERO */
     .hero {
       min-height: 100vh;
@@ -91,11 +121,18 @@
       align-items: center;
       padding: 140px 40px 80px;
       position: relative;
+      background-image: linear-gradient(to right, rgba(250, 250, 250, 0.95) 30%, rgba(250, 250, 250, 0.7) 100%), url('https://images.unsplash.com/photo-1542362567-b07e54358753?q=80&w=2000&auto=format&fit=crop');
+      background-size: cover;
+      background-position: center right;
     }
     .hero-inner {
       max-width: 1200px;
       margin: 0 auto;
-      text-align: center;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 60px;
+      align-items: center;
+      text-align: left;
     }
     .hero-eyebrow {
       font-size: 0.8rem;
@@ -104,6 +141,18 @@
       color: var(--secondary);
       margin-bottom: 20px;
       display: block;
+    }
+    .hero-img-box {
+      width: 100%;
+      height: 400px;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    .hero-img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
     .hero h1 {
       font-size: 4.5rem;
@@ -123,7 +172,7 @@
     .hero-buttons {
       display: flex;
       gap: 20px;
-      justify-content: center;
+      justify-content: flex-start;
       margin-bottom: 50px;
     }
     .btn-primary {
@@ -220,13 +269,25 @@
     .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
     .service-card {
       background: var(--white);
-      padding: 40px;
       border: 1px solid var(--border);
       transition: transform 0.3s, box-shadow 0.3s;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
     }
     .service-card:hover {
       transform: translateY(-5px);
       box-shadow: var(--shadow);
+    }
+    .service-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-bottom: 1px solid var(--border);
+    }
+    .service-content {
+      padding: 40px;
+      flex: 1;
     }
     .service-card h3 { font-size: 1.2rem; margin-bottom: 10px; color: var(--primary); }
     .service-card p { color: var(--text-muted); font-size: 0.9rem; }
@@ -314,6 +375,9 @@
     }
 
     @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; text-align: center; }
+      .hero-desc { margin: 0 auto 40px; }
+      .hero-buttons { justify-content: center; }
       .hero h1 { font-size: 3rem; }
       .steps, .services-grid { grid-template-columns: 1fr; }
       .nav-links { display: none; }
@@ -328,45 +392,54 @@
     <div class="nav-inner">
       <div class="nav-logo">Anywhere<span>Auto</span></div>
       <ul class="nav-links">
-        <li><a href="#how">How it Works</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#contact" class="nav-cta">Book Now</a></li>
+        <li><a href="#how" data-i18n="nav.how">How it Works</a></li>
+        <li><a href="#services" data-i18n="nav.services">Services</a></li>
+        <li><a href="#contact" class="nav-cta" data-i18n="nav.book">Book Now</a></li>
       </ul>
+      <div class="lang-toggle">
+        <button class="active" onclick="setLang('en')">EN</button>
+        <button onclick="setLang('es')">ES</button>
+      </div>
     </div>
   </nav>
 
   <section class="hero">
     <div class="hero-inner">
-      <span class="hero-eyebrow">DC • MD • VA Mobile Mechanic</span>
-      <h1>Excellence in Auto Repair, <span>Delivered</span>.</h1>
-      <p class="hero-desc">We bring professional, high-end automotive service directly to your location. No waiting rooms, no hassle. English &amp; Spanish spoken.</p>
-      
-      <div class="hero-buttons">
-        <a href="https://wa.me/16104636087" class="btn-primary">WhatsApp Us</a>
-        <a href="tel:+16104636087" class="btn-secondary">Call Now</a>
+      <div>
+        <span class="hero-eyebrow" data-i18n="hero.eyebrow">DC • MD • VA Mobile Mechanic</span>
+        <h1 data-i18n="hero.title" data-i18n-html="true">Excellence in Auto Repair, <span>Delivered</span>.</h1>
+        <p class="hero-desc" data-i18n="hero.desc">We bring professional, high-end automotive service directly to your location. No waiting rooms, no hassle. English &amp; Spanish spoken.</p>
+
+        <div class="hero-buttons">
+          <a href="https://wa.me/16104636087" class="btn-primary" data-i18n="hero.whatsapp">WhatsApp Us</a>
+          <a href="tel:+16104636087" class="btn-secondary" data-i18n="hero.call">Call Now</a>
+        </div>
+      </div>
+      <div class="hero-img-box">
+        <img src="https://images.unsplash.com/photo-1503375830722-680c427eb3a8?q=80&w=1000&auto=format&fit=crop" alt="Premium Auto Service">
       </div>
     </div>
   </section>
 
   <section id="how" class="how">
     <div class="container">
-      <h2 class="section-title">The Process</h2>
-      <p class="section-subtitle">Three simple steps to automotive peace of mind.</p>
+      <h2 class="section-title" data-i18n="how.title">The Process</h2>
+      <p class="section-subtitle" data-i18n="how.subtitle">Three simple steps to automotive peace of mind.</p>
       <div class="steps">
         <div class="step">
           <div class="step-num">01</div>
-          <h3>Consultation</h3>
-          <p>Contact us via text, call, or WhatsApp with your vehicle's symptoms or maintenance needs.</p>
+          <h3 data-i18n="how.step1.title">Consultation</h3>
+          <p data-i18n="how.step1.desc">Contact us via text, call, or WhatsApp with your vehicle's symptoms or maintenance needs.</p>
         </div>
         <div class="step">
           <div class="step-num">02</div>
-          <h3>Transparent Quote</h3>
-          <p>Receive a clear, upfront estimate covering parts and labor with zero hidden fees.</p>
+          <h3 data-i18n="how.step2.title">Transparent Quote</h3>
+          <p data-i18n="how.step2.desc">Receive a clear, upfront estimate covering parts and labor with zero hidden fees.</p>
         </div>
         <div class="step">
           <div class="step-num">03</div>
-          <h3>On-Site Service</h3>
-          <p>We arrive fully equipped to your home or office and complete the work professionally.</p>
+          <h3 data-i18n="how.step3.title">On-Site Service</h3>
+          <p data-i18n="how.step3.desc">We arrive fully equipped to your home or office and complete the work professionally.</p>
         </div>
       </div>
     </div>
@@ -374,32 +447,50 @@
 
   <section id="services" class="services">
     <div class="container">
-      <h2 class="section-title">Our Services</h2>
-      <p class="section-subtitle">Comprehensive automotive care at your doorstep.</p>
+      <h2 class="section-title" data-i18n="services.title">Our Services</h2>
+      <p class="section-subtitle" data-i18n="services.subtitle">Comprehensive automotive care at your doorstep.</p>
       <div class="services-grid">
         <div class="service-card">
-          <h3>Diagnostics</h3>
-          <p>Advanced troubleshooting for check engine lights and performance issues.</p>
+          <img src="https://images.unsplash.com/photo-1486262715619-670810a079e1?q=80&w=800&auto=format&fit=crop" alt="Diagnostics" class="service-img">
+          <div class="service-content">
+            <h3 data-i18n="services.diag.title">Diagnostics</h3>
+            <p data-i18n="services.diag.desc">Advanced troubleshooting for check engine lights and performance issues.</p>
+          </div>
         </div>
         <div class="service-card">
-          <h3>Maintenance</h3>
-          <p>Premium synthetic oil changes, filter replacements, and fluid flushes.</p>
+          <img src="https://images.unsplash.com/photo-1635514569146-9a9607ecf303?q=80&w=800&auto=format&fit=crop" alt="Maintenance" class="service-img">
+          <div class="service-content">
+            <h3 data-i18n="services.maint.title">Maintenance</h3>
+            <p data-i18n="services.maint.desc">Premium synthetic oil changes, filter replacements, and fluid flushes.</p>
+          </div>
         </div>
         <div class="service-card">
-          <h3>Brakes</h3>
-          <p>Complete brake system service including pads, rotors, and fluid.</p>
+          <img src="https://images.unsplash.com/photo-1626668893632-6f3a4466d22f?q=80&w=800&auto=format&fit=crop" alt="Brakes" class="service-img">
+          <div class="service-content">
+            <h3 data-i18n="services.brakes.title">Brakes</h3>
+            <p data-i18n="services.brakes.desc">Complete brake system service including pads, rotors, and fluid.</p>
+          </div>
         </div>
         <div class="service-card">
-          <h3>Electrical</h3>
-          <p>Battery replacement, alternator, and starter motor repair.</p>
+          <img src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=800&auto=format&fit=crop" alt="Electrical" class="service-img">
+          <div class="service-content">
+            <h3 data-i18n="services.elec.title">Electrical</h3>
+            <p data-i18n="services.elec.desc">Battery replacement, alternator, and starter motor repair.</p>
+          </div>
         </div>
         <div class="service-card">
-          <h3>A/C & Cooling</h3>
-          <p>Air conditioning recharge and complete cooling system repair.</p>
+          <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?q=80&w=800&auto=format&fit=crop" alt="A/C & Cooling" class="service-img">
+          <div class="service-content">
+            <h3 data-i18n="services.ac.title">A/C & Cooling</h3>
+            <p data-i18n="services.ac.desc">Air conditioning recharge and complete cooling system repair.</p>
+          </div>
         </div>
         <div class="service-card">
-          <h3>Inspections</h3>
-          <p>Thorough pre-purchase vehicle inspections for total confidence.</p>
+          <img src="https://images.unsplash.com/photo-1542282088-fe8426682b8f?q=80&w=800&auto=format&fit=crop" alt="Inspections" class="service-img">
+          <div class="service-content">
+            <h3 data-i18n="services.insp.title">Inspections</h3>
+            <p data-i18n="services.insp.desc">Thorough pre-purchase vehicle inspections for total confidence.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -407,22 +498,22 @@
 
   <section id="contact-form" class="contact-form-section">
     <div class="container">
-      <h2 class="section-title">Contact Me</h2>
-      <p class="section-subtitle">Tell us about your vehicle and we'll get back to you promptly.</p>
+      <h2 class="section-title" data-i18n="contact.title">Contact Me</h2>
+      <p class="section-subtitle" data-i18n="contact.subtitle">Tell us about your vehicle and we'll get back to you promptly.</p>
       <form class="contact-form" action="#" method="POST" onsubmit="return false;">
         <div class="form-group">
-          <label for="cf-name">Name</label>
-          <input type="text" id="cf-name" name="name" placeholder="Your full name" required>
+          <label for="cf-name" data-i18n="contact.name">Name</label>
+          <input type="text" id="cf-name" name="name" data-i18n-placeholder="contact.name_ph" placeholder="Your full name" required>
         </div>
         <div class="form-group">
-          <label for="cf-phone">Phone</label>
+          <label for="cf-phone" data-i18n="contact.phone">Phone</label>
           <input type="tel" id="cf-phone" name="phone" placeholder="(555) 123-4567" required>
         </div>
         <div class="form-group">
-          <label for="cf-issue">Describe the Issue</label>
-          <textarea id="cf-issue" name="issue" placeholder="Briefly describe your car issue or service needed..."></textarea>
+          <label for="cf-issue" data-i18n="contact.issue">Describe the Issue</label>
+          <textarea id="cf-issue" name="issue" data-i18n-placeholder="contact.issue_ph" placeholder="Briefly describe your car issue or service needed..."></textarea>
         </div>
-        <button type="submit" class="form-submit">Send Request</button>
+        <button type="submit" class="form-submit" data-i18n="contact.submit">Send Request</button>
       </form>
     </div>
   </section>
@@ -434,8 +525,117 @@
       <a href="https://www.instagram.com/anywhere_auto_repair">Instagram</a>
       <a href="https://www.tiktok.com/@cheftylermellen">TikTok</a>
     </div>
-    <p>&copy; 2026 Anywhere Auto Repair. Mobile Mechanic for the DMV.</p>
+    <p data-i18n="footer.copy">&copy; 2026 Anywhere Auto Repair. Mobile Mechanic for the DMV.</p>
   </footer>
 
+  <script>
+    const i18n = {
+      en: {
+        'nav.how': 'How it Works',
+        'nav.services': 'Services',
+        'nav.book': 'Book Now',
+        'hero.eyebrow': 'DC • MD • VA Mobile Mechanic',
+        'hero.title': 'Excellence in Auto Repair, <span>Delivered</span>.',
+        'hero.desc': 'We bring professional, high-end automotive service directly to your location. No waiting rooms, no hassle. English & Spanish spoken.',
+        'hero.whatsapp': 'WhatsApp Us',
+        'hero.call': 'Call Now',
+        'how.title': 'The Process',
+        'how.subtitle': 'Three simple steps to automotive peace of mind.',
+        'how.step1.title': 'Consultation',
+        'how.step1.desc': 'Contact us via text, call, or WhatsApp with your vehicle\'s symptoms or maintenance needs.',
+        'how.step2.title': 'Transparent Quote',
+        'how.step2.desc': 'Receive a clear, upfront estimate covering parts and labor with zero hidden fees.',
+        'how.step3.title': 'On-Site Service',
+        'how.step3.desc': 'We arrive fully equipped to your home or office and complete the work professionally.',
+        'services.title': 'Our Services',
+        'services.subtitle': 'Comprehensive automotive care at your doorstep.',
+        'services.diag.title': 'Diagnostics',
+        'services.diag.desc': 'Advanced troubleshooting for check engine lights and performance issues.',
+        'services.maint.title': 'Maintenance',
+        'services.maint.desc': 'Premium synthetic oil changes, filter replacements, and fluid flushes.',
+        'services.brakes.title': 'Brakes',
+        'services.brakes.desc': 'Complete brake system service including pads, rotors, and fluid.',
+        'services.elec.title': 'Electrical',
+        'services.elec.desc': 'Battery replacement, alternator, and starter motor repair.',
+        'services.ac.title': 'A/C & Cooling',
+        'services.ac.desc': 'Air conditioning recharge and complete cooling system repair.',
+        'services.insp.title': 'Inspections',
+        'services.insp.desc': 'Thorough pre-purchase vehicle inspections for total confidence.',
+        'contact.title': 'Contact Me',
+        'contact.subtitle': 'Tell us about your vehicle and we\'ll get back to you promptly.',
+        'contact.name': 'Name',
+        'contact.name_ph': 'Your full name',
+        'contact.phone': 'Phone',
+        'contact.issue': 'Describe the Issue',
+        'contact.issue_ph': 'Briefly describe your car issue or service needed...',
+        'contact.submit': 'Send Request',
+        'footer.copy': '© 2026 Anywhere Auto Repair. Mobile Mechanic for the DMV.',
+      },
+      es: {
+        'nav.how': 'Cómo Funciona',
+        'nav.services': 'Servicios',
+        'nav.book': 'Reservar',
+        'hero.eyebrow': 'Mecánico Móvil • DC • MD • VA',
+        'hero.title': 'Excelencia en Reparación Automotriz, <span>a Domicilio</span>.',
+        'hero.desc': 'Llevamos servicio automotriz profesional directamente a tu ubicación. Sin salas de espera, sin complicaciones. Hablamos inglés y español.',
+        'hero.whatsapp': 'Escríbenos por WhatsApp',
+        'hero.call': 'Llámanos',
+        'how.title': 'El Proceso',
+        'how.subtitle': 'Tres simples pasos para la tranquilidad de tu vehículo.',
+        'how.step1.title': 'Consulta',
+        'how.step1.desc': 'Contáctanos por mensaje, llamada o WhatsApp con los síntomas o necesidades de mantenimiento de tu vehículo.',
+        'how.step2.title': 'Cotización Transparente',
+        'how.step2.desc': 'Recibe un presupuesto claro y directo que incluye piezas y mano de obra, sin cargos ocultos.',
+        'how.step3.title': 'Servicio a Domicilio',
+        'how.step3.desc': 'Llegamos completamente equipados a tu hogar u oficina y completamos el trabajo profesionalmente.',
+        'services.title': 'Nuestros Servicios',
+        'services.subtitle': 'Cuidado automotriz completo en tu puerta.',
+        'services.diag.title': 'Diagnóstico',
+        'services.diag.desc': 'Solución avanzada para luces de check engine y problemas de rendimiento.',
+        'services.maint.title': 'Mantenimiento',
+        'services.maint.desc': 'Cambios de aceite sintético premium, reemplazo de filtros y lavado de fluidos.',
+        'services.brakes.title': 'Frenos',
+        'services.brakes.desc': 'Servicio completo del sistema de frenos: pastillas, rotores y líquido.',
+        'services.elec.title': 'Eléctrico',
+        'services.elec.desc': 'Reemplazo de batería, alternador y reparación de motor de arranque.',
+        'services.ac.title': 'A/C y Refrigeración',
+        'services.ac.desc': 'Recarga de aire acondicionado y reparación completa del sistema de enfriamiento.',
+        'services.insp.title': 'Inspecciones',
+        'services.insp.desc': 'Inspecciones exhaustivas de vehículos antes de la compra para total confianza.',
+        'contact.title': 'Contáctame',
+        'contact.subtitle': 'Cuéntanos sobre tu vehículo y te responderemos pronto.',
+        'contact.name': 'Nombre',
+        'contact.name_ph': 'Tu nombre completo',
+        'contact.phone': 'Teléfono',
+        'contact.issue': 'Describe el Problema',
+        'contact.issue_ph': 'Describe brevemente el problema de tu auto o el servicio que necesitas...',
+        'contact.submit': 'Enviar Solicitud',
+        'footer.copy': '© 2026 Anywhere Auto Repair. Mecánico Móvil para el DMV.',
+      }
+    };
+
+    function setLang(lang) {
+      document.documentElement.lang = lang;
+      document.querySelectorAll('.lang-toggle button').forEach(btn => {
+        btn.classList.toggle('active', btn.textContent === lang.toUpperCase());
+      });
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (i18n[lang][key]) {
+          if (el.getAttribute('data-i18n-html') === 'true') {
+            el.innerHTML = i18n[lang][key];
+          } else {
+            el.textContent = i18n[lang][key];
+          }
+        }
+      });
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (i18n[lang][key]) {
+          el.placeholder = i18n[lang][key];
+        }
+      });
+    }
+  </script>
 </body>
 </html>
