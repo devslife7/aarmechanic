@@ -1,0 +1,1741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AAR Mechanic — Site Wireframe</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #f4f3f0;
+    --surface: #ffffff;
+    --border: #d4d0c8;
+    --border-dash: #b8b4ab;
+    --text: #2c2a26;
+    --text-mid: #6b6860;
+    --text-light: #9e9a90;
+    --accent: #3d6b8e;
+    --accent-light: #e8f0f6;
+    --red: #c4453a;
+    --green: #4a8c5c;
+    --amber: #b8860b;
+    --purple: #6b5b8a;
+    --node-home: #3d6b8e;
+    --node-blue: #2a5f8f;
+    --node-contact: #4a8c5c;
+    --node-chrome: #4a4a5a;
+    --connector: #b8b4ab;
+    --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 0 0 1px rgba(0,0,0,0.04);
+    --shadow-hover: 0 4px 16px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.06);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Top Bar ── */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(244, 243, 240, 0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .topbar-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    background: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: -0.5px;
+  }
+  .topbar-title {
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: -0.3px;
+  }
+  .topbar-subtitle {
+    font-size: 12px;
+    color: var(--text-light);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .topbar-right {
+    display: flex;
+    gap: 6px;
+  }
+  .topbar-pill {
+    font-size: 11px;
+    font-family: 'JetBrains Mono', monospace;
+    padding: 4px 10px;
+    border-radius: 4px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-mid);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .topbar-pill:hover, .topbar-pill.active {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+  }
+
+  /* ── Layout ── */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 32px 80px;
+  }
+
+  /* ── Sitemap Section ── */
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: -0.8px;
+    margin-bottom: 8px;
+  }
+  .section-desc {
+    font-size: 14px;
+    color: var(--text-mid);
+    margin-bottom: 40px;
+    max-width: 520px;
+  }
+
+  /* ── Sitemap Tree ── */
+  .sitemap {
+    background: var(--surface);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    padding: 48px 40px;
+    margin-bottom: 64px;
+    position: relative;
+    overflow: hidden;
+  }
+  .sitemap::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image:
+      radial-gradient(circle at 1px 1px, var(--border) 0.5px, transparent 0.5px);
+    background-size: 24px 24px;
+    opacity: 0.3;
+    pointer-events: none;
+  }
+
+  .sitemap-tree {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .node {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    background: var(--surface);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    text-decoration: none;
+    color: inherit;
+  }
+  .node:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-1px);
+  }
+  .node-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .node-label {
+    font-size: 13px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .node-route {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--text-light);
+    margin-left: 4px;
+  }
+
+  .tree-row {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    position: relative;
+  }
+  .tree-connector {
+    width: 2px;
+    height: 32px;
+    background: var(--connector);
+    margin: 0 auto;
+  }
+  .tree-branch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .tree-h-line {
+    height: 2px;
+    background: var(--connector);
+    position: absolute;
+    top: -16px;
+  }
+
+  .tree-level {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  /* The horizontal connector between sibling branches */
+  .branch-group {
+    position: relative;
+    display: flex;
+    gap: 32px;
+    justify-content: center;
+  }
+  .branch-group::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    height: 2px;
+    background: var(--connector);
+  }
+  .branch-group.three::before {
+    left: calc(50% - 200px);
+    right: calc(50% - 200px);
+  }
+
+  .branch-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .branch-stem {
+    width: 2px;
+    height: 20px;
+    background: var(--connector);
+  }
+
+  /* ── Page Wireframes ── */
+  .page-wireframe {
+    margin-bottom: 56px;
+    scroll-margin-top: 80px;
+  }
+  .page-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .page-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    color: white;
+  }
+  .page-route {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--text-light);
+  }
+
+  .wireframe {
+    background: var(--surface);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .wireframe-browser {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 16px;
+    background: #eae8e3;
+    border-bottom: 1px solid var(--border);
+  }
+  .browser-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--border);
+  }
+  .browser-dot.r { background: #e8685a; }
+  .browser-dot.y { background: #f0b840; }
+  .browser-dot.g { background: #61c554; }
+  .browser-url {
+    flex: 1;
+    margin-left: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-light);
+    background: var(--surface);
+    padding: 4px 10px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+  }
+
+  .wireframe-body {
+    padding: 20px;
+  }
+
+  /* ── Wireframe Blocks ── */
+  .w-block {
+    border: 1.5px dashed var(--border-dash);
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin-bottom: 12px;
+    position: relative;
+    transition: all 0.15s;
+  }
+  .w-block:hover {
+    border-color: var(--accent);
+    background: var(--accent-light);
+  }
+  .w-block:last-child { margin-bottom: 0; }
+
+  .w-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .w-label-num {
+    background: var(--accent);
+    color: white;
+    width: 16px;
+    height: 16px;
+    border-radius: 3px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    letter-spacing: 0;
+  }
+
+  /* Navbar wireframe */
+  .w-navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .w-nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .w-circle {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--border);
+  }
+  .w-circle.sm { width: 14px; height: 14px; }
+  .w-rect {
+    height: 8px;
+    border-radius: 2px;
+    background: var(--border);
+  }
+  .w-rect.title { width: 100px; height: 10px; }
+  .w-rect.link { width: 48px; }
+  .w-rect.btn {
+    width: 60px;
+    height: 24px;
+    border-radius: 4px;
+    background: var(--accent);
+  }
+  .w-rect.btn-outline {
+    width: 60px;
+    height: 24px;
+    border-radius: 4px;
+    background: transparent;
+    border: 1.5px solid var(--border-dash);
+  }
+  .w-nav-links {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+  .w-nav-right {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .w-toggle {
+    display: flex;
+    gap: 2px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8px;
+    color: var(--text-light);
+  }
+
+  /* Hero wireframe */
+  .w-hero {
+    background: #2c3a4a;
+    border-radius: 4px;
+    padding: 24px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    min-height: 120px;
+  }
+  .w-hero-content {
+    flex: 1;
+  }
+  .w-badge-sm {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 7px;
+    letter-spacing: 0.5px;
+    background: rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 8px;
+  }
+  .w-hero h3 {
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: -0.3px;
+    margin-bottom: 10px;
+    line-height: 1.2;
+  }
+  .w-hero-btns {
+    display: flex;
+    gap: 6px;
+  }
+  .w-btn {
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    border: none;
+    cursor: default;
+  }
+  .w-btn.primary { background: #4a8c5c; color: white; }
+  .w-btn.secondary { background: rgba(255,255,255,0.15); color: rgba(255,255,255,0.8); }
+  .w-hero-visual {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    border: 2px dashed rgba(255,255,255,0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8px;
+    color: rgba(255,255,255,0.4);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .w-floating-badges {
+    display: flex;
+    gap: 4px;
+    margin-top: 8px;
+  }
+  .w-float-badge {
+    font-size: 7px;
+    padding: 2px 6px;
+    border-radius: 3px;
+    background: rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.6);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* Trust Banner */
+  .w-trust {
+    display: flex;
+    justify-content: space-around;
+    background: #3a4555;
+    border-radius: 4px;
+    padding: 10px 16px;
+  }
+  .w-trust-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 8px;
+    color: rgba(255,255,255,0.7);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .w-check {
+    color: #4a8c5c;
+    font-size: 10px;
+  }
+
+  /* Steps */
+  .w-steps {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    padding: 8px 0;
+  }
+  .w-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .w-step-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--accent-light);
+    border: 1.5px solid var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--accent);
+  }
+  .w-step-text {
+    font-size: 9px;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--text-mid);
+    white-space: nowrap;
+  }
+  .w-step-line {
+    width: 48px;
+    height: 1.5px;
+    background: var(--border);
+    margin: 0 8px;
+    margin-bottom: 18px;
+  }
+
+  /* Grid cards */
+  .w-grid {
+    display: grid;
+    gap: 8px;
+  }
+  .w-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .w-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .w-grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
+
+  .w-card {
+    border: 1.5px dashed var(--border-dash);
+    border-radius: 4px;
+    padding: 10px;
+    text-align: center;
+  }
+  .w-card-img {
+    width: 100%;
+    height: 36px;
+    background: var(--border);
+    border-radius: 3px;
+    margin-bottom: 6px;
+    opacity: 0.5;
+  }
+  .w-card-title {
+    font-size: 9px;
+    font-weight: 500;
+    margin-bottom: 2px;
+  }
+  .w-card-desc {
+    font-size: 7px;
+    color: var(--text-light);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* Split layout */
+  .w-split {
+    display: flex;
+    gap: 16px;
+  }
+  .w-split > * { flex: 1; }
+
+  /* Coverage */
+  .w-coverage {
+    background: #2c3a4a;
+    border-radius: 4px;
+    padding: 16px;
+    display: flex;
+    gap: 16px;
+  }
+  .w-coverage-list {
+    flex: 1;
+  }
+  .w-coverage-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 8px;
+    color: rgba(255,255,255,0.7);
+    font-family: 'JetBrains Mono', monospace;
+    margin-bottom: 4px;
+  }
+  .w-dmv-box {
+    width: 80px;
+    height: 80px;
+    border: 1.5px dashed rgba(255,255,255,0.25);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+  .w-state {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.5);
+  }
+
+  /* About */
+  .w-about {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+  .w-about-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 6px;
+    background: var(--border);
+    flex-shrink: 0;
+    opacity: 0.5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .w-about-img span {
+    font-size: 8px;
+    color: var(--text-light);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .w-about-text {
+    flex: 1;
+  }
+  .w-about-text .w-rect { margin-bottom: 4px; }
+
+  /* Reviews */
+  .w-review {
+    border: 1.5px dashed var(--border-dash);
+    border-radius: 4px;
+    padding: 10px;
+  }
+  .w-stars {
+    color: var(--amber);
+    font-size: 10px;
+    margin-bottom: 4px;
+    letter-spacing: 1px;
+  }
+  .w-review-text {
+    font-size: 8px;
+    color: var(--text-mid);
+    font-style: italic;
+    margin-bottom: 4px;
+    line-height: 1.4;
+  }
+  .w-review-author {
+    font-size: 7px;
+    color: var(--text-light);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* Contact */
+  .w-contact-split {
+    display: flex;
+    gap: 16px;
+  }
+  .w-contact-info {
+    flex: 0 0 35%;
+  }
+  .w-contact-form {
+    flex: 1;
+  }
+  .w-input {
+    width: 100%;
+    height: 22px;
+    border: 1.5px dashed var(--border-dash);
+    border-radius: 3px;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    padding-left: 8px;
+    font-size: 7px;
+    color: var(--text-light);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .w-textarea {
+    width: 100%;
+    height: 44px;
+    border: 1.5px dashed var(--border-dash);
+    border-radius: 3px;
+    margin-bottom: 6px;
+    padding: 6px 8px;
+    font-size: 7px;
+    color: var(--text-light);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .w-input-row {
+    display: flex;
+    gap: 6px;
+  }
+
+  /* Footer */
+  .w-footer {
+    background: #1e2530;
+    border-radius: 4px;
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .w-footer-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .w-footer-text {
+    font-size: 7px;
+    color: rgba(255,255,255,0.4);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .w-social {
+    display: flex;
+    gap: 6px;
+  }
+  .w-social-icon {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+  }
+
+  /* Dark Chrome variant */
+  .w-dark-hero {
+    background: #0a0e17;
+    border-radius: 4px;
+    padding: 24px 20px;
+    text-align: center;
+    min-height: 120px;
+    position: relative;
+    overflow: hidden;
+  }
+  .w-dark-hero::before {
+    content: '';
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle, rgba(100,140,200,0.15), transparent 70%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+  .w-dark-hero h3 {
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+    position: relative;
+  }
+  .w-dark-hero .w-badge-sm {
+    position: relative;
+  }
+  .w-dark-hero .w-hero-btns {
+    justify-content: center;
+    position: relative;
+  }
+
+  .w-stats-bar {
+    display: flex;
+    justify-content: space-around;
+    background: #0f1520;
+    border-radius: 4px;
+    padding: 10px;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .w-stat {
+    font-size: 7px;
+    font-family: 'JetBrains Mono', monospace;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.5px;
+  }
+
+  /* Home page */
+  .w-home-bg {
+    background: #111;
+    border-radius: 4px;
+    padding: 24px 20px;
+    text-align: center;
+  }
+  .w-home-bg h3 {
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+  .w-design-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+  .w-design-card {
+    border: 1.5px dashed rgba(255,255,255,0.15);
+    border-radius: 4px;
+    padding: 12px 8px;
+    text-align: center;
+  }
+  .w-design-card .w-card-img {
+    background: rgba(255,255,255,0.08);
+    height: 30px;
+    margin-bottom: 6px;
+  }
+  .w-design-card .w-card-title {
+    color: rgba(255,255,255,0.8);
+    font-size: 8px;
+  }
+  .w-design-card .w-card-desc {
+    color: rgba(255,255,255,0.35);
+    font-size: 7px;
+  }
+  .w-design-card.active {
+    border-color: var(--accent);
+    background: rgba(61,107,142,0.08);
+  }
+
+  /* Contact page form */
+  .w-contact-page-layout {
+    display: flex;
+    gap: 16px;
+  }
+  .w-contact-page-form {
+    flex: 2;
+  }
+  .w-contact-page-sidebar {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .w-info-card {
+    border: 1.5px dashed var(--border-dash);
+    border-radius: 4px;
+    padding: 8px 10px;
+  }
+  .w-info-card-title {
+    font-size: 8px;
+    font-weight: 500;
+    margin-bottom: 3px;
+  }
+  .w-info-card-detail {
+    font-size: 7px;
+    color: var(--text-light);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* Separator */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 48px 0;
+  }
+
+  /* Dark chrome cards */
+  .w-dark-card {
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 4px;
+    padding: 10px;
+    text-align: center;
+    background: rgba(255,255,255,0.02);
+  }
+  .w-dark-card .w-card-img {
+    background: rgba(255,255,255,0.05);
+  }
+  .w-dark-card .w-card-title {
+    color: rgba(255,255,255,0.8);
+  }
+  .w-dark-card .w-card-desc {
+    color: rgba(255,255,255,0.35);
+  }
+
+  .w-dark-steps .w-step-num {
+    background: rgba(255,255,255,0.05);
+    border-color: rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.6);
+    font-size: 10px;
+  }
+  .w-dark-steps .w-step-text {
+    color: rgba(255,255,255,0.5);
+  }
+  .w-dark-steps .w-step-line {
+    background: rgba(255,255,255,0.1);
+  }
+
+  .w-dark-review {
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 4px;
+    padding: 10px;
+    background: rgba(255,255,255,0.02);
+  }
+  .w-dark-review .w-review-text { color: rgba(255,255,255,0.5); }
+  .w-dark-review .w-review-author { color: rgba(255,255,255,0.3); }
+
+  .w-dark-footer {
+    background: #060a12;
+    border-radius: 4px;
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* Annotation */
+  .annotation {
+    position: absolute;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8px;
+    color: var(--red);
+    background: #fff5f5;
+    padding: 2px 6px;
+    border-radius: 3px;
+    border: 1px solid rgba(196,69,58,0.2);
+    white-space: nowrap;
+    pointer-events: none;
+  }
+
+  /* Feature tags */
+  .w-features {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    margin-top: 6px;
+  }
+  .w-feature-tag {
+    font-size: 7px;
+    font-family: 'JetBrains Mono', monospace;
+    padding: 1px 5px;
+    border-radius: 2px;
+    background: var(--accent-light);
+    color: var(--accent);
+  }
+
+  /* glass header */
+  .w-glass-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 4px;
+    padding: 8px 14px;
+    backdrop-filter: blur(4px);
+  }
+  .w-glass-logo {
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .w-glass-nav {
+    display: flex;
+    gap: 10px;
+  }
+  .w-glass-link {
+    width: 36px;
+    height: 6px;
+    border-radius: 2px;
+    background: rgba(255,255,255,0.12);
+  }
+  .w-glass-btn {
+    padding: 3px 10px;
+    border-radius: 3px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    font-size: 7px;
+    color: rgba(255,255,255,0.5);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .w-grid.cols-3 { grid-template-columns: repeat(2, 1fr); }
+    .w-design-grid { grid-template-columns: repeat(2, 1fr); }
+    .w-split, .w-contact-split, .w-contact-page-layout { flex-direction: column; }
+    .branch-group { flex-direction: column; align-items: center; gap: 12px; }
+    .branch-group::before { display: none; }
+    .w-trust { flex-wrap: wrap; gap: 6px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Top Bar -->
+<div class="topbar">
+  <div class="topbar-left">
+    <div class="topbar-icon">W</div>
+    <div>
+      <div class="topbar-title">AAR Mechanic — Wireframe</div>
+      <div class="topbar-subtitle">4 pages &middot; Next.js + Tailwind</div>
+    </div>
+  </div>
+  <div class="topbar-right">
+    <a href="#sitemap" class="topbar-pill active" onclick="activatePill(this)">Sitemap</a>
+    <a href="#page-home" class="topbar-pill" onclick="activatePill(this)">Home</a>
+    <a href="#page-brand-blue" class="topbar-pill" onclick="activatePill(this)">Brand Blue</a>
+    <a href="#page-contact" class="topbar-pill" onclick="activatePill(this)">Contact</a>
+    <a href="#page-dark-chrome" class="topbar-pill" onclick="activatePill(this)">Dark Chrome</a>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- ━━━━ SITEMAP ━━━━ -->
+  <div id="sitemap" style="scroll-margin-top: 80px;">
+    <div class="section-label">Architecture</div>
+    <div class="section-title">Site Map</div>
+    <div class="section-desc">Interactive page hierarchy for Anywhere Auto Repair. Click any node to jump to its wireframe.</div>
+
+    <div class="sitemap">
+      <div class="sitemap-tree">
+        <!-- Root -->
+        <a href="#page-home" class="node" style="border-color: var(--node-home);">
+          <div class="node-dot" style="background: var(--node-home);"></div>
+          <div>
+            <div class="node-label">Home — Design Hub</div>
+            <div class="node-route">/</div>
+          </div>
+        </a>
+
+        <div class="tree-connector"></div>
+
+        <!-- Children -->
+        <div class="branch-group three">
+          <!-- Brand Blue -->
+          <div class="branch-item">
+            <div class="branch-stem"></div>
+            <a href="#page-brand-blue" class="node" style="border-color: var(--node-blue);">
+              <div class="node-dot" style="background: var(--node-blue);"></div>
+              <div>
+                <div class="node-label">Design F — Brand Blue</div>
+                <div class="node-route">/designs/brand-blue</div>
+              </div>
+            </a>
+            <div class="tree-connector" style="height: 20px;"></div>
+            <a href="#page-contact" class="node" style="border-color: var(--node-contact);">
+              <div class="node-dot" style="background: var(--node-contact);"></div>
+              <div>
+                <div class="node-label">Contact Page</div>
+                <div class="node-route">/designs/brand-blue/contact</div>
+              </div>
+            </a>
+          </div>
+
+          <!-- Dark Chrome -->
+          <div class="branch-item">
+            <div class="branch-stem"></div>
+            <a href="#page-dark-chrome" class="node" style="border-color: var(--node-chrome);">
+              <div class="node-dot" style="background: var(--node-chrome);"></div>
+              <div>
+                <div class="node-label">Design G — Dark Chrome</div>
+                <div class="node-route">/designs/dark-chrome</div>
+              </div>
+            </a>
+          </div>
+
+          <!-- Static designs -->
+          <div class="branch-item">
+            <div class="branch-stem"></div>
+            <div class="node" style="border-color: var(--border); opacity: 0.55; cursor: default;">
+              <div class="node-dot" style="background: var(--border);"></div>
+              <div>
+                <div class="node-label">Designs A–E</div>
+                <div class="node-route">static HTML (5 files)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ━━━━ HOME PAGE ━━━━ -->
+  <div id="page-home" class="page-wireframe">
+    <div class="page-header">
+      <div class="page-badge" style="background: var(--node-home);">Home</div>
+      <div class="page-route">/</div>
+    </div>
+    <div class="wireframe">
+      <div class="wireframe-browser">
+        <div class="browser-dot r"></div>
+        <div class="browser-dot y"></div>
+        <div class="browser-dot g"></div>
+        <div class="browser-url">localhost:3000/</div>
+      </div>
+      <div class="wireframe-body">
+        <div class="w-block">
+          <div class="w-label">Full Page</div>
+          <div class="w-home-bg">
+            <h3>More coming.</h3>
+            <div class="w-design-grid">
+              <div class="w-design-card">
+                <div class="w-card-img"></div>
+                <div class="w-card-title">Design A</div>
+                <div class="w-card-desc">Clean & Trustworthy</div>
+              </div>
+              <div class="w-design-card">
+                <div class="w-card-img"></div>
+                <div class="w-card-title">Design B</div>
+                <div class="w-card-desc">Bold Street</div>
+              </div>
+              <div class="w-design-card">
+                <div class="w-card-img"></div>
+                <div class="w-card-title">Design C</div>
+                <div class="w-card-desc">Warm Editorial</div>
+              </div>
+              <div class="w-design-card">
+                <div class="w-card-img"></div>
+                <div class="w-card-title">Design D</div>
+                <div class="w-card-desc">High End</div>
+              </div>
+              <div class="w-design-card">
+                <div class="w-card-img"></div>
+                <div class="w-card-title">Design E</div>
+                <div class="w-card-desc">Eco Modern</div>
+              </div>
+              <div class="w-design-card active">
+                <div class="w-card-img"></div>
+                <div class="w-card-title">Design F</div>
+                <div class="w-card-desc">Brand Blue</div>
+              </div>
+              <div class="w-design-card active">
+                <div class="w-card-img"></div>
+                <div class="w-card-title">Design G</div>
+                <div class="w-card-desc">Dark Chrome</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ━━━━ BRAND BLUE PAGE ━━━━ -->
+  <div id="page-brand-blue" class="page-wireframe">
+    <div class="page-header">
+      <div class="page-badge" style="background: var(--node-blue);">Brand Blue</div>
+      <div class="page-route">/designs/brand-blue</div>
+      <div class="w-features">
+        <span class="w-feature-tag">i18n EN/ES</span>
+        <span class="w-feature-tag">client component</span>
+        <span class="w-feature-tag">10 sections</span>
+      </div>
+    </div>
+    <div class="wireframe">
+      <div class="wireframe-browser">
+        <div class="browser-dot r"></div>
+        <div class="browser-dot y"></div>
+        <div class="browser-dot g"></div>
+        <div class="browser-url">localhost:3000/designs/brand-blue</div>
+      </div>
+      <div class="wireframe-body">
+
+        <!-- 1. Navbar -->
+        <div class="w-block">
+          <div class="w-label"><span class="w-label-num">1</span> Navbar — sticky</div>
+          <div class="w-navbar">
+            <div class="w-nav-logo">
+              <div class="w-circle sm"></div>
+              <div class="w-rect title"></div>
+            </div>
+            <div class="w-nav-links">
+              <div class="w-rect link"></div>
+              <div class="w-rect link"></div>
+              <div class="w-rect link"></div>
+              <div class="w-rect link"></div>
+            </div>
+            <div class="w-nav-right">
+              <div class="w-toggle">EN | ES</div>
+              <div class="w-rect btn" style="display:flex;align-items:center;justify-content:center;color:white;font-size:7px;font-family:'JetBrains Mono',monospace;">Book Now</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Hero -->
+        <div class="w-block" style="padding:0;border:none;">
+          <div class="w-label" style="padding: 12px 16px 0;"><span class="w-label-num">2</span> Hero Section</div>
+          <div class="w-hero" style="margin: 8px 0 0;">
+            <div class="w-hero-content">
+              <div class="w-badge-sm">Mobile Mechanic &bull; DC | MD | VA</div>
+              <h3>Your mechanic,<br>anywhere you are.</h3>
+              <div class="w-hero-btns">
+                <div class="w-btn primary">WhatsApp</div>
+                <div class="w-btn secondary">Call Now</div>
+              </div>
+              <div class="w-floating-badges">
+                <div class="w-float-badge">&#9733; 5-Star</div>
+                <div class="w-float-badge">Habla Espa&ntilde;ol</div>
+              </div>
+            </div>
+            <div class="w-hero-visual">LOGO</div>
+          </div>
+        </div>
+
+        <!-- 3. Trust Banner -->
+        <div class="w-block" style="padding:0;border:none;">
+          <div class="w-label" style="padding: 12px 16px 0;"><span class="w-label-num">3</span> Trust Banner</div>
+          <div class="w-trust" style="margin: 8px 0 0;">
+            <div class="w-trust-item"><span class="w-check">&#10003;</span> Licensed & Insured</div>
+            <div class="w-trust-item"><span class="w-check">&#10003;</span> 12-Month Warranty</div>
+            <div class="w-trust-item"><span class="w-check">&#10003;</span> Upfront Pricing</div>
+            <div class="w-trust-item"><span class="w-check">&#10003;</span> Flexible Payments</div>
+          </div>
+        </div>
+
+        <!-- 4. How It Works -->
+        <div class="w-block">
+          <div class="w-label"><span class="w-label-num">4</span> How It Works</div>
+          <div class="w-steps">
+            <div class="w-step">
+              <div class="w-step-num">1</div>
+              <div class="w-step-text">Reach Out</div>
+            </div>
+            <div class="w-step-line"></div>
+            <div class="w-step">
+              <div class="w-step-num">2</div>
+              <div class="w-step-text">Get a Quote</div>
+            </div>
+            <div class="w-step-line"></div>
+            <div class="w-step">
+              <div class="w-step-num">3</div>
+              <div class="w-step-text">We Fix It</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. Services -->
+        <div class="w-block">
+          <div class="w-label"><span class="w-label-num">5</span> Services — 6 cards</div>
+          <div class="w-grid cols-3">
+            <div class="w-card">
+              <div class="w-card-img"></div>
+              <div class="w-card-title">Diagnostics</div>
+              <div class="w-card-desc">OBD-II scan & troubleshoot</div>
+            </div>
+            <div class="w-card">
+              <div class="w-card-img"></div>
+              <div class="w-card-title">Brake Repair</div>
+              <div class="w-card-desc">Pads, rotors, fluid</div>
+            </div>
+            <div class="w-card">
+              <div class="w-card-img"></div>
+              <div class="w-card-title">Oil Changes</div>
+              <div class="w-card-desc">Conventional & synthetic</div>
+            </div>
+            <div class="w-card">
+              <div class="w-card-img"></div>
+              <div class="w-card-title">Battery & Electrical</div>
+              <div class="w-card-desc">Testing & replacement</div>
+            </div>
+            <div class="w-card">
+              <div class="w-card-img"></div>
+              <div class="w-card-title">A/C & Cooling</div>
+              <div class="w-card-desc">Recharge, leak repair</div>
+            </div>
+            <div class="w-card">
+              <div class="w-card-img"></div>
+              <div class="w-card-title">Tune-Ups</div>
+              <div class="w-card-desc">Spark plugs, filters</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. Coverage -->
+        <div class="w-block" style="padding:0;border:none;">
+          <div class="w-label" style="padding: 12px 16px 0;"><span class="w-label-num">6</span> Coverage Area</div>
+          <div class="w-coverage" style="margin: 8px 0 0;">
+            <div class="w-coverage-list">
+              <div class="w-coverage-item"><span class="w-check" style="color:#4a8c5c;">&#10003;</span> Washington, D.C.</div>
+              <div class="w-coverage-item"><span class="w-check" style="color:#4a8c5c;">&#10003;</span> Maryland suburbs</div>
+              <div class="w-coverage-item"><span class="w-check" style="color:#4a8c5c;">&#10003;</span> Northern Virginia</div>
+              <div class="w-coverage-item" style="margin-top:6px;opacity:0.5;">Specific areas listed per state</div>
+            </div>
+            <div class="w-dmv-box">
+              <span class="w-state">DC</span>
+              <span class="w-state">MD</span>
+              <span class="w-state">VA</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 7. About Tyler -->
+        <div class="w-block">
+          <div class="w-label"><span class="w-label-num">7</span> About Tyler</div>
+          <div class="w-about">
+            <div class="w-about-img"><span>Photo</span></div>
+            <div class="w-about-text">
+              <div class="w-rect" style="width: 100px; height: 10px; margin-bottom: 6px;"></div>
+              <div class="w-rect" style="width: 100%; height: 6px;"></div>
+              <div class="w-rect" style="width: 90%; height: 6px;"></div>
+              <div class="w-rect" style="width: 70%; height: 6px;"></div>
+              <div style="margin-top: 8px;">
+                <div class="w-float-badge" style="background: var(--accent-light); color: var(--accent); display: inline-block;">Hablo Espa&ntilde;ol</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 8. Reviews -->
+        <div class="w-block">
+          <div class="w-label"><span class="w-label-num">8</span> Reviews — 3 cards</div>
+          <div class="w-grid cols-3">
+            <div class="w-review">
+              <div class="w-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+              <div class="w-review-text">"Came right to my driveway. Fast, honest, and fair price."</div>
+              <div class="w-review-author">— Customer, DC</div>
+            </div>
+            <div class="w-review">
+              <div class="w-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+              <div class="w-review-text">"Me atendi&oacute; en espa&ntilde;ol, muy profesional."</div>
+              <div class="w-review-author">— Customer, MD</div>
+            </div>
+            <div class="w-review">
+              <div class="w-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+              <div class="w-review-text">"Best mobile mechanic in the DMV area!"</div>
+              <div class="w-review-author">— Customer, VA</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 9. Contact/CTA -->
+        <div class="w-block">
+          <div class="w-label"><span class="w-label-num">9</span> Contact / CTA</div>
+          <div class="w-contact-split">
+            <div class="w-contact-info">
+              <div style="font-size: 10px; font-weight: 500; margin-bottom: 8px;">Get in touch</div>
+              <div class="w-btn primary" style="width: 100%; text-align: center; margin-bottom: 6px; padding: 6px;">WhatsApp</div>
+              <div class="w-btn secondary" style="width: 100%; text-align: center; padding: 6px; background: var(--accent-light); color: var(--accent);">Call / Text</div>
+            </div>
+            <div class="w-contact-form">
+              <div class="w-input-row">
+                <div class="w-input">Name</div>
+                <div class="w-input">Phone</div>
+              </div>
+              <div class="w-input">Vehicle (year, make, model)</div>
+              <div class="w-textarea">Describe the issue...</div>
+              <div class="w-rect btn" style="width: 80px; display:flex;align-items:center;justify-content:center;color:white;font-size:7px;font-family:'JetBrains Mono',monospace;">Submit</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 10. Footer -->
+        <div class="w-block" style="padding:0;border:none;">
+          <div class="w-label" style="padding: 12px 16px 0;"><span class="w-label-num">10</span> Footer</div>
+          <div class="w-footer" style="margin: 8px 0 0;">
+            <div class="w-footer-left">
+              <div class="w-circle sm" style="background: rgba(255,255,255,0.2);"></div>
+              <div class="w-footer-text">&copy; 2025 Anywhere Auto Repair</div>
+            </div>
+            <div class="w-social">
+              <div class="w-social-icon" title="Instagram"></div>
+              <div class="w-social-icon" title="TikTok"></div>
+              <div class="w-social-icon" title="WhatsApp"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ━━━━ CONTACT PAGE ━━━━ -->
+  <div id="page-contact" class="page-wireframe">
+    <div class="page-header">
+      <div class="page-badge" style="background: var(--node-contact);">Contact</div>
+      <div class="page-route">/designs/brand-blue/contact</div>
+      <div class="w-features">
+        <span class="w-feature-tag">i18n EN/ES</span>
+        <span class="w-feature-tag">lead generation</span>
+      </div>
+    </div>
+    <div class="wireframe">
+      <div class="wireframe-browser">
+        <div class="browser-dot r"></div>
+        <div class="browser-dot y"></div>
+        <div class="browser-dot g"></div>
+        <div class="browser-url">localhost:3000/designs/brand-blue/contact</div>
+      </div>
+      <div class="wireframe-body">
+
+        <!-- Navbar (same) -->
+        <div class="w-block">
+          <div class="w-label"><span class="w-label-num">1</span> Navbar — same as Brand Blue</div>
+          <div class="w-navbar">
+            <div class="w-nav-logo">
+              <div class="w-circle sm"></div>
+              <div class="w-rect title"></div>
+            </div>
+            <div class="w-nav-links">
+              <div class="w-rect link"></div>
+              <div class="w-rect link"></div>
+              <div class="w-rect link"></div>
+              <div class="w-rect link"></div>
+            </div>
+            <div class="w-nav-right">
+              <div class="w-toggle">EN | ES</div>
+              <div class="w-rect btn" style="display:flex;align-items:center;justify-content:center;color:white;font-size:7px;font-family:'JetBrains Mono',monospace;">Book Now</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero -->
+        <div class="w-block" style="padding: 20px 16px; text-align: center;">
+          <div class="w-label"><span class="w-label-num">2</span> Hero</div>
+          <div style="font-size: 16px; font-weight: 600; letter-spacing: -0.3px; margin-bottom: 4px;">Let's get your car fixed.</div>
+          <div style="font-size: 9px; color: var(--text-light); font-family: 'JetBrains Mono', monospace;">Free quote &bull; No obligation</div>
+        </div>
+
+        <!-- Form + Sidebar -->
+        <div class="w-block">
+          <div class="w-label"><span class="w-label-num">3</span> Contact Form + Info Sidebar</div>
+          <div class="w-contact-page-layout">
+            <div class="w-contact-page-form">
+              <div class="w-input-row">
+                <div class="w-input">Name</div>
+                <div class="w-input">Phone</div>
+              </div>
+              <div class="w-input-row">
+                <div class="w-input">Email</div>
+                <div class="w-input">Vehicle</div>
+              </div>
+              <div class="w-textarea" style="height: 56px;">Describe the issue...</div>
+              <div style="background: var(--accent-light); border-radius: 3px; padding: 6px 8px; font-size: 7px; color: var(--accent); font-family: 'JetBrains Mono', monospace; margin-bottom: 8px;">
+                Tip: Attach photos of the issue for a faster quote
+              </div>
+              <div class="w-rect btn" style="width: 100px; display:flex;align-items:center;justify-content:center;color:white;font-size:7px;font-family:'JetBrains Mono',monospace;">Send Request</div>
+            </div>
+            <div class="w-contact-page-sidebar">
+              <div class="w-info-card" style="border-color: #4a8c5c;">
+                <div class="w-info-card-title" style="color: #4a8c5c;">WhatsApp</div>
+                <div class="w-info-card-detail">Message us directly</div>
+              </div>
+              <div class="w-info-card">
+                <div class="w-info-card-title">Phone / Text</div>
+                <div class="w-info-card-detail">(610) 463-6087</div>
+              </div>
+              <div class="w-info-card">
+                <div class="w-info-card-title">Hours</div>
+                <div class="w-info-card-detail">Mon–Sat, 8AM – 6PM</div>
+              </div>
+              <div class="w-info-card">
+                <div class="w-info-card-title">Service Area</div>
+                <div class="w-info-card-detail">DC &bull; MD &bull; VA</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="w-block" style="padding:0;border:none;">
+          <div class="w-label" style="padding: 12px 16px 0;"><span class="w-label-num">4</span> Footer</div>
+          <div class="w-footer" style="margin: 8px 0 0;">
+            <div class="w-footer-left">
+              <div class="w-circle sm" style="background: rgba(255,255,255,0.2);"></div>
+              <div class="w-footer-text">&copy; 2025 Anywhere Auto Repair</div>
+            </div>
+            <div class="w-social">
+              <div class="w-social-icon"></div>
+              <div class="w-social-icon"></div>
+              <div class="w-social-icon"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ━━━━ DARK CHROME PAGE ━━━━ -->
+  <div id="page-dark-chrome" class="page-wireframe">
+    <div class="page-header">
+      <div class="page-badge" style="background: var(--node-chrome);">Dark Chrome</div>
+      <div class="page-route">/designs/dark-chrome</div>
+      <div class="w-features">
+        <span class="w-feature-tag">i18n EN/ES</span>
+        <span class="w-feature-tag">glass-morphism</span>
+        <span class="w-feature-tag">9 sections</span>
+      </div>
+    </div>
+    <div class="wireframe">
+      <div class="wireframe-browser">
+        <div class="browser-dot r"></div>
+        <div class="browser-dot y"></div>
+        <div class="browser-dot g"></div>
+        <div class="browser-url">localhost:3000/designs/dark-chrome</div>
+      </div>
+      <div class="wireframe-body" style="background: #0d1117;">
+
+        <!-- 1. Header -->
+        <div class="w-block" style="border-color: rgba(255,255,255,0.1);">
+          <div class="w-label" style="color: rgba(255,255,255,0.35);"><span class="w-label-num">1</span> Header — glass-morphism</div>
+          <div class="w-glass-header">
+            <div class="w-glass-logo"></div>
+            <div class="w-glass-nav">
+              <div class="w-glass-link"></div>
+              <div class="w-glass-link"></div>
+            </div>
+            <div style="display:flex;gap:6px;align-items:center;">
+              <div class="w-toggle" style="color: rgba(255,255,255,0.3);">EN | ES</div>
+              <div class="w-glass-btn">Get Quote</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Hero -->
+        <div class="w-block" style="padding:0;border:none;">
+          <div class="w-label" style="padding: 12px 16px 0; color: rgba(255,255,255,0.35);"><span class="w-label-num">2</span> Hero — glow effects</div>
+          <div class="w-dark-hero" style="margin: 8px 0 0;">
+            <div class="w-badge-sm" style="letter-spacing: 1.5px;">SERVING DC &bull; MD &bull; VA</div>
+            <h3 style="margin: 8px 0;">The Garage<br>Comes to You.</h3>
+            <div class="w-hero-btns" style="margin-top: 10px;">
+              <div class="w-btn primary">WhatsApp</div>
+              <div class="w-btn secondary">Call Now</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Stats Bar -->
+        <div class="w-block" style="padding:0;border:none;">
+          <div class="w-label" style="padding: 12px 16px 0; color: rgba(255,255,255,0.35);"><span class="w-label-num">3</span> Stats Bar</div>
+          <div class="w-stats-bar" style="margin: 8px 0 0;">
+            <div class="w-stat">100% MOBILE</div>
+            <div class="w-stat">EN/ES BILINGUAL</div>
+            <div class="w-stat">24/7 MESSAGING</div>
+            <div class="w-stat">0 HIDDEN FEES</div>
+          </div>
+        </div>
+
+        <!-- 4. Services -->
+        <div class="w-block" style="border-color: rgba(255,255,255,0.1);">
+          <div class="w-label" style="color: rgba(255,255,255,0.35);"><span class="w-label-num">4</span> Services — 6 cards</div>
+          <div class="w-grid cols-3">
+            <div class="w-dark-card">
+              <div class="w-card-img"></div>
+              <div class="w-card-title">Diagnostics</div>
+            </div>
+            <div class="w-dark-card">
+              <div class="w-card-img"></div>
+              <div class="w-card-title">Brake Repair</div>
+            </div>
+            <div class="w-dark-card">
+              <div class="w-card-img"></div>
+              <div class="w-card-title">Oil Changes</div>
+            </div>
+            <div class="w-dark-card">
+              <div class="w-card-img"></div>
+              <div class="w-card-title">Battery & Electrical</div>
+            </div>
+            <div class="w-dark-card">
+              <div class="w-card-img"></div>
+              <div class="w-card-title">A/C & Cooling</div>
+            </div>
+            <div class="w-dark-card">
+              <div class="w-card-img"></div>
+              <div class="w-card-title">Tune-Ups</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. How It Works -->
+        <div class="w-block" style="border-color: rgba(255,255,255,0.1);">
+          <div class="w-label" style="color: rgba(255,255,255,0.35);"><span class="w-label-num">5</span> How It Works</div>
+          <div class="w-steps w-dark-steps">
+            <div class="w-step">
+              <div class="w-step-num">01</div>
+              <div class="w-step-text">Reach Out</div>
+            </div>
+            <div class="w-step-line"></div>
+            <div class="w-step">
+              <div class="w-step-num">02</div>
+              <div class="w-step-text">Get a Quote</div>
+            </div>
+            <div class="w-step-line"></div>
+            <div class="w-step">
+              <div class="w-step-num">03</div>
+              <div class="w-step-text">We Fix It</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. Coverage & About -->
+        <div class="w-block" style="border-color: rgba(255,255,255,0.1);">
+          <div class="w-label" style="color: rgba(255,255,255,0.35);"><span class="w-label-num">6</span> Coverage & About — split</div>
+          <div class="w-split">
+            <div style="border: 1px solid rgba(255,255,255,0.08); border-radius: 4px; padding: 10px;">
+              <div style="font-size: 9px; font-weight: 500; color: rgba(255,255,255,0.7); margin-bottom: 6px;">Service Area</div>
+              <div class="w-coverage-item"><span class="w-check" style="color:#4a8c5c;">&#10003;</span> Washington, D.C.</div>
+              <div class="w-coverage-item"><span class="w-check" style="color:#4a8c5c;">&#10003;</span> Maryland</div>
+              <div class="w-coverage-item"><span class="w-check" style="color:#4a8c5c;">&#10003;</span> Virginia</div>
+            </div>
+            <div style="border: 1px solid rgba(255,255,255,0.08); border-radius: 4px; padding: 10px; position: relative; overflow: hidden;">
+              <div style="font-size: 9px; font-weight: 500; color: rgba(255,255,255,0.7); margin-bottom: 6px;">About the Mechanic</div>
+              <div style="width: 100%; height: 40px; background: rgba(255,255,255,0.04); border-radius: 3px; margin-bottom: 6px;"></div>
+              <div class="w-rect" style="width: 90%; height: 5px; background: rgba(255,255,255,0.08); margin-bottom: 3px;"></div>
+              <div class="w-rect" style="width: 70%; height: 5px; background: rgba(255,255,255,0.08);"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 7. Reviews -->
+        <div class="w-block" style="border-color: rgba(255,255,255,0.1);">
+          <div class="w-label" style="color: rgba(255,255,255,0.35);"><span class="w-label-num">7</span> Reviews — 3 cards</div>
+          <div class="w-grid cols-3">
+            <div class="w-dark-review">
+              <div class="w-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+              <div class="w-review-text">"Testimonial text..."</div>
+              <div class="w-review-author">— Customer, DC</div>
+            </div>
+            <div class="w-dark-review">
+              <div class="w-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+              <div class="w-review-text">"Testimonial text..."</div>
+              <div class="w-review-author">— Customer, MD</div>
+            </div>
+            <div class="w-dark-review">
+              <div class="w-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+              <div class="w-review-text">"Testimonial text..."</div>
+              <div class="w-review-author">— Customer, VA</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 8. Contact Banner -->
+        <div class="w-block" style="border-color: rgba(255,255,255,0.1);">
+          <div class="w-label" style="color: rgba(255,255,255,0.35);"><span class="w-label-num">8</span> Contact Banner</div>
+          <div style="text-align: center; padding: 8px 0;">
+            <div style="font-size: 11px; font-weight: 500; color: rgba(255,255,255,0.8); margin-bottom: 8px;">Ready to get started?</div>
+            <div style="max-width: 260px; margin: 0 auto;">
+              <div class="w-textarea" style="border-color: rgba(255,255,255,0.1); color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.03);">Describe your issue...</div>
+              <div class="w-btn primary" style="width: 100%; text-align: center; padding: 6px;">Message on WhatsApp</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 9. Footer -->
+        <div class="w-block" style="padding:0;border:none;">
+          <div class="w-label" style="padding: 12px 16px 0; color: rgba(255,255,255,0.35);"><span class="w-label-num">9</span> Footer</div>
+          <div class="w-dark-footer" style="margin: 8px 0 0;">
+            <div class="w-footer-left">
+              <div class="w-circle sm" style="background: rgba(255,255,255,0.1);"></div>
+              <div class="w-footer-text">&copy; 2025 Anywhere Auto Repair</div>
+            </div>
+            <div class="w-social">
+              <div class="w-social-icon" style="background: rgba(255,255,255,0.05);"></div>
+              <div class="w-social-icon" style="background: rgba(255,255,255,0.05);"></div>
+              <div class="w-social-icon" style="background: rgba(255,255,255,0.05);"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function activatePill(el) {
+  document.querySelectorAll('.topbar-pill').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// Update active pill on scroll
+const sections = [
+  { id: 'sitemap', pill: 0 },
+  { id: 'page-home', pill: 1 },
+  { id: 'page-brand-blue', pill: 2 },
+  { id: 'page-contact', pill: 3 },
+  { id: 'page-dark-chrome', pill: 4 },
+];
+
+const pills = document.querySelectorAll('.topbar-pill');
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const idx = sections.findIndex(s => s.id === entry.target.id);
+      if (idx !== -1) {
+        pills.forEach(p => p.classList.remove('active'));
+        pills[idx].classList.add('active');
+      }
+    }
+  });
+}, { threshold: 0.3, rootMargin: '-80px 0px 0px 0px' });
+
+sections.forEach(s => {
+  const el = document.getElementById(s.id);
+  if (el) observer.observe(el);
+});
+</script>
+
+</body>
+</html>

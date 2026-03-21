@@ -1,0 +1,2099 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Design F: Brand Blue — Full Wireframe</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --canvas: #edecea;
+    --surface: #ffffff;
+    --paper: #f7f6f4;
+    --border: #d6d3cc;
+    --border-light: #e8e6e1;
+    --dash: #c4c0b8;
+    --text: #1a1916;
+    --text-mid: #5c5850;
+    --text-faint: #9b9689;
+    --blue: #2a5f8f;
+    --blue-light: #e4eef6;
+    --blue-pale: #f0f5fa;
+    --green: #2d7a4a;
+    --green-light: #e6f4ec;
+    --amber: #b8860b;
+    --amber-light: #fdf6e3;
+    --purple: #6b5b8a;
+    --purple-light: #f0ecf5;
+    --red: #c0392b;
+    --red-light: #fdecea;
+    --slate-dark: #2c3a4a;
+    --slate-mid: #4a5568;
+    --slate-banner: #586981;
+
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.04), 0 0 0 1px rgba(0,0,0,0.03);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.06), 0 0 0 1px rgba(0,0,0,0.03);
+    --shadow-lg: 0 8px 30px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.03);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Instrument Sans', -apple-system, sans-serif;
+    background: var(--canvas);
+    color: var(--text);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  code, .mono {
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  /* ── Sticky Header ── */
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(237, 236, 234, 0.82);
+    backdrop-filter: blur(20px) saturate(1.4);
+    border-bottom: 1px solid var(--border);
+    padding: 0 36px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .header-badge {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    background: var(--blue);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: -0.5px;
+  }
+  .header-meta h1 {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    line-height: 1.2;
+  }
+  .header-meta span {
+    font-size: 11px;
+    color: var(--text-faint);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  .header-nav {
+    display: flex;
+    gap: 4px;
+  }
+  .header-nav a {
+    font-size: 12px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 500;
+    padding: 5px 12px;
+    border-radius: 6px;
+    color: var(--text-mid);
+    text-decoration: none;
+    transition: all 0.15s;
+    border: 1px solid transparent;
+  }
+  .header-nav a:hover {
+    background: var(--surface);
+    border-color: var(--border);
+    color: var(--text);
+  }
+  .header-nav a.active {
+    background: var(--blue);
+    color: white;
+    border-color: var(--blue);
+  }
+
+  /* ── Container ── */
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 36px 28px 100px;
+  }
+
+  /* ── Page Intro ── */
+  .page-intro {
+    margin-bottom: 40px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+  }
+  .page-intro .overline {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-bottom: 8px;
+  }
+  .page-intro h2 {
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -1px;
+    margin-bottom: 6px;
+  }
+  .page-intro p {
+    font-size: 14px;
+    color: var(--text-mid);
+    max-width: 540px;
+  }
+  .page-intro .tags {
+    display: flex;
+    gap: 6px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    font-size: 10px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 500;
+    padding: 3px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+  .tag.blue { background: var(--blue-light); color: var(--blue); }
+  .tag.green { background: var(--green-light); color: var(--green); }
+  .tag.amber { background: var(--amber-light); color: var(--amber); }
+  .tag.purple { background: var(--purple-light); color: var(--purple); }
+
+  /* ── Page Frame ── */
+  .page-frame {
+    background: var(--surface);
+    border-radius: 14px;
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    margin-bottom: 48px;
+    border: 1px solid var(--border);
+    scroll-margin-top: 72px;
+  }
+  .page-frame-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 18px;
+    background: var(--paper);
+    border-bottom: 1px solid var(--border-light);
+  }
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot.red { background: #ec6a5e; }
+  .dot.yellow { background: #f4bf4f; }
+  .dot.green { background: #61c554; }
+  .url-bar {
+    flex: 1;
+    margin-left: 8px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--text-faint);
+    background: var(--surface);
+    padding: 5px 12px;
+    border-radius: 6px;
+    border: 1px solid var(--border-light);
+  }
+  .page-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--text-faint);
+    padding: 2px 8px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+  }
+  .page-body {
+    padding: 24px;
+  }
+
+  /* ── Section Block ── */
+  .section {
+    margin-bottom: 16px;
+    position: relative;
+  }
+  .section:last-child { margin-bottom: 0; }
+
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  .section-num {
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    background: var(--blue);
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'IBM Plex Mono', monospace;
+    flex-shrink: 0;
+  }
+  .section-name {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+  .section-note {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: var(--blue);
+    background: var(--blue-pale);
+    padding: 1px 6px;
+    border-radius: 3px;
+    margin-left: auto;
+  }
+
+  .section-box {
+    border: 1.5px dashed var(--dash);
+    border-radius: 8px;
+    padding: 16px;
+    transition: all 0.2s;
+    position: relative;
+  }
+  .section-box:hover {
+    border-color: var(--blue);
+    background: rgba(42, 95, 143, 0.02);
+  }
+  .section-box.no-border {
+    border: none;
+    padding: 0;
+  }
+  .section-box.no-border:hover {
+    background: none;
+  }
+
+  /* ── Wireframe Elements ── */
+
+  /* Placeholder shapes */
+  .ph {
+    border-radius: 3px;
+    background: var(--border-light);
+  }
+  .ph.circle { border-radius: 50%; }
+  .ph.dark { background: rgba(255,255,255,0.15); }
+  .ph.medium { background: var(--dash); }
+
+  /* Navbar */
+  .wf-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 44px;
+  }
+  .wf-nav-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .wf-nav-logo {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--border);
+    border: 2px solid var(--border-light);
+  }
+  .wf-nav-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .wf-nav-brand .line1 {
+    width: 72px;
+    height: 9px;
+    background: var(--text);
+    border-radius: 2px;
+    opacity: 0.7;
+  }
+  .wf-nav-brand .line2 {
+    width: 60px;
+    height: 6px;
+    background: var(--blue);
+    border-radius: 2px;
+    opacity: 0.5;
+  }
+  .wf-nav-center {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+  .wf-nav-link {
+    width: 52px;
+    height: 7px;
+    border-radius: 2px;
+    background: var(--border);
+  }
+  .wf-nav-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .wf-lang {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: var(--text-faint);
+    background: var(--paper);
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+    padding: 3px 8px;
+    display: flex;
+    gap: 3px;
+  }
+  .wf-lang strong { color: var(--blue); }
+  .wf-cta-btn {
+    padding: 5px 14px;
+    border-radius: 14px;
+    background: var(--slate-mid);
+    color: white;
+    font-size: 9px;
+    font-weight: 600;
+    font-family: 'IBM Plex Mono', monospace;
+    letter-spacing: 0.3px;
+  }
+
+  /* Hero */
+  .wf-hero {
+    background: linear-gradient(to bottom, #1e2d3d, #263545);
+    border-radius: 6px;
+    padding: 32px 24px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .wf-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 20px 20px;
+    pointer-events: none;
+  }
+  .wf-hero-content { position: relative; z-index: 1; }
+  .wf-hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 8px;
+    font-family: 'IBM Plex Mono', monospace;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: rgba(147, 197, 253, 0.8);
+    background: rgba(30, 58, 82, 0.8);
+    border: 1px solid rgba(100, 150, 200, 0.25);
+    padding: 4px 10px;
+    border-radius: 12px;
+    margin-bottom: 12px;
+  }
+  .wf-hero-badge .pulse {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #93c5fd;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 0.5; transform: scale(0.9); }
+    50% { opacity: 1; transform: scale(1.1); }
+  }
+  .wf-hero-title {
+    color: white;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.8px;
+    line-height: 1.15;
+    margin-bottom: 8px;
+  }
+  .wf-hero-title .gradient {
+    background: linear-gradient(to right, #93c5fd, #e2e8f0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .wf-hero-desc {
+    font-size: 10px;
+    color: rgba(226, 232, 240, 0.7);
+    line-height: 1.6;
+    max-width: 320px;
+    margin-bottom: 14px;
+  }
+  .wf-hero-btns {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  .wf-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 14px;
+    border-radius: 14px;
+    font-size: 9px;
+    font-weight: 600;
+    font-family: 'IBM Plex Mono', monospace;
+    border: none;
+    cursor: default;
+  }
+  .wf-btn.whatsapp {
+    background: #3b82f6;
+    color: #0f172a;
+  }
+  .wf-btn.call {
+    background: rgba(51, 65, 85, 0.5);
+    color: rgba(255,255,255,0.85);
+    border: 1px solid rgba(100, 116, 139, 0.5);
+    backdrop-filter: blur(4px);
+  }
+  .wf-btn-icon {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+  }
+  .wf-floating-badges {
+    display: flex;
+    gap: 6px;
+  }
+  .wf-float {
+    font-size: 8px;
+    font-family: 'IBM Plex Mono', monospace;
+    padding: 3px 8px;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.6);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .wf-hero-visual {
+    position: relative;
+    z-index: 1;
+    width: 120px;
+    height: 120px;
+  }
+  .wf-hero-logo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+    border: 2px dashed rgba(255,255,255,0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .wf-hero-logo span {
+    font-size: 9px;
+    color: rgba(255,255,255,0.3);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  .wf-hero-logo::before {
+    content: '';
+    position: absolute;
+    inset: -10px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(96, 165, 250, 0.12), transparent 70%);
+    pointer-events: none;
+    animation: pulse 3s ease-in-out infinite;
+  }
+  .wf-badge-float-1, .wf-badge-float-2 {
+    position: absolute;
+    font-size: 8px;
+    font-family: 'IBM Plex Mono', monospace;
+    padding: 4px 8px;
+    border-radius: 6px;
+    background: white;
+    color: var(--text);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    white-space: nowrap;
+  }
+  .wf-badge-float-1 {
+    top: 5px;
+    left: -40px;
+    transform: rotate(-3deg);
+  }
+  .wf-badge-float-2 {
+    bottom: 5px;
+    right: -40px;
+    transform: rotate(3deg);
+  }
+
+  /* Trust Banner */
+  .wf-trust {
+    background: var(--slate-banner);
+    border-radius: 6px;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .wf-trust-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 10px;
+    color: rgba(241, 245, 249, 0.85);
+    font-weight: 500;
+  }
+  .wf-trust-icon {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: rgba(147, 197, 253, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8px;
+    color: #93c5fd;
+    flex-shrink: 0;
+  }
+
+  /* Section Header (used for titled sections) */
+  .wf-section-header {
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  .wf-section-tag {
+    font-size: 9px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--blue);
+    margin-bottom: 4px;
+  }
+  .wf-section-title {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 4px;
+  }
+  .wf-section-desc {
+    font-size: 10px;
+    color: var(--text-mid);
+    max-width: 380px;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+
+  /* How It Works */
+  .wf-steps {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr;
+    align-items: start;
+    gap: 0;
+    padding: 8px 0;
+  }
+  .wf-step {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .wf-step-circle {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--blue-light);
+    border: 4px solid var(--surface);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--blue);
+    margin-bottom: 8px;
+  }
+  .wf-step-title {
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .wf-step-desc {
+    font-size: 9px;
+    color: var(--text-mid);
+    line-height: 1.4;
+    max-width: 160px;
+    margin: 0 auto;
+  }
+  .wf-step-connector {
+    width: 100%;
+    height: 2px;
+    background: var(--border-light);
+    margin-top: 24px;
+  }
+
+  /* Services Grid */
+  .wf-services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  .wf-service-card {
+    border: 1.5px solid var(--border-light);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all 0.2s;
+    background: var(--paper);
+  }
+  .wf-service-card:hover {
+    border-color: var(--blue);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+  }
+  .wf-service-img {
+    height: 56px;
+    background: var(--border);
+    opacity: 0.4;
+    position: relative;
+    overflow: hidden;
+  }
+  .wf-service-img::after {
+    content: attr(data-label);
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8px;
+    color: var(--text-faint);
+    opacity: 0.7;
+  }
+  .wf-service-body {
+    padding: 10px 12px;
+  }
+  .wf-service-name {
+    font-size: 11px;
+    font-weight: 700;
+    margin-bottom: 3px;
+  }
+  .wf-service-desc {
+    font-size: 8px;
+    color: var(--text-faint);
+    line-height: 1.4;
+  }
+
+  /* Coverage */
+  .wf-coverage {
+    background: linear-gradient(135deg, #1e2d3d, #263545);
+    border-radius: 6px;
+    padding: 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: center;
+  }
+  .wf-coverage-left {
+    color: white;
+  }
+  .wf-coverage-tag {
+    font-size: 9px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #60a5fa;
+    margin-bottom: 6px;
+  }
+  .wf-coverage-title {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 6px;
+  }
+  .wf-coverage-desc {
+    font-size: 9px;
+    color: rgba(203, 213, 225, 0.8);
+    line-height: 1.5;
+    margin-bottom: 14px;
+  }
+  .wf-area-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .wf-area-item {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+  }
+  .wf-area-check {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: rgba(96, 165, 250, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+    font-size: 8px;
+    color: #60a5fa;
+  }
+  .wf-area-name {
+    font-size: 11px;
+    font-weight: 600;
+    color: white;
+  }
+  .wf-area-desc {
+    font-size: 8px;
+    color: rgba(148, 163, 184, 0.9);
+  }
+  .wf-dmv-box {
+    background: rgba(30, 41, 59, 0.7);
+    border: 1px solid rgba(71, 85, 105, 0.5);
+    border-radius: 16px;
+    padding: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .wf-dmv-bg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 56px;
+    font-weight: 900;
+    color: rgba(71, 85, 105, 0.15);
+    letter-spacing: -4px;
+    pointer-events: none;
+  }
+  .wf-dmv-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    position: relative;
+    z-index: 1;
+  }
+  .wf-dmv-card {
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(71, 85, 105, 0.4);
+    border-radius: 10px;
+    padding: 10px;
+    backdrop-filter: blur(4px);
+  }
+  .wf-dmv-card.span-2 { grid-column: span 2; }
+  .wf-dmv-card.offset { margin-top: 12px; }
+  .wf-dmv-abbr {
+    font-size: 12px;
+    font-weight: 700;
+    color: #60a5fa;
+    margin-bottom: 2px;
+  }
+  .wf-dmv-name {
+    font-size: 7px;
+    color: rgba(148, 163, 184, 0.7);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  /* About */
+  .wf-about {
+    background: var(--paper);
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .wf-about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-items: center;
+  }
+  .wf-about-img {
+    aspect-ratio: 1;
+    background: var(--border);
+    border-radius: 10px;
+    opacity: 0.35;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border-light);
+    position: relative;
+    overflow: hidden;
+  }
+  .wf-about-img::after {
+    content: 'Mechanic Photo';
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: var(--text-faint);
+  }
+  .wf-about-tag {
+    font-size: 9px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--blue);
+    margin-bottom: 4px;
+  }
+  .wf-about-title {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 10px;
+  }
+  .wf-about-p {
+    font-size: 10px;
+    color: var(--text-mid);
+    line-height: 1.6;
+    margin-bottom: 6px;
+  }
+  .wf-about-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 10px;
+    padding: 5px 12px;
+    border-radius: 14px;
+    background: var(--blue-pale);
+    border: 1px solid rgba(42, 95, 143, 0.15);
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--blue);
+  }
+
+  /* Reviews */
+  .wf-reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  .wf-review {
+    background: var(--surface);
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+  }
+  .wf-stars {
+    color: var(--amber);
+    font-size: 12px;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .wf-review-quote {
+    font-size: 9px;
+    color: var(--text-mid);
+    font-style: italic;
+    line-height: 1.5;
+    flex: 1;
+    margin-bottom: 10px;
+  }
+  .wf-review-author {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .wf-review-avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--blue-light);
+    color: var(--blue);
+    font-size: 10px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .wf-review-name {
+    font-size: 10px;
+    font-weight: 600;
+  }
+  .wf-review-loc {
+    font-size: 8px;
+    color: var(--text-faint);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  /* Contact */
+  .wf-contact {
+    background: linear-gradient(135deg, #1e2d3d, #263545);
+    border-radius: 6px;
+    padding: 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+  .wf-contact-left { color: white; }
+  .wf-contact-tag {
+    font-size: 9px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #60a5fa;
+    margin-bottom: 4px;
+  }
+  .wf-contact-title {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 4px;
+    color: white;
+  }
+  .wf-contact-desc {
+    font-size: 9px;
+    color: rgba(203, 213, 225, 0.8);
+    line-height: 1.5;
+    margin-bottom: 14px;
+  }
+  .wf-contact-or {
+    font-size: 8px;
+    font-family: 'IBM Plex Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: rgba(148, 163, 184, 0.7);
+    margin-bottom: 8px;
+  }
+  .wf-contact-card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(30, 41, 59, 0.8);
+    border: 1px solid rgba(71, 85, 105, 0.5);
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-bottom: 6px;
+  }
+  .wf-contact-card-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    flex-shrink: 0;
+  }
+  .wf-contact-card-icon.wa { background: rgba(34, 197, 94, 0.15); color: #4ade80; }
+  .wf-contact-card-icon.ph { background: rgba(96, 165, 250, 0.15); color: #60a5fa; }
+  .wf-contact-card-name {
+    font-size: 10px;
+    font-weight: 600;
+    color: white;
+  }
+  .wf-contact-card-sub {
+    font-size: 8px;
+    color: rgba(148, 163, 184, 0.8);
+  }
+  .wf-contact-card-arrow {
+    margin-left: auto;
+    font-size: 10px;
+    color: rgba(100, 116, 139, 0.6);
+  }
+
+  /* Form */
+  .wf-form {
+    background: rgba(30, 41, 59, 0.8);
+    border: 1px solid rgba(71, 85, 105, 0.5);
+    border-radius: 10px;
+    padding: 16px;
+  }
+  .wf-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .wf-input-group { margin-bottom: 8px; }
+  .wf-input-label {
+    font-size: 8px;
+    font-weight: 600;
+    color: rgba(203, 213, 225, 0.8);
+    margin-bottom: 4px;
+    display: block;
+  }
+  .wf-input {
+    width: 100%;
+    height: 28px;
+    border: 1px solid rgba(71, 85, 105, 0.5);
+    border-radius: 8px;
+    background: rgba(15, 23, 42, 0.6);
+    padding: 0 10px;
+    font-size: 8px;
+    color: rgba(148, 163, 184, 0.5);
+    font-family: 'IBM Plex Mono', monospace;
+    display: flex;
+    align-items: center;
+  }
+  .wf-textarea {
+    width: 100%;
+    height: 48px;
+    border: 1px solid rgba(71, 85, 105, 0.5);
+    border-radius: 8px;
+    background: rgba(15, 23, 42, 0.6);
+    padding: 8px 10px;
+    font-size: 8px;
+    color: rgba(148, 163, 184, 0.5);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  .wf-submit {
+    width: 100%;
+    padding: 8px;
+    border-radius: 14px;
+    background: #3b82f6;
+    color: #0f172a;
+    font-size: 10px;
+    font-weight: 700;
+    text-align: center;
+    margin-top: 4px;
+  }
+
+  /* Footer */
+  .wf-footer {
+    background: #0f1520;
+    border-radius: 6px;
+    padding: 16px 20px;
+    text-align: center;
+  }
+  .wf-footer-logo {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+    margin: 0 auto 8px;
+    opacity: 0.4;
+  }
+  .wf-footer-copy {
+    font-size: 8px;
+    color: rgba(148, 163, 184, 0.4);
+    margin-bottom: 8px;
+  }
+  .wf-footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+  }
+  .wf-footer-link {
+    font-size: 8px;
+    color: rgba(148, 163, 184, 0.35);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  /* ── Contact Page Specific ── */
+  .wf-contact-hero {
+    background: linear-gradient(to bottom, #1e2d3d, #263545);
+    border-radius: 6px;
+    padding: 28px 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .wf-contact-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+  .wf-contact-hero * { position: relative; z-index: 1; }
+  .wf-contact-hero-title {
+    color: white;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.7px;
+    margin-bottom: 6px;
+  }
+  .wf-contact-hero-title .gradient {
+    background: linear-gradient(to right, #93c5fd, #e2e8f0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .wf-contact-hero-desc {
+    font-size: 10px;
+    color: rgba(226, 232, 240, 0.65);
+    max-width: 400px;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+
+  .wf-contact-page-grid {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: 20px;
+    align-items: start;
+  }
+
+  /* Contact page form */
+  .wf-cp-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .wf-cp-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .wf-cp-input-group label {
+    font-size: 9px;
+    font-weight: 600;
+    color: var(--text);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .wf-cp-input {
+    width: 100%;
+    height: 30px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    background: var(--paper);
+    padding: 0 10px;
+    font-size: 9px;
+    color: var(--text-faint);
+    font-family: 'IBM Plex Mono', monospace;
+    display: flex;
+    align-items: center;
+  }
+  .wf-cp-textarea {
+    width: 100%;
+    height: 72px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    background: var(--paper);
+    padding: 8px 10px;
+    font-size: 9px;
+    color: var(--text-faint);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  .wf-cp-photo-tip {
+    background: var(--blue-pale);
+    border: 1px solid rgba(42, 95, 143, 0.1);
+    border-radius: 8px;
+    padding: 8px 12px;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .wf-cp-photo-icon {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--blue-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    color: var(--blue);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .wf-cp-photo-title {
+    font-size: 9px;
+    font-weight: 600;
+    color: #1e3a5f;
+  }
+  .wf-cp-photo-desc {
+    font-size: 8px;
+    color: var(--blue);
+    opacity: 0.7;
+  }
+  .wf-cp-submit {
+    width: 100%;
+    padding: 10px;
+    border-radius: 16px;
+    background: #3b82f6;
+    color: #0f172a;
+    font-size: 12px;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  /* Sidebar info cards */
+  .wf-sidebar-section h3 {
+    font-size: 9px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--blue);
+    margin-bottom: 4px;
+  }
+  .wf-sidebar-section h4 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .wf-sidebar-section > p {
+    font-size: 9px;
+    color: var(--text-mid);
+    line-height: 1.5;
+    margin-bottom: 12px;
+  }
+  .wf-info-card {
+    background: var(--paper);
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 8px;
+  }
+  .wf-info-card-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .wf-info-card-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+  }
+  .wf-info-card-icon.wa { background: var(--green-light); color: var(--green); }
+  .wf-info-card-icon.ph { background: var(--blue-light); color: var(--blue); }
+  .wf-info-card-icon.hr { background: var(--amber-light); color: var(--amber); }
+  .wf-info-card-icon.ar { background: var(--purple-light); color: var(--purple); }
+  .wf-info-card-title {
+    font-size: 10px;
+    font-weight: 700;
+  }
+  .wf-info-card-desc {
+    font-size: 8px;
+    color: var(--text-mid);
+    line-height: 1.4;
+    margin-bottom: 6px;
+  }
+  .wf-info-card-btn {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 8px;
+    font-weight: 600;
+    color: white;
+  }
+  .wf-info-card-btn.green { background: var(--green); }
+  .wf-info-card-value {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--blue);
+  }
+  .wf-info-card-sub {
+    font-size: 8px;
+    color: var(--text-faint);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  /* ── Divider ── */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 40px 0;
+  }
+
+  /* Annotation callouts */
+  .callout {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    background: var(--paper);
+    border: 1px solid var(--border-light);
+    border-left: 3px solid var(--blue);
+    border-radius: 0 6px 6px 0;
+    padding: 10px 14px;
+    margin: 12px 0;
+    font-size: 10px;
+    color: var(--text-mid);
+    line-height: 1.5;
+  }
+  .callout strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+  .callout-icon {
+    flex-shrink: 0;
+    margin-top: 1px;
+    font-size: 12px;
+  }
+
+  /* Success state */
+  .wf-success {
+    text-align: center;
+    padding: 16px;
+    border: 1.5px dashed var(--dash);
+    border-radius: 8px;
+    background: var(--blue-pale);
+  }
+  .wf-success-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--blue-light);
+    margin: 0 auto 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--blue);
+    font-size: 14px;
+  }
+  .wf-success h4 {
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .wf-success p {
+    font-size: 9px;
+    color: var(--text-mid);
+    margin-bottom: 6px;
+  }
+  .wf-success a {
+    font-size: 9px;
+    color: var(--blue);
+    font-weight: 600;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .container { padding: 20px 16px 60px; }
+    .wf-services-grid, .wf-reviews-grid { grid-template-columns: 1fr 1fr; }
+    .wf-hero, .wf-coverage, .wf-contact { grid-template-columns: 1fr; }
+    .wf-about-grid { grid-template-columns: 1fr; }
+    .wf-contact-page-grid { grid-template-columns: 1fr; }
+    .wf-steps { grid-template-columns: 1fr; gap: 12px; }
+    .wf-step-connector { display: none; }
+    .header-nav { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <div class="header-left">
+    <div class="header-badge">F</div>
+    <div class="header-meta">
+      <h1>Design F — Brand Blue</h1>
+      <span>2 pages &middot; /designs/brand-blue</span>
+    </div>
+  </div>
+  <div class="header-nav">
+    <a href="#main-page" class="active" onclick="document.querySelectorAll('.header-nav a').forEach(a=>a.classList.remove('active'));this.classList.add('active');">Main Page</a>
+    <a href="#contact-page" onclick="document.querySelectorAll('.header-nav a').forEach(a=>a.classList.remove('active'));this.classList.add('active');">Contact Page</a>
+    <a href="#states" onclick="document.querySelectorAll('.header-nav a').forEach(a=>a.classList.remove('active'));this.classList.add('active');">States</a>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- ── Intro ── -->
+  <div class="page-intro">
+    <div class="overline">Wireframe</div>
+    <h2>Brand Blue</h2>
+    <p>Full wireframe of the main marketing site and contact page. Bilingual (EN/ES), mobile-responsive, with WhatsApp-first lead generation.</p>
+    <div class="tags">
+      <span class="tag blue">Next.js 16</span>
+      <span class="tag blue">Tailwind CSS 4</span>
+      <span class="tag green">EN / ES i18n</span>
+      <span class="tag amber">client component</span>
+      <span class="tag purple">WhatsApp CTA</span>
+    </div>
+  </div>
+
+  <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+  <!-- MAIN PAGE                                -->
+  <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+  <div id="main-page" class="page-frame">
+    <div class="page-frame-header">
+      <div class="dot red"></div>
+      <div class="dot yellow"></div>
+      <div class="dot green"></div>
+      <div class="url-bar">localhost:3000/designs/brand-blue</div>
+      <div class="page-label">MAIN</div>
+    </div>
+    <div class="page-body">
+
+      <!-- 1. NAV -->
+      <div class="section">
+        <div class="section-label">
+          <div class="section-num">1</div>
+          <span class="section-name">Navigation</span>
+          <span class="section-note">sticky · z-50</span>
+        </div>
+        <div class="section-box">
+          <div class="wf-nav">
+            <div class="wf-nav-left">
+              <div class="wf-nav-logo"></div>
+              <div class="wf-nav-brand">
+                <div class="line1"></div>
+                <div class="line2"></div>
+              </div>
+            </div>
+            <div class="wf-nav-center">
+              <div class="wf-nav-link" title="How It Works"></div>
+              <div class="wf-nav-link" title="Services"></div>
+              <div class="wf-nav-link" title="Coverage"></div>
+              <div class="wf-nav-link" title="Contact"></div>
+            </div>
+            <div class="wf-nav-right">
+              <div class="wf-lang"><strong>EN</strong> | ES</div>
+              <div class="wf-cta-btn">Book Now</div>
+            </div>
+          </div>
+          <div style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap;">
+            <span style="font-size:8px;font-family:'IBM Plex Mono',monospace;color:var(--text-faint);">Logo (48px circle) → /</span>
+            <span style="font-size:8px;font-family:'IBM Plex Mono',monospace;color:var(--text-faint);">•</span>
+            <span style="font-size:8px;font-family:'IBM Plex Mono',monospace;color:var(--text-faint);">ANYWHERE / AUTO REPAIR</span>
+            <span style="font-size:8px;font-family:'IBM Plex Mono',monospace;color:var(--text-faint);">•</span>
+            <span style="font-size:8px;font-family:'IBM Plex Mono',monospace;color:var(--text-faint);">4 anchor links (hidden &lt;md)</span>
+            <span style="font-size:8px;font-family:'IBM Plex Mono',monospace;color:var(--text-faint);">•</span>
+            <span style="font-size:8px;font-family:'IBM Plex Mono',monospace;color:var(--text-faint);">Book Now → wa.me (hidden &lt;sm)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. HERO -->
+      <div class="section">
+        <div class="section-label">
+          <div class="section-num">2</div>
+          <span class="section-name">Hero</span>
+          <span class="section-note">grid md:2-col</span>
+        </div>
+        <div class="section-box no-border">
+          <div class="wf-hero">
+            <div class="wf-hero-content">
+              <div class="wf-hero-badge">
+                <div class="pulse"></div>
+                Mobile Mechanic &bull; DC | MD | VA
+              </div>
+              <div class="wf-hero-title">
+                Your mechanic,<br>
+                <span class="gradient">anywhere you are.</span>
+              </div>
+              <div class="wf-hero-desc">
+                Professional auto repair that comes to your home, office, or roadside. Honest work, fair pricing, and zero waiting rooms.
+              </div>
+              <div class="wf-hero-btns">
+                <div class="wf-btn whatsapp"><div class="wf-btn-icon"></div>WhatsApp Us</div>
+                <div class="wf-btn call"><div class="wf-btn-icon"></div>(610) 463-6087</div>
+              </div>
+              <div class="wf-floating-badges">
+                <div class="wf-float">&#10003; 5-Star Rated</div>
+                <div class="wf-float">Habla Espa&ntilde;ol</div>
+              </div>
+            </div>
+            <div class="wf-hero-visual">
+              <div class="wf-hero-logo"><span>LOGO</span></div>
+              <div class="wf-badge-float-1">&#10003; 5-Star</div>
+              <div class="wf-badge-float-2">Espa&ntilde;ol</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. TRUST BANNER -->
+      <div class="section">
+        <div class="section-label">
+          <div class="section-num">3</div>
+          <span class="section-name">Trust Banner</span>
+        </div>
+        <div class="section-box no-border">
+          <div class="wf-trust">
+            <div class="wf-trust-item"><div class="wf-trust-icon">&#10003;</div>Licensed & Insured</div>
+            <div class="wf-trust-item"><div class="wf-trust-icon">&#10003;</div>12-Month Warranty</div>
+            <div class="wf-trust-item"><div class="wf-trust-icon">&#10003;</div>Upfront Pricing</div>
+            <div class="wf-trust-item"><div class="wf-trust-icon">&#10003;</div>Flexible Payments</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. HOW IT WORKS -->
+      <div class="section">
+        <div class="section-label">
+          <div class="section-num">4</div>
+          <span class="section-name">How It Works</span>
+          <span class="section-note">#how-it-works</span>
+        </div>
+        <div class="section-box">
+          <div class="wf-section-header">
+            <div class="wf-section-tag">How It Works</div>
+            <div class="wf-section-title">Three steps to a fixed car.</div>
+            <div class="wf-section-desc">No tow trucks, no waiting rooms, no hidden fees.</div>
+          </div>
+          <div class="wf-steps">
+            <div class="wf-step">
+              <div class="wf-step-circle">1</div>
+              <div class="wf-step-title">Reach Out</div>
+              <div class="wf-step-desc">Send us a message or give us a call. Photos help us diagnose faster.</div>
+            </div>
+            <div class="wf-step-connector"></div>
+            <div class="wf-step">
+              <div class="wf-step-circle">2</div>
+              <div class="wf-step-title">Get a Quote</div>
+              <div class="wf-step-desc">Honest, upfront estimate. Parts and labor included.</div>
+            </div>
+            <div class="wf-step-connector"></div>
+            <div class="wf-step">
+              <div class="wf-step-circle">3</div>
+              <div class="wf-step-title">We Fix It</div>
+              <div class="wf-step-desc">We come to your location fully equipped.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. SERVICES -->
+      <div class="section">
+        <div class="section-label">
+          <div class="section-num">5</div>
+          <span class="section-name">Services</span>
+          <span class="section-note">#services · grid md:3-col</span>
+        </div>
+        <div class="section-box">
+          <div class="wf-section-header">
+            <div class="wf-section-tag">Our Services</div>
+            <div class="wf-section-title">Everything your car needs.</div>
+            <div class="wf-section-desc">Maintenance and repairs on the spot. Skip the tow truck and dealership markup.</div>
+          </div>
+          <div class="wf-services-grid">
+            <div class="wf-service-card">
+              <div class="wf-service-img" data-label="unsplash photo"></div>
+              <div class="wf-service-body">
+                <div class="wf-service-name">Diagnostics</div>
+                <div class="wf-service-desc">Professional grade repairs at your location with high-quality parts.</div>
+              </div>
+            </div>
+            <div class="wf-service-card">
+              <div class="wf-service-img" data-label="unsplash photo"></div>
+              <div class="wf-service-body">
+                <div class="wf-service-name">Brake Repair</div>
+                <div class="wf-service-desc">Professional grade repairs at your location with high-quality parts.</div>
+              </div>
+            </div>
+            <div class="wf-service-card">
+              <div class="wf-service-img" data-label="unsplash photo"></div>
+              <div class="wf-service-body">
+                <div class="wf-service-name">Oil Changes</div>
+                <div class="wf-service-desc">Professional grade repairs at your location with high-quality parts.</div>
+              </div>
+            </div>
+            <div class="wf-service-card">
+              <div class="wf-service-img" data-label="unsplash photo"></div>
+              <div class="wf-service-body">
+                <div class="wf-service-name">Battery & Electrical</div>
+                <div class="wf-service-desc">Professional grade repairs at your location with high-quality parts.</div>
+              </div>
+            </div>
+            <div class="wf-service-card">
+              <div class="wf-service-img" data-label="unsplash photo"></div>
+              <div class="wf-service-body">
+                <div class="wf-service-name">A/C & Cooling</div>
+                <div class="wf-service-desc">Professional grade repairs at your location with high-quality parts.</div>
+              </div>
+            </div>
+            <div class="wf-service-card">
+              <div class="wf-service-img" data-label="unsplash photo"></div>
+              <div class="wf-service-body">
+                <div class="wf-service-name">Tune-Ups</div>
+                <div class="wf-service-desc">Professional grade repairs at your location with high-quality parts.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. COVERAGE -->
+      <div class="section">
+        <div class="section-label">
+          <div class="section-num">6</div>
+          <span class="section-name">Coverage Area</span>
+          <span class="section-note">#coverage · dark bg</span>
+        </div>
+        <div class="section-box no-border">
+          <div class="wf-coverage">
+            <div class="wf-coverage-left">
+              <div class="wf-coverage-tag">Service Area</div>
+              <div class="wf-coverage-title">Covering the entire DMV.</div>
+              <div class="wf-coverage-desc">We drive to you anywhere in Washington D.C., Maryland, and Virginia.</div>
+              <ul class="wf-area-list">
+                <li class="wf-area-item">
+                  <div class="wf-area-check">&#10003;</div>
+                  <div>
+                    <div class="wf-area-name">Washington, D.C.</div>
+                    <div class="wf-area-desc">All neighborhoods, NW to SE</div>
+                  </div>
+                </li>
+                <li class="wf-area-item">
+                  <div class="wf-area-check">&#10003;</div>
+                  <div>
+                    <div class="wf-area-name">Virginia</div>
+                    <div class="wf-area-desc">Arlington, Alexandria, Fairfax & Northern VA</div>
+                  </div>
+                </li>
+                <li class="wf-area-item">
+                  <div class="wf-area-check">&#10003;</div>
+                  <div>
+                    <div class="wf-area-name">Maryland</div>
+                    <div class="wf-area-desc">Silver Spring, Bethesda, PG County & beyond</div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="wf-dmv-box">
+              <div class="wf-dmv-bg">DMV</div>
+              <div class="wf-dmv-grid">
+                <div class="wf-dmv-card">
+                  <div class="wf-dmv-abbr">DC</div>
+                  <div class="wf-dmv-name">District of Columbia</div>
+                </div>
+                <div class="wf-dmv-card offset">
+                  <div class="wf-dmv-abbr">MD</div>
+                  <div class="wf-dmv-name">Maryland</div>
+                </div>
+                <div class="wf-dmv-card span-2">
+                  <div class="wf-dmv-abbr">VA</div>
+                  <div class="wf-dmv-name">Virginia</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7. ABOUT -->
+      <div class="section">
+        <div class="section-label">
+          <div class="section-num">7</div>
+          <span class="section-name">About Tyler</span>
+          <span class="section-note">#about</span>
+        </div>
+        <div class="section-box no-border">
+          <div class="wf-about">
+            <div class="wf-about-grid">
+              <div class="wf-about-img"></div>
+              <div>
+                <div class="wf-about-tag">About Your Mechanic</div>
+                <div class="wf-about-title">Hey, I'm Tyler.</div>
+                <div class="wf-about-p">I started Anywhere Auto Repair because I believe getting your car fixed shouldn't mean losing your whole day at a shop.</div>
+                <div class="wf-about-p">I bring professional-grade tools and parts directly to you. My goal is simple: honest work, fair prices, and getting you back on the road safely.</div>
+                <div class="wf-about-badge">
+                  <span style="font-size:10px;">&#127760;</span> Hablo Espa&ntilde;ol
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 8. REVIEWS -->
+      <div class="section">
+        <div class="section-label">
+          <div class="section-num">8</div>
+          <span class="section-name">Reviews</span>
+          <span class="section-note">gray bg · grid md:3-col</span>
+        </div>
+        <div class="section-box" style="background: var(--paper);">
+          <div class="wf-section-header">
+            <div class="wf-section-tag">Real Feedback</div>
+            <div class="wf-section-title">What our customers say.</div>
+          </div>
+          <div class="wf-reviews-grid">
+            <div class="wf-review">
+              <div class="wf-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+              <div class="wf-review-quote">"Tyler came to my apartment complex and replaced my brakes in under two hours. Super professional, fair price..."</div>
+              <div class="wf-review-author">
+                <div class="wf-review-avatar">M</div>
+                <div>
+                  <div class="wf-review-name">Marcus T.</div>
+                  <div class="wf-review-loc">Arlington, VA</div>
+                </div>
+              </div>
+            </div>
+            <div class="wf-review">
+              <div class="wf-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+              <div class="wf-review-quote">"Lo mejor es que habla espa&ntilde;ol. Me explic&oacute; todo lo que estaba mal con mi carro y no me cobr&oacute; de m&aacute;s..."</div>
+              <div class="wf-review-author">
+                <div class="wf-review-avatar">C</div>
+                <div>
+                  <div class="wf-review-name">Carlos R.</div>
+                  <div class="wf-review-loc">Silver Spring, MD</div>
+                </div>
+              </div>
+            </div>
+            <div class="wf-review">
+              <div class="wf-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+              <div class="wf-review-quote">"My car wouldn't start and Tyler was at my house within an hour. Turned out it was the alternator..."</div>
+              <div class="wf-review-author">
+                <div class="wf-review-avatar">J</div>
+                <div>
+                  <div class="wf-review-name">Jessica M.</div>
+                  <div class="wf-review-loc">Washington, DC</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 9. CONTACT -->
+      <div class="section">
+        <div class="section-label">
+          <div class="section-num">9</div>
+          <span class="section-name">Contact Section</span>
+          <span class="section-note">#contact · dark bg · grid md:2-col</span>
+        </div>
+        <div class="section-box no-border">
+          <div class="wf-contact">
+            <div class="wf-contact-left">
+              <div class="wf-contact-tag">Contact Us</div>
+              <div class="wf-contact-title">Get a free quote.</div>
+              <div class="wf-contact-desc">Send us a message with your car's issue and we'll get back to you with a free quote.</div>
+              <div class="wf-contact-or">or reach us directly</div>
+              <div class="wf-contact-card">
+                <div class="wf-contact-card-icon wa">&#9993;</div>
+                <div>
+                  <div class="wf-contact-card-name">WhatsApp</div>
+                  <div class="wf-contact-card-sub">Contact on WhatsApp</div>
+                </div>
+                <div class="wf-contact-card-arrow">&rarr;</div>
+              </div>
+              <div class="wf-contact-card">
+                <div class="wf-contact-card-icon ph">&#9742;</div>
+                <div>
+                  <div class="wf-contact-card-name">(610) 463-6087</div>
+                  <div class="wf-contact-card-sub">Need a fix today?</div>
+                </div>
+                <div class="wf-contact-card-arrow">&rarr;</div>
+              </div>
+            </div>
+            <div class="wf-form">
+              <div class="wf-form-row">
+                <div>
+                  <div class="wf-input-label">Your Name</div>
+                  <div class="wf-input">John Doe</div>
+                </div>
+                <div>
+                  <div class="wf-input-label">Phone Number</div>
+                  <div class="wf-input">(555) 123-4567</div>
+                </div>
+              </div>
+              <div class="wf-input-group">
+                <div class="wf-input-label">Vehicle</div>
+                <div class="wf-input">e.g. 2019 Honda Civic</div>
+              </div>
+              <div class="wf-input-group">
+                <div class="wf-input-label">Describe the Issue</div>
+                <div class="wf-textarea">What's going on with your car?</div>
+              </div>
+              <div class="wf-submit">Send Message</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 10. FOOTER -->
+      <div class="section">
+        <div class="section-label">
+          <div class="section-num">10</div>
+          <span class="section-name">Footer</span>
+        </div>
+        <div class="section-box no-border">
+          <div class="wf-footer">
+            <div class="wf-footer-logo"></div>
+            <div class="wf-footer-copy">&copy; 2026 Anywhere Auto Repair. Serving DC, MD, and VA.</div>
+            <div class="wf-footer-links">
+              <span class="wf-footer-link">Instagram</span>
+              <span class="wf-footer-link">TikTok</span>
+              <span class="wf-footer-link">WhatsApp</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+  <!-- CONTACT PAGE                             -->
+  <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+  <div id="contact-page" class="page-frame">
+    <div class="page-frame-header">
+      <div class="dot red"></div>
+      <div class="dot yellow"></div>
+      <div class="dot green"></div>
+      <div class="url-bar">localhost:3000/designs/brand-blue/contact</div>
+      <div class="page-label">CONTACT</div>
+    </div>
+    <div class="page-body">
+
+      <!-- 1. NAV (same) -->
+      <div class="section">
+        <div class="section-label">
+          <div class="section-num">1</div>
+          <span class="section-name">Navigation</span>
+          <span class="section-note">shared with main · logo links to /designs/brand-blue</span>
+        </div>
+        <div class="section-box">
+          <div class="wf-nav">
+            <div class="wf-nav-left">
+              <div class="wf-nav-logo"></div>
+              <div class="wf-nav-brand">
+                <div class="line1"></div>
+                <div class="line2"></div>
+              </div>
+            </div>
+            <div class="wf-nav-center">
+              <div class="wf-nav-link" title="How It Works"></div>
+              <div class="wf-nav-link" title="Services"></div>
+              <div class="wf-nav-link" title="Coverage"></div>
+            </div>
+            <div class="wf-nav-right">
+              <div class="wf-lang"><strong>EN</strong> | ES</div>
+              <div class="wf-cta-btn">Book Now</div>
+            </div>
+          </div>
+          <div style="font-size:8px;font-family:'IBM Plex Mono',monospace;color:var(--text-faint);margin-top:6px;">
+            3 nav links → anchor back to main page sections (no Contact link here)
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. HERO -->
+      <div class="section">
+        <div class="section-label">
+          <div class="section-num">2</div>
+          <span class="section-name">Hero</span>
+          <span class="section-note">centered · shorter than main</span>
+        </div>
+        <div class="section-box no-border">
+          <div class="wf-contact-hero">
+            <div class="wf-hero-badge" style="margin: 0 auto 10px;">
+              <div class="pulse"></div>
+              Get In Touch
+            </div>
+            <div class="wf-contact-hero-title">
+              Let's get your<br><span class="gradient">car fixed.</span>
+            </div>
+            <div class="wf-contact-hero-desc">
+              Send us your vehicle's issue and we'll get back to you with a free, no-obligation quote. Photos and videos help us diagnose faster.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. FORM + SIDEBAR -->
+      <div class="section">
+        <div class="section-label">
+          <div class="section-num">3</div>
+          <span class="section-name">Form + Info Sidebar</span>
+          <span class="section-note">grid lg:5-col (3+2)</span>
+        </div>
+        <div class="section-box">
+          <div class="wf-contact-page-grid">
+            <!-- Form -->
+            <div class="wf-cp-form">
+              <div class="wf-cp-row">
+                <div class="wf-cp-input-group">
+                  <label>Your Name</label>
+                  <div class="wf-cp-input">John Doe</div>
+                </div>
+                <div class="wf-cp-input-group">
+                  <label>Phone Number</label>
+                  <div class="wf-cp-input">(555) 123-4567</div>
+                </div>
+              </div>
+              <div class="wf-cp-row">
+                <div class="wf-cp-input-group">
+                  <label>Email (optional)</label>
+                  <div class="wf-cp-input">john@example.com</div>
+                </div>
+                <div class="wf-cp-input-group">
+                  <label>Vehicle</label>
+                  <div class="wf-cp-input">e.g. 2019 Honda Civic</div>
+                </div>
+              </div>
+              <div class="wf-cp-input-group">
+                <label>Describe the Issue</label>
+                <div class="wf-cp-textarea">Tell us what's going on with your car. Include warning lights, sounds, or symptoms.</div>
+              </div>
+              <div class="wf-cp-photo-tip">
+                <div class="wf-cp-photo-icon">&#128247;</div>
+                <div>
+                  <div class="wf-cp-photo-title">Have photos or videos?</div>
+                  <div class="wf-cp-photo-desc">Send them directly via WhatsApp for a faster diagnosis.</div>
+                </div>
+              </div>
+              <div class="wf-cp-submit">Send Message</div>
+            </div>
+
+            <!-- Sidebar -->
+            <div>
+              <div class="wf-sidebar-section">
+                <h3>Other Ways to Reach Us</h3>
+                <h4>We're here to help.</h4>
+                <p>Prefer to reach out directly? We typically respond within 30 minutes during business hours.</p>
+              </div>
+
+              <div class="wf-info-card">
+                <div class="wf-info-card-header">
+                  <div class="wf-info-card-icon wa">&#9993;</div>
+                  <div class="wf-info-card-title">WhatsApp</div>
+                </div>
+                <div class="wf-info-card-desc">Fastest way to reach us. Send photos & videos of the issue.</div>
+                <div class="wf-info-card-btn green">Message on WhatsApp &rarr;</div>
+              </div>
+
+              <div class="wf-info-card">
+                <div class="wf-info-card-header">
+                  <div class="wf-info-card-icon ph">&#9742;</div>
+                  <div class="wf-info-card-title">Call or Text</div>
+                </div>
+                <div class="wf-info-card-desc">Give us a call or send a text.</div>
+                <div class="wf-info-card-value">(610) 463-6087</div>
+              </div>
+
+              <div class="wf-info-card">
+                <div class="wf-info-card-header">
+                  <div class="wf-info-card-icon hr">&#9200;</div>
+                  <div class="wf-info-card-title">Hours</div>
+                </div>
+                <div style="font-size:9px;font-weight:600;color:var(--text);margin-bottom:2px;">Monday – Saturday: 8 AM – 6 PM</div>
+                <div class="wf-info-card-sub">Sunday: By appointment</div>
+              </div>
+
+              <div class="wf-info-card">
+                <div class="wf-info-card-header">
+                  <div class="wf-info-card-icon ar">&#9906;</div>
+                  <div class="wf-info-card-title">Service Area</div>
+                </div>
+                <div style="font-size:9px;font-weight:600;color:var(--text);margin-bottom:2px;">Washington D.C., Maryland, and Virginia</div>
+                <div class="wf-info-card-sub">We come to you — home, office, or roadside</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. FOOTER -->
+      <div class="section">
+        <div class="section-label">
+          <div class="section-num">4</div>
+          <span class="section-name">Footer</span>
+          <span class="section-note">shared</span>
+        </div>
+        <div class="section-box no-border">
+          <div class="wf-footer">
+            <div class="wf-footer-logo"></div>
+            <div class="wf-footer-copy">&copy; 2026 Anywhere Auto Repair. Serving DC, MD, and VA.</div>
+            <div class="wf-footer-links">
+              <span class="wf-footer-link">Instagram</span>
+              <span class="wf-footer-link">TikTok</span>
+              <span class="wf-footer-link">WhatsApp</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+  <!-- INTERACTIVE STATES                       -->
+  <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+  <div id="states" style="scroll-margin-top: 72px;">
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--text-faint);margin-bottom:10px;">Interactive States</div>
+    <div style="font-size:18px;font-weight:700;letter-spacing:-0.5px;margin-bottom:20px;">Form Success & Language Toggle</div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+      <!-- Success State -->
+      <div style="background:var(--surface);border-radius:10px;padding:16px;border:1px solid var(--border);">
+        <div style="font-size:10px;font-family:'IBM Plex Mono',monospace;font-weight:500;color:var(--text-faint);margin-bottom:10px;">FORM → SUCCESS STATE</div>
+        <div class="wf-success">
+          <div class="wf-success-icon">&#10003;</div>
+          <h4>Message sent!</h4>
+          <p>We'll get back to you shortly with a free quote.</p>
+          <a>Send another</a>
+        </div>
+        <div class="callout" style="margin-top:10px;">
+          <div class="callout-icon">&#8505;</div>
+          <div>Replaces the form on submit. <strong>setFormSubmitted(true)</strong> toggles this state. "Send another" resets back to form.</div>
+        </div>
+      </div>
+
+      <!-- ES Toggle -->
+      <div style="background:var(--surface);border-radius:10px;padding:16px;border:1px solid var(--border);">
+        <div style="font-size:10px;font-family:'IBM Plex Mono',monospace;font-weight:500;color:var(--text-faint);margin-bottom:10px;">LANGUAGE → ESPA&Ntilde;OL</div>
+        <div style="border:1.5px dashed var(--dash);border-radius:8px;padding:14px;">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;">
+            <div class="wf-lang">EN | <strong>ES</strong></div>
+            <span style="font-size:8px;font-family:'IBM Plex Mono',monospace;color:var(--text-faint);">← active state</span>
+          </div>
+          <div style="font-size:10px;font-weight:600;margin-bottom:4px;">All text swaps to Spanish:</div>
+          <div style="font-size:9px;color:var(--text-mid);line-height:1.6;">
+            "Tu mec&aacute;nico, donde est&eacute;s."<br>
+            "C&oacute;mo Funciona" | "Servicios" | "Cobertura"<br>
+            "Reservar" (Book Now)<br>
+            "Diagn&oacute;sticos" | "Frenos" | "Cambio de Aceite"<br>
+            "Cont&aacute;ctanos" | "Enviar Mensaje"
+          </div>
+        </div>
+        <div class="callout" style="margin-top:10px;">
+          <div class="callout-icon">&#127760;</div>
+          <div><strong>useState&lt;"en"|"es"&gt;("en")</strong> — toggles all content via translation object. Same component, no routing change.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// Update active nav on scroll
+const sections = ['main-page', 'contact-page', 'states'];
+const navLinks = document.querySelectorAll('.header-nav a');
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const href = '#' + entry.target.id;
+      navLinks.forEach(a => {
+        a.classList.toggle('active', a.getAttribute('href') === href);
+      });
+    }
+  });
+}, { threshold: 0.15, rootMargin: '-60px 0px -40% 0px' });
+
+sections.forEach(id => {
+  const el = document.getElementById(id);
+  if (el) observer.observe(el);
+});
+</script>
+</body>
+</html>
