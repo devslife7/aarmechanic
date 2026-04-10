@@ -34,15 +34,60 @@
   --color-accent-500: #4a90d9;
   --color-accent-600: #3578c2;
 
+  /* Sleek Blue Dark Palette */
+  --color-midnight: #0a0f1e;
+  --color-deep: #0f1629;
+  --color-navy: #151d35;
+  --color-navy-light: #1c2745;
+
   /* Animations */
   --animate-scroll-left: scroll-left 30s linear infinite;
+  --animate-pulse-dot: pulse-dot 2s infinite;
+  --animate-glow-pulse: glow-pulse 4s ease-in-out infinite;
+  --animate-marquee: marquee 30s linear infinite;
+  --animate-cw-pulse: cw-pulse 3s ease-in-out infinite;
 }
 
 @keyframes scroll-left {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.12; }
+  50% { opacity: 0.2; }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes cw-pulse {
+  0%, 100% { box-shadow: 0 8px 32px rgba(59, 130, 246, 0.35); }
+  50% { box-shadow: 0 8px 32px rgba(59, 130, 246, 0.35), 0 0 0 12px rgba(59, 130, 246, 0.1); }
+}
+
+/* Scroll reveal — toggled by IntersectionObserver */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* Pause marquee on hover */
+.brands-track:hover { animation-play-state: paused; }

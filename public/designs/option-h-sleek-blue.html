@@ -1502,7 +1502,7 @@
       position: absolute;
       top: 0;
       bottom: 0;
-      width: 120px;
+      width: 40px;
       z-index: 2;
       pointer-events: none;
     }
@@ -1517,28 +1517,19 @@
     .brand-item {
       flex-shrink: 0;
       display: flex;
-      flex-direction: column;
       align-items: center;
-      gap: 12px;
-      width: 140px;
-      margin: 0 16px;
+      justify-content: center;
+      margin: 0 40px;
     }
     .brand-item img {
-      width: 72px;
-      height: 72px;
+      height: 40px;
+      width: auto;
       object-fit: contain;
     }
-    .brand-item span {
-      font-size: 0.8rem;
-      color: #6b7280;
-      font-weight: 500;
-      letter-spacing: 0.02em;
-      text-align: center;
-    }
     @media (max-width: 768px) {
-      .brand-item { width: 110px; margin: 0 8px; }
-      .brand-item img { width: 56px; height: 56px; }
-      .brands-fade-left, .brands-fade-right { width: 60px; }
+      .brand-item { margin: 0 24px; }
+      .brand-item img { height: 30px; }
+      .brands-fade-left, .brands-fade-right { width: 24px; }
     }
   </style>
   <section class="brands-section">
@@ -1552,39 +1543,39 @@
       <div class="brands-fade-left"></div>
       <div class="brands-fade-right"></div>
       <div class="brands-track">
-        <div class="brand-item"><img src="/logos/acura.png" alt="Acura"><span>Acura</span></div>
-        <div class="brand-item"><img src="/logos/honda.png" alt="Honda"><span>Honda</span></div>
-        <div class="brand-item"><img src="/logos/bmw.png" alt="BMW"><span>BMW</span></div>
-        <div class="brand-item"><img src="/logos/toyota.png" alt="Toyota"><span>Toyota</span></div>
-        <div class="brand-item"><img src="/logos/nissan.png" alt="Nissan"><span>Nissan</span></div>
-        <div class="brand-item"><img src="/logos/jeep.png" alt="Jeep"><span>Jeep</span></div>
-        <div class="brand-item"><img src="/logos/ford.png" alt="Ford"><span>Ford</span></div>
-        <div class="brand-item"><img src="/logos/dodge.png" alt="Dodge"><span>Dodge</span></div>
-        <div class="brand-item"><img src="/logos/mercedes-benz.png" alt="Mercedes-Benz"><span>Mercedes-Benz</span></div>
-        <div class="brand-item"><img src="/logos/hyundai.png" alt="Hyundai"><span>Hyundai</span></div>
-        <div class="brand-item"><img src="/logos/mazda.png" alt="Mazda"><span>Mazda</span></div>
-        <div class="brand-item"><img src="/logos/kia.png" alt="Kia"><span>Kia</span></div>
-        <div class="brand-item"><img src="/logos/chevrolet.png" alt="Chevrolet"><span>Chevrolet</span></div>
-        <div class="brand-item"><img src="/logos/subaru.png" alt="Subaru"><span>Subaru</span></div>
-        <div class="brand-item"><img src="/logos/volkswagen.png" alt="Volkswagen"><span>Volkswagen</span></div>
-        <div class="brand-item"><img src="/logos/lexus.png" alt="Lexus"><span>Lexus</span></div>
+        <div class="brand-item"><img src="/logos/acura.png" alt="Acura"></div>
+        <div class="brand-item"><img src="/logos/honda.png" alt="Honda"></div>
+        <div class="brand-item"><img src="/logos/bmw.png" alt="BMW"></div>
+        <div class="brand-item"><img src="/logos/toyota.png" alt="Toyota"></div>
+        <div class="brand-item"><img src="/logos/nissan.png" alt="Nissan"></div>
+        <div class="brand-item"><img src="/logos/jeep.png" alt="Jeep"></div>
+        <div class="brand-item"><img src="/logos/ford.png" alt="Ford"></div>
+        <div class="brand-item"><img src="/logos/dodge.png" alt="Dodge"></div>
+        <div class="brand-item"><img src="/logos/mercedes-benz.png" alt="Mercedes-Benz"></div>
+        <div class="brand-item"><img src="/logos/hyundai.png" alt="Hyundai"></div>
+        <div class="brand-item"><img src="/logos/mazda.png" alt="Mazda"></div>
+        <div class="brand-item"><img src="/logos/kia.png" alt="Kia"></div>
+        <div class="brand-item"><img src="/logos/chevrolet.png" alt="Chevrolet"></div>
+        <div class="brand-item"><img src="/logos/subaru.png" alt="Subaru"></div>
+        <div class="brand-item"><img src="/logos/volkswagen.png" alt="Volkswagen"></div>
+        <div class="brand-item"><img src="/logos/lexus.png" alt="Lexus"></div>
         <!-- Duplicate for seamless loop -->
-        <div class="brand-item"><img src="/logos/acura.png" alt="Acura"><span>Acura</span></div>
-        <div class="brand-item"><img src="/logos/honda.png" alt="Honda"><span>Honda</span></div>
-        <div class="brand-item"><img src="/logos/bmw.png" alt="BMW"><span>BMW</span></div>
-        <div class="brand-item"><img src="/logos/toyota.png" alt="Toyota"><span>Toyota</span></div>
-        <div class="brand-item"><img src="/logos/nissan.png" alt="Nissan"><span>Nissan</span></div>
-        <div class="brand-item"><img src="/logos/jeep.png" alt="Jeep"><span>Jeep</span></div>
-        <div class="brand-item"><img src="/logos/ford.png" alt="Ford"><span>Ford</span></div>
-        <div class="brand-item"><img src="/logos/dodge.png" alt="Dodge"><span>Dodge</span></div>
-        <div class="brand-item"><img src="/logos/mercedes-benz.png" alt="Mercedes-Benz"><span>Mercedes-Benz</span></div>
-        <div class="brand-item"><img src="/logos/hyundai.png" alt="Hyundai"><span>Hyundai</span></div>
-        <div class="brand-item"><img src="/logos/mazda.png" alt="Mazda"><span>Mazda</span></div>
-        <div class="brand-item"><img src="/logos/kia.png" alt="Kia"><span>Kia</span></div>
-        <div class="brand-item"><img src="/logos/chevrolet.png" alt="Chevrolet"><span>Chevrolet</span></div>
-        <div class="brand-item"><img src="/logos/subaru.png" alt="Subaru"><span>Subaru</span></div>
-        <div class="brand-item"><img src="/logos/volkswagen.png" alt="Volkswagen"><span>Volkswagen</span></div>
-        <div class="brand-item"><img src="/logos/lexus.png" alt="Lexus"><span>Lexus</span></div>
+        <div class="brand-item"><img src="/logos/acura.png" alt="Acura"></div>
+        <div class="brand-item"><img src="/logos/honda.png" alt="Honda"></div>
+        <div class="brand-item"><img src="/logos/bmw.png" alt="BMW"></div>
+        <div class="brand-item"><img src="/logos/toyota.png" alt="Toyota"></div>
+        <div class="brand-item"><img src="/logos/nissan.png" alt="Nissan"></div>
+        <div class="brand-item"><img src="/logos/jeep.png" alt="Jeep"></div>
+        <div class="brand-item"><img src="/logos/ford.png" alt="Ford"></div>
+        <div class="brand-item"><img src="/logos/dodge.png" alt="Dodge"></div>
+        <div class="brand-item"><img src="/logos/mercedes-benz.png" alt="Mercedes-Benz"></div>
+        <div class="brand-item"><img src="/logos/hyundai.png" alt="Hyundai"></div>
+        <div class="brand-item"><img src="/logos/mazda.png" alt="Mazda"></div>
+        <div class="brand-item"><img src="/logos/kia.png" alt="Kia"></div>
+        <div class="brand-item"><img src="/logos/chevrolet.png" alt="Chevrolet"></div>
+        <div class="brand-item"><img src="/logos/subaru.png" alt="Subaru"></div>
+        <div class="brand-item"><img src="/logos/volkswagen.png" alt="Volkswagen"></div>
+        <div class="brand-item"><img src="/logos/lexus.png" alt="Lexus"></div>
       </div>
     </div>
   </section>

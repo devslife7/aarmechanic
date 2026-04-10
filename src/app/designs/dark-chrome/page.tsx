@@ -319,8 +319,8 @@ export default function DarkChromeDesign() {
           </div>
 
           <div className="relative">
-            <div className="absolute left-0 top-0 bottom-0 w-20 sm:w-32 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
-            <div className="absolute right-0 top-0 bottom-0 w-20 sm:w-32 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+            <div className="absolute left-0 top-0 bottom-0 w-10 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+            <div className="absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
 
             <div
               className="flex items-center"
@@ -329,11 +329,8 @@ export default function DarkChromeDesign() {
               onMouseLeave={e => (e.currentTarget.style.animationPlayState = "running")}
             >
               {[...carBrands, ...carBrands].map((brand, i) => (
-                <div key={i} className="flex-shrink-0 w-[100px] sm:w-[140px] mx-3 sm:mx-5 flex flex-col items-center gap-3">
-                  <div className="w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center">
-                    <img src={brand.logo} alt={brand.name} className="w-full h-full object-contain" />
-                  </div>
-                  <span className="text-xs text-gray-400 font-medium text-center whitespace-nowrap">{brand.name}</span>
+                <div key={i} className="flex-shrink-0 mx-8 sm:mx-10 flex items-center justify-center">
+                  <img src={brand.logo} alt={brand.name} className="h-[34px] sm:h-[40px] w-auto object-contain" />
                 </div>
               ))}
             </div>

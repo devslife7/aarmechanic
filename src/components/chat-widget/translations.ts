@@ -1,0 +1,38 @@
+export const widgetTranslations = {
+  en: {
+    greeting:
+      "Hey! I'm Tyler, your mobile mechanic. How can I help you today?",
+    nameLabel: "What's your name?",
+    namePlaceholder: "Your name",
+    phoneLabel: "Best number to reach you?",
+    phonePlaceholder: "(555) 123-4567",
+    vehicleLabel: "What do you drive?",
+    vehiclePlaceholder: "e.g. 2019 Honda Civic",
+    issueLabel: "What's going on with your car?",
+    issuePlaceholder: "Describe the issue briefly...",
+    send: "Send Message",
+    successTitle: "Got it!",
+    successDesc: "I'll text you back shortly with a free quote.",
+    sendAnother: "Send another message",
+    buttonLabel: "Message Tyler",
+  },
+  es: {
+    greeting:
+      "¡Hola! Soy Tyler, tu mecánico móvil. ¿Cómo te puedo ayudar hoy?",
+    nameLabel: "¿Cómo te llamas?",
+    namePlaceholder: "Tu nombre",
+    phoneLabel: "¿Mejor número para contactarte?",
+    phonePlaceholder: "(555) 123-4567",
+    vehicleLabel: "¿Qué vehículo tienes?",
+    vehiclePlaceholder: "ej. 2019 Honda Civic",
+    issueLabel: "¿Qué le pasa a tu carro?",
+    issuePlaceholder: "Describe brevemente el problema...",
+    send: "Enviar Mensaje",
+    successTitle: "¡Recibido!",
+    successDesc: "Te responderé pronto con una cotización gratuita.",
+    sendAnother: "Enviar otro mensaje",
+    buttonLabel: "Mensaje a Tyler",
+  },
+} as const;
+
+export type WidgetLang = keyof typeof widgetTranslations;
