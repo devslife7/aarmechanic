@@ -14,7 +14,7 @@ const translations = {
       title1: "The garage",
       title2: "comes to you.",
       desc: "Professional auto repair that comes to your home, office, or roadside. Honest work, fair pricing, and zero waiting rooms.",
-      whatsapp: "WhatsApp Us",
+      whatsapp: "Get a Free Quote",
     },
     trust: ["Bilingual EN/ES", "24/7 Messaging", "Upfront Pricing", "Flexible Payments", "Same-Day Available"],
     process: {
@@ -135,7 +135,7 @@ const translations = {
       title1: "El taller",
       title2: "llega a ti.",
       desc: "Reparación de autos profesional que llega a tu casa, oficina o carretera. Trabajo honesto, precios justos y cero salas de espera.",
-      whatsapp: "Escríbenos",
+      whatsapp: "Obtén una Cotización",
     },
     trust: ["Bilingüe EN/ES", "Mensajería 24/7", "Precios Transparentes", "Pagos Flexibles", "Servicio el Mismo Día"],
     process: {
@@ -413,11 +413,11 @@ export default function Home() {
               <img src="/logo.png" alt="Anywhere Auto Repair" className="w-[110px] h-[110px] rounded-full object-cover border-2 border-gray-200 transition-colors duration-300 group-hover:border-blue-500 translate-y-3" />
             </a>
             {/* EN/ES — mobile only, next to logo */}
-            <div className="hidden max-sm:flex items-center bg-gray-100 rounded-full p-[3px] border border-gray-200">
+            <div className="flex lg:hidden items-center bg-gray-100 rounded-full p-[3px] border border-gray-200">
               <button onClick={() => setLang("en")} className={`px-3 py-[5px] rounded-full border-none text-[0.72rem] font-bold cursor-pointer transition-all duration-300 ${lang === "en" ? "bg-blue-500 text-white" : "bg-transparent text-gray-500"}`}>EN</button>
               <button onClick={() => setLang("es")} className={`px-3 py-[5px] rounded-full border-none text-[0.72rem] font-bold cursor-pointer transition-all duration-300 ${lang === "es" ? "bg-blue-500 text-white" : "bg-transparent text-gray-500"}`}>ES</button>
             </div>
-            <ul className="flex gap-8 list-none items-center m-0 p-0 max-sm:hidden">
+            <ul className="hidden lg:flex gap-8 list-none items-center m-0 p-0">
               {[
                 { href: "#how", label: tx.nav.how },
                 { href: "#services", label: tx.nav.services },
@@ -432,12 +432,12 @@ export default function Home() {
             </ul>
           </div>
           <div className="flex items-center gap-6">
-            <div className="max-sm:hidden flex items-center bg-gray-100 rounded-full p-[3px] border border-gray-200">
+            <div className="hidden lg:flex items-center bg-gray-100 rounded-full p-[3px] border border-gray-200">
               <button onClick={() => setLang("en")} className={`px-3 py-[5px] rounded-full border-none text-[0.72rem] font-bold cursor-pointer transition-all duration-300 ${lang === "en" ? "bg-blue-500 text-white" : "bg-transparent text-gray-500"}`}>EN</button>
               <button onClick={() => setLang("es")} className={`px-3 py-[5px] rounded-full border-none text-[0.72rem] font-bold cursor-pointer transition-all duration-300 ${lang === "es" ? "bg-blue-500 text-white" : "bg-transparent text-gray-500"}`}>ES</button>
             </div>
-            <a href="#contact" className="max-sm:hidden bg-blue-500 text-white px-7 py-[10px] rounded-full font-semibold text-[0.85rem] no-underline transition-all duration-300 hover:bg-blue-400 hover:scale-[1.03]">{tx.nav.book}</a>
-            <button onClick={() => setMenuOpen(!menuOpen)} className="hidden max-sm:flex flex-col justify-center items-center gap-[6px] bg-transparent border-none cursor-pointer w-8 h-8" aria-label="Menu">
+            <a href="#contact" className="hidden lg:block bg-blue-500 text-white px-7 py-[10px] rounded-full font-semibold text-[0.85rem] no-underline transition-all duration-300 hover:bg-blue-400 hover:scale-[1.03]">{tx.nav.book}</a>
+            <button onClick={() => setMenuOpen(!menuOpen)} className="flex lg:hidden flex-col justify-center items-center gap-[6px] bg-transparent border-none cursor-pointer w-8 h-8" aria-label="Menu">
               <span className={`block w-6 h-[1.5px] bg-midnight transition-all duration-300 ${menuOpen ? "translate-y-[7.5px] rotate-45" : ""}`} />
               <span className={`block w-4 h-[1.5px] bg-midnight transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`} />
               <span className={`block w-6 h-[1.5px] bg-midnight transition-all duration-300 ${menuOpen ? "-translate-y-[7.5px] -rotate-45" : ""}`} />
@@ -489,7 +489,7 @@ export default function Home() {
             </h1>
             <p className="text-[1.1rem] text-white/70 max-w-[480px] leading-[1.75] mb-11 font-light reveal reveal-delay-2">{tx.hero.desc}</p>
             <div className="flex gap-4 items-center flex-wrap reveal reveal-delay-3">
-              <a href="https://wa.me/16104636087?text=Hi%20Tyler%2C%20I%20need%20a%20mobile%20mechanic!" className="inline-flex items-center gap-2.5 bg-blue-500 text-white px-9 py-[18px] rounded-full font-semibold text-[0.95rem] no-underline transition-all duration-300 hover:bg-blue-400 hover:-translate-y-0.5 hover:shadow-[0_12px_40px_rgba(59,130,246,0.3)]">
+              <a href="#contact" className="inline-flex items-center gap-2.5 bg-blue-500 text-white px-9 py-[18px] rounded-full font-semibold text-[0.95rem] no-underline transition-all duration-300 hover:bg-blue-400 hover:-translate-y-0.5 hover:shadow-[0_12px_40px_rgba(59,130,246,0.3)]">
                 <WhatsAppIcon />
                 <span>{tx.hero.whatsapp}</span>
               </a>
@@ -858,7 +858,7 @@ export default function Home() {
                 </div>
                 <div className="flex flex-col gap-2"><label className={labelClass}>{tx.contact.issue}</label><textarea name="issue" required placeholder={tx.contact.issuePh} className={`${inputClass} resize-y min-h-[100px] leading-[1.6]`} /></div>
                 {formError && <p className="text-sm text-red-400 text-center">{formError}</p>}
-                <button type="submit" disabled={formSubmitting} className="self-center inline-flex items-center justify-center gap-2.5 bg-blue-500 text-midnight border-none px-10 py-[18px] rounded-full font-semibold text-base cursor-pointer transition-all duration-300 mt-2 hover:bg-blue-400 hover:-translate-y-0.5 hover:shadow-[0_12px_40px_rgba(59,130,246,0.3)] disabled:opacity-50 disabled:pointer-events-none">
+                <button type="submit" disabled={formSubmitting} className="self-center inline-flex items-center justify-center gap-2.5 bg-blue-500 text-white border-none px-10 py-[18px] rounded-full font-semibold text-base cursor-pointer transition-all duration-300 mt-2 hover:bg-blue-400 hover:-translate-y-0.5 hover:shadow-[0_12px_40px_rgba(59,130,246,0.3)] disabled:opacity-50 disabled:pointer-events-none">
                   {formSubmitting ? (
                     <svg className="animate-spin w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10" strokeOpacity="0.25" /><path d="M12 2a10 10 0 0 1 10 10" /></svg>
                   ) : (

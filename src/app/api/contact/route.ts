@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 
 const TO_EMAIL = process.env.CONTACT_EMAIL ?? "tyler@anywhereautorepair.com";
+const FROM_EMAIL = process.env.FROM_EMAIL ?? "Anywhere Auto Repair <onboarding@resend.dev>";
 
 interface ContactBody {
   name: string;
@@ -52,7 +53,7 @@ export async function POST(req: NextRequest) {
     // ── Send email via Resend ──────────────────────
     const resend = new Resend(process.env.RESEND_API_KEY);
     const { error } = await resend.emails.send({
-      from: "Anywhere Auto Repair <onboarding@resend.dev>",
+      from: FROM_EMAIL,
       to: [TO_EMAIL],
       subject: `New Quote Request from ${name.trim()}`,
       replyTo: undefined,
