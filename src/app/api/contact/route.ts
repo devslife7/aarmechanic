@@ -53,7 +53,7 @@ export async function POST(req: NextRequest) {
     // ── Send email via Resend ──────────────────────
     const resend = new Resend(process.env.RESEND_API_KEY);
     const { error } = await resend.emails.send({
-      from: FROM_EMAIL,
+      from: `Anywhere Auto Repair <${FROM_EMAIL}>`,
       to: [TO_EMAIL],
       subject: `New Quote Request from ${name.trim()}`,
       replyTo: undefined,

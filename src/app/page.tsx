@@ -447,7 +447,7 @@ export default function Home() {
 
         {/* Mobile menu drawer */}
         {menuOpen && (
-          <div className="sm:hidden border-t border-gray-200 bg-white px-5 py-6 flex flex-col gap-5">
+          <div className="lg:hidden border-t border-gray-200 bg-white px-5 py-6 flex flex-col gap-5">
             {[
               { href: "#how", label: tx.nav.how },
               { href: "#services", label: tx.nav.services },
@@ -809,13 +809,25 @@ export default function Home() {
             </h2>
             <p className="text-white/45 text-[1.05rem] font-light leading-[1.7] mb-10 reveal reveal-delay-2">{tx.contact.desc}</p>
             <p className="text-[0.82rem] font-medium text-white/45 uppercase tracking-[0.06em] mb-4">{tx.contact.or}</p>
-            <a href="https://wa.me/16104636087" className="flex gap-4 items-center px-6 py-5 bg-white/6 border border-white/12 rounded-2xl mb-4 no-underline text-white transition-all duration-300 hover:border-blue-500/25 hover:bg-blue-500/12 reveal reveal-delay-3">
-              <div className="w-11 h-11 rounded-[12px] bg-green-500/15 flex items-center justify-center shrink-0"><WhatsAppIcon className="w-5 h-5 text-green-500" /></div>
-              <div><h4 className="font-serif text-[1.05rem] font-normal mb-0.5">WhatsApp</h4><p className="text-[0.82rem] text-white/45 font-light">{tx.contact.whatsappSub}</p></div>
+            <a href="https://wa.me/16104636087" className="group flex gap-4 items-center px-5 py-4 bg-white/[0.04] border border-white/10 rounded-xl mb-3 no-underline text-white transition-all duration-300 hover:border-green-500/40 hover:bg-green-500/8 reveal reveal-delay-3">
+              <div className="w-10 h-10 rounded-xl bg-green-500/20 flex items-center justify-center shrink-0 transition-colors duration-300 group-hover:bg-green-500/30">
+                <WhatsAppIcon className="w-[18px] h-[18px] text-green-400" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-[0.93rem] font-semibold text-white leading-none mb-1">WhatsApp</p>
+                <p className="text-[0.78rem] text-white/40 font-normal">{tx.contact.whatsappSub}</p>
+              </div>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4 text-white/25 group-hover:text-green-400 transition-colors duration-300 shrink-0"><path d="M9 18l6-6-6-6"/></svg>
             </a>
-            <a href="tel:+16104636087" className="flex gap-4 items-center px-6 py-5 bg-white/6 border border-white/12 rounded-2xl no-underline text-white transition-all duration-300 hover:border-blue-500/25 hover:bg-blue-500/12 reveal reveal-delay-4">
-              <div className="w-11 h-11 rounded-[12px] bg-blue-500/12 flex items-center justify-center shrink-0"><PhoneIcon className="w-5 h-5 text-blue-500" /></div>
-              <div><h4 className="font-serif text-[1.05rem] font-normal mb-0.5">(610) 463-6087</h4><p className="text-[0.82rem] text-white/45 font-light">{tx.contact.callSub}</p></div>
+            <a href="tel:+16104636087" className="group flex gap-4 items-center px-5 py-4 bg-white/[0.04] border border-white/10 rounded-xl no-underline text-white transition-all duration-300 hover:border-blue-500/40 hover:bg-blue-500/8 reveal reveal-delay-4">
+              <div className="w-10 h-10 rounded-xl bg-blue-500/20 flex items-center justify-center shrink-0 transition-colors duration-300 group-hover:bg-blue-500/30">
+                <PhoneIcon className="w-[18px] h-[18px] text-blue-400" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-[0.93rem] font-semibold text-white leading-none mb-1">(610) 463-6087</p>
+                <p className="text-[0.78rem] text-white/40 font-normal">{tx.contact.callSub}</p>
+              </div>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4 text-white/25 group-hover:text-blue-400 transition-colors duration-300 shrink-0"><path d="M9 18l6-6-6-6"/></svg>
             </a>
           </div>
           <div className="relative overflow-hidden rounded-3xl p-11 max-sm:p-7 border border-white/12 reveal reveal-delay-2" style={{ background: "linear-gradient(170deg,#151d35,#0f1629)" }}>
