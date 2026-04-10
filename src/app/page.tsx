@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, FormEvent } from "react";
 import { ChatWidget } from "@/components/chat-widget";
+import { submitContact } from "@/lib/submitContact";
 
 type Lang = "en" | "es";
 
@@ -71,22 +72,16 @@ const translations = {
       title1: "What customers",
       title2: "say",
       desc: "Real feedback from real customers — straight from Google.",
-      rating: "4.9",
-      total: "47 Google reviews",
+      rating: "5.0",
+      total: "Google reviews",
       writeReview: "Write a Review",
       items: [
-        { quote: "Tyler came to my driveway and replaced my brakes in under an hour. Incredible service, very professional.", author: "Marcus T.", date: "July 2025", initial: "M" },
-        { quote: "Habla español y fue muy honesto con el diagnóstico. No pagué de más. Lo recomiendo 100%.", author: "Carlos R.", date: "June 2025", initial: "C" },
-        { quote: "Saved me $400 vs the dealership. Fixed my alternator right in my parking lot. Will never go to a shop again.", author: "Jessica M.", date: "May 2025", initial: "J" },
-        { quote: "Super fast response, showed up on time, and explained everything clearly. Trustworthy mechanic.", author: "David K.", date: "April 2025", initial: "D" },
-        { quote: "My car wouldn't start and Tyler had it running the same morning. Honest pricing and great attitude.", author: "Aisha W.", date: "March 2025", initial: "A" },
-        { quote: "Best mechanic experience I've ever had. Came to my job, finished during my lunch break. 10/10.", author: "Ryan P.", date: "February 2025", initial: "R" },
-        { quote: "Called Tyler at 7am with a dead battery. He was at my house by 9 and had me on the road by 9:30. Unreal service.", author: "Stephanie L.", date: "January 2025", initial: "S" },
-        { quote: "No upselling, no nonsense. He diagnosed the issue, quoted me a fair price, and got it done. That's rare.", author: "James O.", date: "December 2024", initial: "J" },
-        { quote: "Tyler fixed my AC on a 95-degree day. He came to my office parking lot and had it blowing cold in about 45 minutes. Lifesaver.", author: "Priya N.", date: "November 2024", initial: "P" },
-        { quote: "I was skeptical about a mobile mechanic but Tyler completely changed my mind. Thorough, honest, and professional.", author: "Kevin B.", date: "October 2024", initial: "K" },
-        { quote: "Transmission fluid flush done in my driveway for half the price of the shop down the street. Will use again.", author: "Tanya M.", date: "September 2024", initial: "T" },
-        { quote: "Great communication from start to finish. Sent me a quote fast, showed up exactly when he said, done in an hour.", author: "Luis F.", date: "August 2024", initial: "L" },
+        { quote: "Tyler did a great job with my car. He is very educated in his field and was able to give me a good price! Will use his service again!!", author: "Katerine Luna", date: "a month ago", initial: "K", avatar: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Ccircle cx='20' cy='20' r='20' fill='%2334A853'/%3E%3Ctext x='20' y='26' text-anchor='middle' font-family='Arial,sans-serif' font-size='18' font-weight='500' fill='white'%3EK%3C/text%3E%3C/svg%3E" },
+        { quote: "Tyler did a great job getting me back on the road on the same day that I contacted him. He was affordable and very kind in answering all my questions. Defiantly would send others his way!", author: "Anahi Villaroel", date: "a month ago", initial: "A", avatar: "https://api.dicebear.com/9.x/avataaars/svg?seed=AnahiVillaroel&backgroundColor=ffd5dc" },
+        { quote: "Highly recommend!! Tyler is such a professional, he knew exactly what was wrong with my car by hearing the noise. He had the part the next day and installed it very quickly.", author: "Ingrid Velasquez", date: "a month ago", initial: "I", avatar: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Ccircle cx='20' cy='20' r='20' fill='%23FBBC04'/%3E%3Ctext x='20' y='26' text-anchor='middle' font-family='Arial,sans-serif' font-size='18' font-weight='500' fill='white'%3EI%3C/text%3E%3C/svg%3E" },
+        { quote: "Great service! We discussed the issue, he was able to come right out to fix the problem! Reasonable prices, great knowledge! Very helpful! Will definitely use again!", author: "Tara Conard", date: "a month ago", initial: "T", avatar: "https://api.dicebear.com/9.x/avataaars/svg?seed=TaraConard&backgroundColor=c0aede" },
+        { quote: "Highly recommend!! Anywhere Auto Repair. Tyler is extremely knowledgeable and professional. He took the time to properly diagnose the issue with my car and explained everything clearly before starting the work. The repair was done quickly and professionally.", author: "Franklin Lopes", date: "a month ago", initial: "F", avatar: "https://api.dicebear.com/9.x/avataaars/svg?seed=FranklinLopes&backgroundColor=b6e3f4" },
+        { quote: "I was in a jam stuck in the middle of nowhere with a dead battery that wouldn't jumpstart and Tyler came through helping me install a new one asap.", author: "Will", date: "a month ago", initial: "W", avatar: "https://api.dicebear.com/9.x/avataaars/svg?seed=WillGuide&backgroundColor=d1f4d1" },
       ],
     },
     contact: {
@@ -103,6 +98,11 @@ const translations = {
       phonePh: "(555) 123-4567",
       vehicle: "Vehicle",
       vehiclePh: "e.g. 2019 Honda Civic",
+      vin: "VIN # (optional)",
+      vinPh: "e.g. 1HGBH41JXMN109186",
+      fuel: "Gas or Diesel?",
+      fuelGas: "Gas",
+      fuelDiesel: "Diesel",
       issue: "What's going on with your car?",
       issuePh: "Briefly describe the issue — strange noise, won't start, check engine light, etc.",
       submit: "Send Message",
@@ -194,21 +194,15 @@ const translations = {
       title2: "clientes",
       desc: "Opiniones reales de clientes reales — directo de Google.",
       rating: "4.9",
-      total: "47 reseñas de Google",
+      total: "Reseñas de Google",
       writeReview: "Escribir Reseña",
       items: [
-        { quote: "Tyler vino a mi entrada y me cambió los frenos en menos de una hora. Servicio increíble, muy profesional.", author: "Marcus T.", date: "Julio 2025", initial: "M" },
-        { quote: "Habla español y fue muy honesto con el diagnóstico. No pagué de más. Lo recomiendo 100%.", author: "Carlos R.", date: "Junio 2025", initial: "C" },
-        { quote: "Me ahorré $400 comparado con el concesionario. Arregló mi alternador en mi estacionamiento. Nunca volveré a un taller.", author: "Jessica M.", date: "Mayo 2025", initial: "J" },
-        { quote: "Respuesta súper rápida, llegó puntual y explicó todo claramente. Mecánico de confianza.", author: "David K.", date: "Abril 2025", initial: "D" },
-        { quote: "Mi carro no arrancaba y Tyler lo tenía funcionando esa misma mañana. Precios honestos y gran actitud.", author: "Aisha W.", date: "Marzo 2025", initial: "A" },
-        { quote: "La mejor experiencia con un mecánico que he tenido. Vino a mi trabajo y terminó en mi hora de almuerzo. 10/10.", author: "Ryan P.", date: "Febrero 2025", initial: "R" },
-        { quote: "Llamé a Tyler a las 7am con la batería muerta. Estaba en mi casa a las 9 y en la carretera a las 9:30. Servicio increíble.", author: "Stephanie L.", date: "Enero 2025", initial: "S" },
-        { quote: "Sin ventas extra, sin rodeos. Diagnosticó el problema, me dio un precio justo y lo resolvió. Eso es raro.", author: "James O.", date: "Diciembre 2024", initial: "J" },
-        { quote: "Tyler arregló mi AC en un día de 35 grados. Vino al estacionamiento de mi oficina y en 45 minutos soplaba frío. Un salvavidas.", author: "Priya N.", date: "Noviembre 2024", initial: "P" },
-        { quote: "Era escéptico con un mecánico móvil pero Tyler cambió mi opinión por completo. Riguroso, honesto y profesional.", author: "Kevin B.", date: "Octubre 2024", initial: "K" },
-        { quote: "Cambio de fluido de transmisión en mi entrada por la mitad del precio del taller de la esquina. Volveré a usarlo.", author: "Tanya M.", date: "Septiembre 2024", initial: "T" },
-        { quote: "Excelente comunicación de principio a fin. Me envió la cotización rápido, llegó puntual y terminó en una hora.", author: "Luis F.", date: "Agosto 2024", initial: "L" },
+        { quote: "Tyler hizo un excelente trabajo con mi carro. Es muy experto en su campo y pudo darme un buen precio. ¡Usaré su servicio de nuevo!", author: "Katerine Luna", date: "hace un mes", initial: "K", avatar: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Ccircle cx='20' cy='20' r='20' fill='%2334A853'/%3E%3Ctext x='20' y='26' text-anchor='middle' font-family='Arial,sans-serif' font-size='18' font-weight='500' fill='white'%3EK%3C/text%3E%3C/svg%3E" },
+        { quote: "Tyler hizo un gran trabajo regresándome al camino el mismo día que lo contacté. Fue económico y muy amable al responder todas mis preguntas. Definitivamente lo recomendaría.", author: "Anahi Villaroel", date: "hace un mes", initial: "A", avatar: "https://api.dicebear.com/9.x/avataaars/svg?seed=AnahiVillaroel&backgroundColor=ffd5dc" },
+        { quote: "¡Muy recomendado! Tyler es muy profesional, supo exactamente qué tenía mal el carro solo con escuchar el ruido. Tenía la pieza al día siguiente y la instaló muy rápidamente.", author: "Ingrid Velasquez", date: "hace un mes", initial: "I", avatar: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Ccircle cx='20' cy='20' r='20' fill='%23FBBC04'/%3E%3Ctext x='20' y='26' text-anchor='middle' font-family='Arial,sans-serif' font-size='18' font-weight='500' fill='white'%3EI%3C/text%3E%3C/svg%3E" },
+        { quote: "¡Excelente servicio! Hablamos del problema y pudo venir de inmediato a resolverlo. Precios razonables, gran conocimiento. ¡Muy útil! ¡Definitivamente lo usaré de nuevo!", author: "Tara Conard", date: "hace un mes", initial: "T", avatar: "https://api.dicebear.com/9.x/avataaars/svg?seed=TaraConard&backgroundColor=c0aede" },
+        { quote: "¡Muy recomendado! Tyler es extremadamente experto y profesional. Se tomó el tiempo para diagnosticar correctamente el problema y explicó todo claramente antes de comenzar. El trabajo fue rápido y profesional.", author: "Franklin Lopes", date: "hace un mes", initial: "F", avatar: "https://api.dicebear.com/9.x/avataaars/svg?seed=FranklinLopes&backgroundColor=b6e3f4" },
+        { quote: "Estaba varado en medio de la nada con una batería muerta que no arrancaba y Tyler llegó a ayudarme a instalar una nueva de inmediato.", author: "Will", date: "hace un mes", initial: "W", avatar: "https://api.dicebear.com/9.x/avataaars/svg?seed=WillGuide&backgroundColor=d1f4d1" },
       ],
     },
     contact: {
@@ -225,6 +219,11 @@ const translations = {
       phonePh: "(555) 123-4567",
       vehicle: "Vehículo",
       vehiclePh: "ej. 2019 Honda Civic",
+      vin: "# VIN (opcional)",
+      vinPh: "ej. 1HGBH41JXMN109186",
+      fuel: "¿Gasolina o Diésel?",
+      fuelGas: "Gasolina",
+      fuelDiesel: "Diésel",
       issue: "¿Qué le pasa a tu carro?",
       issuePh: "Describe brevemente el problema — ruido extraño, no enciende, luz de check engine, etc.",
       submit: "Enviar Mensaje",
@@ -343,6 +342,9 @@ export default function Home() {
     reviewsRef.current?.scrollBy({ left: dir === "right" ? 340 : -340, behavior: "smooth" });
   };
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [formSubmitting, setFormSubmitting] = useState(false);
+  const [formError, setFormError] = useState("");
+  const formRenderTime = useRef(Date.now());
   const tx = translations[lang];
 
   useEffect(() => {
@@ -360,9 +362,35 @@ export default function Home() {
     return () => observer.disconnect();
   }, [lang]);
 
-  function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setFormSubmitted(true);
+    setFormError("");
+    setFormSubmitting(true);
+
+    const fd = new FormData(e.currentTarget);
+    const result = await submitContact({
+      name: fd.get("name") as string,
+      phone: fd.get("phone") as string,
+      vehicle: fd.get("vehicle") as string,
+      vin: fd.get("vin") as string,
+      fuel: fd.get("fuel") as string,
+      issue: fd.get("issue") as string,
+      website: fd.get("website") as string,
+      _t: formRenderTime.current,
+    });
+
+    setFormSubmitting(false);
+    if (result.ok) {
+      setFormSubmitted(true);
+    } else {
+      setFormError(result.error ?? "Something went wrong");
+    }
+  }
+
+  function handleFormReset() {
+    setFormSubmitted(false);
+    setFormError("");
+    formRenderTime.current = Date.now();
   }
 
   return (
@@ -549,9 +577,9 @@ export default function Home() {
       </section>
 
       {/* ── BRANDS MARQUEE ──────────────────────────── */}
-      <section className="bg-white overflow-hidden relative z-[2] py-[120px] max-sm:py-20">
+      <section className="bg-white overflow-hidden relative z-[2] py-16 max-sm:py-10">
         <div className="max-w-[1280px] mx-auto px-10 max-sm:px-5">
-          <div className="text-center mb-[72px] reveal">
+          <div className="text-center mb-10 reveal">
             <h2 className="font-serif text-[3rem] max-sm:text-[2rem] font-normal leading-[1.1] tracking-[-0.02em] text-midnight">{tx.brands.title}</h2>
             <p className="text-gray-500 text-[1.05rem] max-w-[520px] mt-4 font-light leading-[1.7] mx-auto">{tx.brands.subtitle}</p>
           </div>
@@ -562,7 +590,7 @@ export default function Home() {
           <div className="flex w-max animate-marquee items-center brands-track">
             {[...brandsList, ...brandsList].map((brand, i) => (
               <div key={i} className="shrink-0 flex items-center justify-center mx-10 max-sm:mx-6">
-                <img src={brand.logo} alt={brand.name} className="h-[40px] max-sm:h-[30px] w-auto object-contain" />
+                <img src={brand.logo} alt={brand.name} className="h-[50px] max-sm:h-[36px] w-[110px] max-sm:w-[80px] object-contain" />
               </div>
             ))}
           </div>
@@ -693,9 +721,7 @@ export default function Home() {
                   {/* Top: avatar + name + Google G */}
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-black/[0.08] flex items-center justify-center text-gray-600 font-semibold text-[0.9rem] shrink-0">
-                        {review.initial}
-                      </div>
+                      <img src={review.avatar} alt={review.author} className="w-10 h-10 rounded-full shrink-0 object-cover" />
                       <div>
                         <div className="text-gray-900 text-[0.88rem] font-medium leading-tight">{review.author}</div>
                         <div className="text-black/40 text-[0.72rem]">{review.date}</div>
@@ -754,18 +780,43 @@ export default function Home() {
                 </div>
                 <h4 className="font-serif text-[1.6rem] mb-2">{tx.contact.successTitle}</h4>
                 <p className="text-white/45 text-[0.95rem] font-light mb-6">{tx.contact.successDesc}</p>
-                <button onClick={() => setFormSubmitted(false)} className="bg-transparent border-none text-blue-500 font-semibold text-[0.9rem] cursor-pointer hover:text-blue-400 transition-colors duration-300">{tx.contact.another}</button>
+                <button onClick={handleFormReset} className="bg-transparent border-none text-blue-500 font-semibold text-[0.9rem] cursor-pointer hover:text-blue-400 transition-colors duration-300">{tx.contact.another}</button>
               </div>
             ) : (
               <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
-                <div className="grid grid-cols-2 max-sm:grid-cols-1 gap-5">
-                  <div className="flex flex-col gap-2"><label className={labelClass}>{tx.contact.name}</label><input type="text" required placeholder={tx.contact.namePh} className={inputClass} /></div>
-                  <div className="flex flex-col gap-2"><label className={labelClass}>{tx.contact.phone}</label><input type="tel" required placeholder={tx.contact.phonePh} className={inputClass} /></div>
+                {/* Honeypot — hidden from real users */}
+                <div className="absolute -left-[9999px]" aria-hidden="true">
+                  <input type="text" name="website" tabIndex={-1} autoComplete="off" />
                 </div>
-                <div className="flex flex-col gap-2"><label className={labelClass}>{tx.contact.vehicle}</label><input type="text" required placeholder={tx.contact.vehiclePh} className={inputClass} /></div>
-                <div className="flex flex-col gap-2"><label className={labelClass}>{tx.contact.issue}</label><textarea required placeholder={tx.contact.issuePh} className={`${inputClass} resize-y min-h-[100px] leading-[1.6]`} /></div>
-                <button type="submit" className="self-center inline-flex items-center justify-center gap-2.5 bg-blue-500 text-midnight border-none px-10 py-[18px] rounded-full font-semibold text-base cursor-pointer transition-all duration-300 mt-2 hover:bg-blue-400 hover:-translate-y-0.5 hover:shadow-[0_12px_40px_rgba(59,130,246,0.3)]">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-[18px] h-[18px]"><line x1="22" y1="2" x2="11" y2="13" /><polygon points="22 2 15 22 11 13 2 9 22 2" /></svg>
+                <div className="grid grid-cols-2 max-sm:grid-cols-1 gap-5">
+                  <div className="flex flex-col gap-2"><label className={labelClass}>{tx.contact.name}</label><input name="name" type="text" required placeholder={tx.contact.namePh} className={inputClass} /></div>
+                  <div className="flex flex-col gap-2"><label className={labelClass}>{tx.contact.phone}</label><input name="phone" type="tel" required placeholder={tx.contact.phonePh} className={inputClass} /></div>
+                </div>
+                <div className="flex flex-col gap-2"><label className={labelClass}>{tx.contact.vehicle}</label><input name="vehicle" type="text" required placeholder={tx.contact.vehiclePh} className={inputClass} /></div>
+                <div className="grid grid-cols-2 max-sm:grid-cols-1 gap-5">
+                  <div className="flex flex-col gap-2"><label className={labelClass}>{tx.contact.vin}</label><input name="vin" type="text" placeholder={tx.contact.vinPh} className={inputClass} /></div>
+                  <div className="flex flex-col gap-2">
+                    <label className={labelClass}>{tx.contact.fuel}</label>
+                    <div className="flex gap-3">
+                      <label className="flex-1 flex items-center justify-center gap-2 cursor-pointer rounded-xl border border-white/12 bg-midnight px-4 py-3.5 text-sm font-light text-white/70 transition-all duration-300 has-[:checked]:border-blue-500 has-[:checked]:bg-blue-500/12 has-[:checked]:text-white">
+                        <input type="radio" name="fuel" value="gas" defaultChecked className="sr-only" />
+                        {tx.contact.fuelGas}
+                      </label>
+                      <label className="flex-1 flex items-center justify-center gap-2 cursor-pointer rounded-xl border border-white/12 bg-midnight px-4 py-3.5 text-sm font-light text-white/70 transition-all duration-300 has-[:checked]:border-blue-500 has-[:checked]:bg-blue-500/12 has-[:checked]:text-white">
+                        <input type="radio" name="fuel" value="diesel" className="sr-only" />
+                        {tx.contact.fuelDiesel}
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex flex-col gap-2"><label className={labelClass}>{tx.contact.issue}</label><textarea name="issue" required placeholder={tx.contact.issuePh} className={`${inputClass} resize-y min-h-[100px] leading-[1.6]`} /></div>
+                {formError && <p className="text-sm text-red-400 text-center">{formError}</p>}
+                <button type="submit" disabled={formSubmitting} className="self-center inline-flex items-center justify-center gap-2.5 bg-blue-500 text-midnight border-none px-10 py-[18px] rounded-full font-semibold text-base cursor-pointer transition-all duration-300 mt-2 hover:bg-blue-400 hover:-translate-y-0.5 hover:shadow-[0_12px_40px_rgba(59,130,246,0.3)] disabled:opacity-50 disabled:pointer-events-none">
+                  {formSubmitting ? (
+                    <svg className="animate-spin w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10" strokeOpacity="0.25" /><path d="M12 2a10 10 0 0 1 10 10" /></svg>
+                  ) : (
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-[18px] h-[18px]"><line x1="22" y1="2" x2="11" y2="13" /><polygon points="22 2 15 22 11 13 2 9 22 2" /></svg>
+                  )}
                   <span>{tx.contact.submit}</span>
                 </button>
               </form>
@@ -801,54 +852,80 @@ export default function Home() {
       </section>
 
       {/* ── FOOTER ──────────────────────────────────── */}
-      <footer className="bg-midnight border-t border-white/[0.08] pt-16 relative z-[1]">
+      <footer className="bg-[#06090f] border-t border-white/[0.07] relative z-[1]">
 
-        <div className="max-w-[1280px] mx-auto px-10 max-sm:px-5 grid grid-cols-4 md:grid-cols-2 max-sm:grid-cols-1 gap-12 pb-14 border-b border-white/[0.06]">
+        {/* CTA strip */}
+        <div className="border-b border-white/[0.06]" style={{ background: "linear-gradient(120deg,rgba(59,130,246,0.06) 0%,transparent 55%)" }}>
+          <div className="max-w-[1280px] mx-auto px-10 max-sm:px-5 py-10 flex items-center justify-between gap-6 flex-wrap">
+            <div>
+              <p className="text-[0.68rem] font-bold tracking-[0.2em] uppercase text-blue-400/60 mb-2">Mobile Mechanic — DC · MD · VA</p>
+              <h3 className="font-serif text-[1.55rem] max-sm:text-[1.25rem] font-normal text-white leading-snug">Need a mechanic? We come to you.</h3>
+            </div>
+            <div className="flex gap-3 flex-wrap">
+              <a href="https://wa.me/16104636087" target="_blank" rel="noopener"
+                className="inline-flex items-center gap-2 bg-blue-500 hover:bg-blue-400 text-midnight px-6 py-3 rounded-xl font-semibold text-[0.875rem] no-underline transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_28px_rgba(59,130,246,0.3)] whitespace-nowrap">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                WhatsApp Us
+              </a>
+              <a href="tel:+16104636087"
+                className="inline-flex items-center gap-2 border border-white/[0.1] hover:border-white/25 text-white/60 hover:text-white px-6 py-3 rounded-xl font-medium text-[0.875rem] no-underline transition-all whitespace-nowrap">
+                (610) 463-6087
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Main columns */}
+        <div className="max-w-[1280px] mx-auto px-10 max-sm:px-5 py-14 grid grid-cols-[1.6fr_1fr_1fr] max-lg:grid-cols-2 max-sm:grid-cols-1 gap-12 border-b border-white/[0.05]">
 
           {/* Brand */}
-          <div>
-            <div className="flex items-center gap-3 mb-4">
-              <img src="/logo.png" alt="Logo" className="w-11 h-11 rounded-full opacity-60 grayscale flex-shrink-0" />
+          <div className="max-lg:col-span-2 max-sm:col-span-1">
+            <div className="flex items-center gap-3 mb-5">
+              <img src="/logo.png" alt="Logo" className="w-12 h-12 rounded-2xl opacity-70 flex-shrink-0" />
               <div>
-                <div className="text-[0.9rem] font-black tracking-[0.15em] text-white/90">ANYWHERE</div>
-                <div className="text-[0.62rem] font-semibold tracking-[0.2em] text-white/40 mt-0.5">AUTO REPAIR</div>
+                <div className="text-[0.95rem] font-black tracking-[0.14em] text-white">ANYWHERE</div>
+                <div className="text-[0.6rem] font-semibold tracking-[0.22em] text-white/35 mt-0.5">AUTO REPAIR</div>
               </div>
             </div>
-            <p className="text-[0.82rem] text-white/40 leading-relaxed mb-5 font-light">{tx.footer.tagline}</p>
-            <div className="flex gap-2 flex-wrap">
-              <a href="https://www.instagram.com/anywhere_auto_repair" target="_blank" rel="noopener" aria-label="Instagram"
-                className="w-9 h-9 flex items-center justify-center rounded-lg border border-white/[0.08] text-white/40 hover:text-white hover:border-white/25 hover:bg-white/[0.04] transition-all">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>
-              </a>
-              <a href="https://www.tiktok.com/@cheftylermellen" target="_blank" rel="noopener" aria-label="TikTok"
-                className="w-9 h-9 flex items-center justify-center rounded-lg border border-white/[0.08] text-white/40 hover:text-white hover:border-white/25 hover:bg-white/[0.04] transition-all">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.17 8.17 0 004.78 1.52V6.77a4.85 4.85 0 01-1.01-.08z"/></svg>
-              </a>
-              <a href="https://wa.me/16104636087" target="_blank" rel="noopener" aria-label="WhatsApp"
-                className="w-9 h-9 flex items-center justify-center rounded-lg border border-white/[0.08] text-white/40 hover:text-white hover:border-white/25 hover:bg-white/[0.04] transition-all">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-              </a>
-              <a href="https://linktr.ee/anywhereautorepair" target="_blank" rel="noopener" aria-label="Linktree"
-                className="w-9 h-9 flex items-center justify-center rounded-lg border border-white/[0.08] text-white/40 hover:text-white hover:border-white/25 hover:bg-white/[0.04] transition-all">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M13.51 6.55l4.07-4.07 1.89 1.9-4.07 4.06h5.74v2.68H13.5l.01.01 6.14 6.14-1.9 1.89-5.74-5.74v8.07h-2.68v-8.07l-5.74 5.74-1.89-1.89 6.13-6.14H2.76V8.44h5.74L4.43 4.38l1.89-1.9 4.07 4.07V.53h2.68v6.02h-.56z"/></svg>
+            <p className="text-[0.85rem] text-white/40 leading-relaxed mb-6 max-w-[320px] font-light">{tx.footer.tagline}</p>
+            <div className="flex items-center gap-2.5 flex-wrap">
+              {[
+                { href: "https://www.instagram.com/anywhere_auto_repair", label: "Instagram",
+                  icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg> },
+                { href: "https://www.tiktok.com/@cheftylermellen", label: "TikTok",
+                  icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.17 8.17 0 004.78 1.52V6.77a4.85 4.85 0 01-1.01-.08z"/></svg> },
+                { href: "https://wa.me/16104636087", label: "WhatsApp",
+                  icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> },
+                { href: "https://linktr.ee/anywhereautorepair", label: "Linktree",
+                  icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M13.51 6.55l4.07-4.07 1.89 1.9-4.07 4.06h5.74v2.68H13.5l.01.01 6.14 6.14-1.9 1.89-5.74-5.74v8.07h-2.68v-8.07l-5.74 5.74-1.89-1.89 6.13-6.14H2.76V8.44h5.74L4.43 4.38l1.89-1.9 4.07 4.07V.53h2.68v6.02h-.56z"/></svg> },
+              ].map((s) => (
+                <a key={s.href} href={s.href} target="_blank" rel="noopener" aria-label={s.label}
+                  className="w-9 h-9 flex items-center justify-center rounded-lg border border-white/[0.08] text-white/35 hover:text-white hover:border-white/20 hover:bg-white/[0.04] transition-all">
+                  {s.icon}
+                </a>
+              ))}
+              <a href="https://linktr.ee/anywhereautorepair" target="_blank" rel="noopener"
+                className="text-[0.75rem] font-medium text-white/30 hover:text-blue-400 transition-colors no-underline flex items-center gap-1 ml-1">
+                All links
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
               </a>
             </div>
           </div>
 
           {/* Services */}
           <div>
-            <div className="text-[0.68rem] font-bold tracking-[0.15em] uppercase text-white/55 mb-4">{tx.footer.services}</div>
-            <ul className="space-y-2.5">
+            <p className="text-[0.65rem] font-bold tracking-[0.18em] uppercase text-white/40 mb-5">{tx.footer.services}</p>
+            <ul className="space-y-3">
               {tx.services.items.map((s, i) => (
-                <li key={i}><a href="#services" className="text-[0.83rem] text-white/40 hover:text-white transition-colors no-underline">{s.name}</a></li>
+                <li key={i}><a href="#services" className="text-[0.85rem] text-white/50 hover:text-white transition-colors no-underline">{s.name}</a></li>
               ))}
             </ul>
           </div>
 
-          {/* Quick Links */}
+          {/* Navigate + Contact */}
           <div>
-            <div className="text-[0.68rem] font-bold tracking-[0.15em] uppercase text-white/55 mb-4">{tx.footer.quickLinks}</div>
-            <ul className="space-y-2.5">
+            <p className="text-[0.65rem] font-bold tracking-[0.18em] uppercase text-white/40 mb-5">{tx.footer.quickLinks}</p>
+            <ul className="space-y-3 mb-8">
               {[
                 { href: "#how-it-works", label: tx.nav.how },
                 { href: "#services",     label: tx.nav.services },
@@ -857,51 +934,22 @@ export default function Home() {
                 { href: "#reviews",      label: tx.nav.reviews },
                 { href: "#contact",      label: tx.nav.book },
               ].map((l) => (
-                <li key={l.href}><a href={l.href} className="text-[0.83rem] text-white/40 hover:text-white transition-colors no-underline">{l.label}</a></li>
+                <li key={l.href}><a href={l.href} className="text-[0.85rem] text-white/50 hover:text-white transition-colors no-underline">{l.label}</a></li>
               ))}
             </ul>
-          </div>
-
-          {/* Contact */}
-          <div>
-            <div className="text-[0.68rem] font-bold tracking-[0.15em] uppercase text-white/55 mb-4">{tx.footer.contact}</div>
-            <ul className="space-y-3">
-              <li>
-                <a href="tel:+16104636087" className="flex items-center gap-2.5 text-[0.83rem] text-white/40 hover:text-white transition-colors no-underline">
-                  <svg className="shrink-0 opacity-50" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
-                  (610) 463-6087
-                </a>
-              </li>
-              <li>
-                <a href="https://wa.me/16104636087" target="_blank" rel="noopener" className="flex items-center gap-2.5 text-[0.83rem] text-white/40 hover:text-white transition-colors no-underline">
-                  <svg className="shrink-0 opacity-50" width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                  WhatsApp
-                </a>
-              </li>
-              <li>
-                <a href="sms:+16104636087" className="flex items-center gap-2.5 text-[0.83rem] text-white/40 hover:text-white transition-colors no-underline">
-                  <svg className="shrink-0 opacity-50" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-                  SMS
-                </a>
-              </li>
-              <li>
-                <a href="https://linktr.ee/anywhereautorepair" target="_blank" rel="noopener" className="flex items-center gap-2.5 text-[0.83rem] text-white/40 hover:text-white transition-colors no-underline">
-                  <svg className="shrink-0 opacity-50" width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M13.51 6.55l4.07-4.07 1.89 1.9-4.07 4.06h5.74v2.68H13.5l.01.01 6.14 6.14-1.9 1.89-5.74-5.74v8.07h-2.68v-8.07l-5.74 5.74-1.89-1.89 6.13-6.14H2.76V8.44h5.74L4.43 4.38l1.89-1.9 4.07 4.07V.53h2.68v6.02h-.56z"/></svg>
-                  Linktree
-                </a>
-              </li>
+            <p className="text-[0.65rem] font-bold tracking-[0.18em] uppercase text-white/40 mb-4">{tx.footer.contact}</p>
+            <ul className="space-y-2.5">
+              <li><a href="tel:+16104636087" className="text-[0.85rem] text-white/50 hover:text-white transition-colors no-underline">(610) 463-6087</a></li>
+              <li><a href="sms:+16104636087" className="text-[0.85rem] text-white/50 hover:text-white transition-colors no-underline">SMS</a></li>
+              <li><a href="https://linktr.ee/anywhereautorepair" target="_blank" rel="noopener" className="text-[0.85rem] text-white/50 hover:text-white transition-colors no-underline">Linktree ↗</a></li>
             </ul>
-            <div className="mt-5 inline-block text-[0.68rem] font-semibold tracking-[0.1em] uppercase text-white/35 border border-white/[0.07] rounded-md px-2.5 py-1">
-              {tx.footer.area}
-            </div>
           </div>
         </div>
 
         {/* Bottom bar */}
-        <div className="max-w-[1280px] mx-auto px-10 max-sm:px-5 py-5 flex items-center justify-center gap-3 flex-wrap text-white/20 text-[0.72rem] font-light">
-          <span>{tx.footer.copy}</span>
-          <span className="opacity-40">·</span>
-          <span>Mobile Mechanic — DC · MD · VA</span>
+        <div className="max-w-[1280px] mx-auto px-10 max-sm:px-5 py-5 flex items-center justify-between flex-wrap gap-3">
+          <span className="text-white/20 text-[0.72rem] font-light">{tx.footer.copy}</span>
+          <span className="text-white/15 text-[0.72rem] tracking-wider">DC · MD · VA</span>
         </div>
       </footer>
 

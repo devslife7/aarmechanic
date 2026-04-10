@@ -367,8 +367,8 @@ export default function BrandBlueDesign() {
             100% { transform: translateX(-50%); }
           }
         `}</style>
-        <section className="py-16 sm:py-20 bg-gray-50 border-y border-gray-200 overflow-hidden">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-12">
+        <section className="py-10 sm:py-14 bg-gray-50 border-y border-gray-200 overflow-hidden">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-8">
             <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-950 mb-4 uppercase tracking-tight">
               {t.brands.title}
             </h2>
@@ -389,7 +389,7 @@ export default function BrandBlueDesign() {
             >
               {[...carBrands, ...carBrands].map((brand, i) => (
                 <div key={i} className="flex-shrink-0 mx-8 sm:mx-10 flex items-center justify-center">
-                  <img src={brand.logo} alt={brand.name} className="h-[34px] sm:h-[40px] w-auto object-contain" />
+                  <img src={brand.logo} alt={brand.name} className="h-[50px] sm:h-[50px] w-[80px] sm:w-[110px] object-contain" />
                 </div>
               ))}
             </div>

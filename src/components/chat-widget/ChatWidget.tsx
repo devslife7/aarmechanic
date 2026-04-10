@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState, useRef, useEffect, type FormEvent } from "react";
 import { widgetTranslations, type WidgetLang } from "./translations";
+import { submitContact } from "@/lib/submitContact";
 
 interface ChatWidgetProps {
   lang: WidgetLang;
@@ -10,16 +11,48 @@ interface ChatWidgetProps {
 export default function ChatWidget({ lang }: ChatWidgetProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
+  const renderTime = useRef(Date.now());
   const tx = widgetTranslations[lang];
 
-  function handleSubmit(e: FormEvent) {
+  // Reset render timestamp when form is shown
+  useEffect(() => {
+    if (!formSubmitted) renderTime.current = Date.now();
+  }, [formSubmitted]);
+
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setFormSubmitted(true);
+    setError("");
+    setSubmitting(true);
+
+    const fd = new FormData(e.currentTarget);
+    const result = await submitContact({
+      name: fd.get("name") as string,
+      phone: fd.get("phone") as string,
+      vehicle: fd.get("vehicle") as string,
+      vin: fd.get("vin") as string,
+      fuel: fd.get("widget-fuel") as string,
+      issue: fd.get("issue") as string,
+      website: fd.get("website") as string,
+      _t: renderTime.current,
+    });
+
+    setSubmitting(false);
+    if (result.ok) {
+      setFormSubmitted(true);
+    } else {
+      setError(result.error ?? "Something went wrong");
+    }
   }
 
   function handleReset() {
     setFormSubmitted(false);
+    setError("");
   }
+
+  const inputClass =
+    "w-full rounded-xl border border-white/12 bg-midnight px-4 py-3.5 font-[family-name:var(--font-sans)] text-sm font-light text-white outline-none transition-all duration-300 placeholder:text-white/45 focus:border-blue-500 focus:shadow-[0_0_0_3px_rgba(59,130,246,0.12)]";
 
   return (
     <>
@@ -118,17 +151,17 @@ export default function ChatWidget({ lang }: ChatWidgetProps) {
             </div>
 
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+              {/* Honeypot — hidden from real users, bots will fill it */}
+              <div className="absolute -left-[9999px]" aria-hidden="true">
+                <input type="text" name="website" tabIndex={-1} autoComplete="off" />
+              </div>
+
               {/* Name */}
               <div className="flex flex-col gap-1.5">
                 <label className="text-xs font-medium tracking-wide text-white/[0.88]">
                   {tx.nameLabel}
                 </label>
-                <input
-                  type="text"
-                  required
-                  placeholder={tx.namePlaceholder}
-                  className="w-full rounded-xl border border-white/12 bg-midnight px-4 py-3.5 font-[family-name:var(--font-sans)] text-sm font-light text-white outline-none transition-all duration-300 placeholder:text-white/45 focus:border-blue-500 focus:shadow-[0_0_0_3px_rgba(59,130,246,0.12)]"
-                />
+                <input name="name" type="text" required placeholder={tx.namePlaceholder} className={inputClass} />
               </div>
 
               {/* Phone */}
@@ -136,12 +169,7 @@ export default function ChatWidget({ lang }: ChatWidgetProps) {
                 <label className="text-xs font-medium tracking-wide text-white/[0.88]">
                   {tx.phoneLabel}
                 </label>
-                <input
-                  type="tel"
-                  required
-                  placeholder={tx.phonePlaceholder}
-                  className="w-full rounded-xl border border-white/12 bg-midnight px-4 py-3.5 font-[family-name:var(--font-sans)] text-sm font-light text-white outline-none transition-all duration-300 placeholder:text-white/45 focus:border-blue-500 focus:shadow-[0_0_0_3px_rgba(59,130,246,0.12)]"
-                />
+                <input name="phone" type="tel" required placeholder={tx.phonePlaceholder} className={inputClass} />
               </div>
 
               {/* Vehicle */}
@@ -149,12 +177,32 @@ export default function ChatWidget({ lang }: ChatWidgetProps) {
                 <label className="text-xs font-medium tracking-wide text-white/[0.88]">
                   {tx.vehicleLabel}
                 </label>
-                <input
-                  type="text"
-                  required
-                  placeholder={tx.vehiclePlaceholder}
-                  className="w-full rounded-xl border border-white/12 bg-midnight px-4 py-3.5 font-[family-name:var(--font-sans)] text-sm font-light text-white outline-none transition-all duration-300 placeholder:text-white/45 focus:border-blue-500 focus:shadow-[0_0_0_3px_rgba(59,130,246,0.12)]"
-                />
+                <input name="vehicle" type="text" required placeholder={tx.vehiclePlaceholder} className={inputClass} />
+              </div>
+
+              {/* VIN (optional) */}
+              <div className="flex flex-col gap-1.5">
+                <label className="text-xs font-medium tracking-wide text-white/[0.88]">
+                  {tx.vinLabel}
+                </label>
+                <input name="vin" type="text" placeholder={tx.vinPlaceholder} className={inputClass} />
+              </div>
+
+              {/* Fuel type */}
+              <div className="flex flex-col gap-1.5">
+                <label className="text-xs font-medium tracking-wide text-white/[0.88]">
+                  {tx.fuelLabel}
+                </label>
+                <div className="flex gap-2.5">
+                  <label className="flex flex-1 cursor-pointer items-center justify-center rounded-xl border border-white/12 bg-midnight px-3 py-3 text-sm font-light text-white/70 transition-all duration-300 has-[:checked]:border-blue-500 has-[:checked]:bg-blue-500/12 has-[:checked]:text-white">
+                    <input type="radio" name="widget-fuel" value="gas" defaultChecked className="sr-only" />
+                    {tx.fuelGas}
+                  </label>
+                  <label className="flex flex-1 cursor-pointer items-center justify-center rounded-xl border border-white/12 bg-midnight px-3 py-3 text-sm font-light text-white/70 transition-all duration-300 has-[:checked]:border-blue-500 has-[:checked]:bg-blue-500/12 has-[:checked]:text-white">
+                    <input type="radio" name="widget-fuel" value="diesel" className="sr-only" />
+                    {tx.fuelDiesel}
+                  </label>
+                </div>
               </div>
 
               {/* Issue */}
@@ -163,21 +211,32 @@ export default function ChatWidget({ lang }: ChatWidgetProps) {
                   {tx.issueLabel}
                 </label>
                 <textarea
+                  name="issue"
                   required
                   placeholder={tx.issuePlaceholder}
                   className="min-h-[72px] w-full resize-y rounded-xl border border-white/12 bg-midnight px-4 py-3.5 font-[family-name:var(--font-sans)] text-sm font-light leading-relaxed text-white outline-none transition-all duration-300 placeholder:text-white/45 focus:border-blue-500 focus:shadow-[0_0_0_3px_rgba(59,130,246,0.12)]"
                 />
               </div>
 
+              {/* Error message */}
+              {error && (
+                <p className="text-sm text-red-400">{error}</p>
+              )}
+
               {/* Submit */}
               <button
                 type="submit"
-                className="mt-1 inline-flex cursor-pointer items-center justify-center gap-2 self-end rounded-full border-none bg-blue-500 px-7 py-3.5 font-[family-name:var(--font-sans)] text-sm font-semibold text-midnight transition-all duration-300 hover:-translate-y-0.5 hover:bg-blue-400 hover:shadow-[0_8px_24px_rgba(59,130,246,0.3)]"
+                disabled={submitting}
+                className="mt-1 inline-flex cursor-pointer items-center justify-center gap-2 self-end rounded-full border-none bg-blue-500 px-7 py-3.5 font-[family-name:var(--font-sans)] text-sm font-semibold text-midnight transition-all duration-300 hover:-translate-y-0.5 hover:bg-blue-400 hover:shadow-[0_8px_24px_rgba(59,130,246,0.3)] disabled:opacity-50 disabled:pointer-events-none"
               >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="22" y1="2" x2="11" y2="13" />
-                  <polygon points="22 2 15 22 11 13 2 9 22 2" />
-                </svg>
+                {submitting ? (
+                  <svg className="animate-spin" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10" strokeOpacity="0.25" /><path d="M12 2a10 10 0 0 1 10 10" /></svg>
+                ) : (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="22" y1="2" x2="11" y2="13" />
+                    <polygon points="22 2 15 22 11 13 2 9 22 2" />
+                  </svg>
+                )}
                 {tx.send}
               </button>
             </form>
