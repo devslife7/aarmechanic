@@ -43,8 +43,8 @@ const translations = {
       ],
     },
     brands: {
-      title: "We Service Most Cars",
-      subtitle: "Here is a partial list of the more popular vehicles we service.",
+      title: "We Service All Car Makes",
+      subtitle: "A partial list of the most popular vehicle makes we service.",
     },
     coverage: {
       tag: "Service Area",
@@ -337,6 +337,7 @@ function PhoneIcon({ className }: { className?: string }) {
 export default function Home() {
   const [lang, setLang] = useState<Lang>("en");
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const reviewsRef = useRef<HTMLDivElement>(null);
   const scrollReviews = (dir: "left" | "right") => {
     reviewsRef.current?.scrollBy({ left: dir === "right" ? 340 : -340, behavior: "smooth" });
@@ -406,15 +407,16 @@ export default function Home() {
 
       {/* ── NAV ─────────────────────────────────────── */}
       <nav className={`fixed top-0 left-0 right-0 z-[100] px-10 max-sm:px-5 bg-white border-b border-gray-200 transition-all duration-300 ${scrolled ? "backdrop-blur-xl" : ""}`}>
-        <div className="max-w-[1280px] mx-auto flex items-center justify-between h-20">
-          <a href="#" className="flex items-center gap-[14px] no-underline group">
-            <img src="/logo.png" alt="Anywhere Auto Repair" className="w-[46px] h-[46px] rounded-full object-cover border-2 border-gray-200 transition-colors duration-300 group-hover:border-blue-500" />
-            <div className="flex flex-col">
-              <span className="[font-family:var(--font-teko)] text-[1.8rem] font-semibold text-slate-800 tracking-[0.06em] leading-none uppercase">Anywhere</span>
-              <span className="[font-family:var(--font-teko)] text-[0.85rem] font-normal text-slate-500 tracking-[0.22em] uppercase leading-none">Auto Repair</span>
+        <div className="max-w-[1280px] mx-auto flex items-center justify-between h-[90px]">
+          <div className="flex items-center gap-8 max-sm:gap-3">
+            <a href="#" className="flex items-center no-underline group">
+              <img src="/logo.png" alt="Anywhere Auto Repair" className="w-[110px] h-[110px] rounded-full object-cover border-2 border-gray-200 transition-colors duration-300 group-hover:border-blue-500 translate-y-3" />
+            </a>
+            {/* EN/ES — mobile only, next to logo */}
+            <div className="hidden max-sm:flex items-center bg-gray-100 rounded-full p-[3px] border border-gray-200">
+              <button onClick={() => setLang("en")} className={`px-3 py-[5px] rounded-full border-none text-[0.72rem] font-bold cursor-pointer transition-all duration-300 ${lang === "en" ? "bg-blue-500 text-white" : "bg-transparent text-gray-500"}`}>EN</button>
+              <button onClick={() => setLang("es")} className={`px-3 py-[5px] rounded-full border-none text-[0.72rem] font-bold cursor-pointer transition-all duration-300 ${lang === "es" ? "bg-blue-500 text-white" : "bg-transparent text-gray-500"}`}>ES</button>
             </div>
-          </a>
-          <div className="flex items-center gap-6">
             <ul className="flex gap-8 list-none items-center m-0 p-0 max-sm:hidden">
               {[
                 { href: "#how", label: tx.nav.how },
@@ -424,24 +426,46 @@ export default function Home() {
                 { href: "#reviews", label: tx.nav.reviews },
               ].map((link) => (
                 <li key={link.href}>
-                  <a href={link.href} className="text-gray-500 no-underline text-[0.85rem] font-normal tracking-[0.04em] transition-colors duration-300 hover:text-midnight">{link.label}</a>
+                  <a href={link.href} className="text-gray-900 no-underline text-[0.85rem] font-normal tracking-[0.04em] transition-colors duration-300 hover:text-midnight">{link.label}</a>
                 </li>
               ))}
-              <li>
-                <a href="#contact" className="bg-blue-500 text-white px-7 py-[10px] rounded-full font-semibold text-[0.85rem] no-underline transition-all duration-300 hover:bg-blue-400 hover:scale-[1.03]">{tx.nav.book}</a>
-              </li>
             </ul>
-            <div className="flex items-center bg-gray-100 rounded-full p-[3px] border border-gray-200">
+          </div>
+          <div className="flex items-center gap-6">
+            <div className="max-sm:hidden flex items-center bg-gray-100 rounded-full p-[3px] border border-gray-200">
               <button onClick={() => setLang("en")} className={`px-3 py-[5px] rounded-full border-none text-[0.72rem] font-bold cursor-pointer transition-all duration-300 ${lang === "en" ? "bg-blue-500 text-white" : "bg-transparent text-gray-500"}`}>EN</button>
               <button onClick={() => setLang("es")} className={`px-3 py-[5px] rounded-full border-none text-[0.72rem] font-bold cursor-pointer transition-all duration-300 ${lang === "es" ? "bg-blue-500 text-white" : "bg-transparent text-gray-500"}`}>ES</button>
             </div>
-            <button className="hidden max-sm:flex flex-col justify-center items-center gap-[6px] bg-transparent border-none cursor-pointer w-8 h-8" aria-label="Menu">
-              <span className="block w-6 h-[1.5px] bg-midnight" />
-              <span className="block w-4 h-[1.5px] bg-midnight" />
-              <span className="block w-6 h-[1.5px] bg-midnight" />
+            <a href="#contact" className="max-sm:hidden bg-blue-500 text-white px-7 py-[10px] rounded-full font-semibold text-[0.85rem] no-underline transition-all duration-300 hover:bg-blue-400 hover:scale-[1.03]">{tx.nav.book}</a>
+            <button onClick={() => setMenuOpen(!menuOpen)} className="hidden max-sm:flex flex-col justify-center items-center gap-[6px] bg-transparent border-none cursor-pointer w-8 h-8" aria-label="Menu">
+              <span className={`block w-6 h-[1.5px] bg-midnight transition-all duration-300 ${menuOpen ? "translate-y-[7.5px] rotate-45" : ""}`} />
+              <span className={`block w-4 h-[1.5px] bg-midnight transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`} />
+              <span className={`block w-6 h-[1.5px] bg-midnight transition-all duration-300 ${menuOpen ? "-translate-y-[7.5px] -rotate-45" : ""}`} />
             </button>
           </div>
         </div>
+
+        {/* Mobile menu drawer */}
+        {menuOpen && (
+          <div className="sm:hidden border-t border-gray-200 bg-white px-5 py-6 flex flex-col gap-5">
+            {[
+              { href: "#how", label: tx.nav.how },
+              { href: "#services", label: tx.nav.services },
+              { href: "#area", label: tx.nav.coverage },
+              { href: "#about", label: tx.nav.about },
+              { href: "#reviews", label: tx.nav.reviews },
+            ].map((link) => (
+              <a key={link.href} href={link.href} onClick={() => setMenuOpen(false)}
+                className="text-gray-700 no-underline text-[1rem] font-normal tracking-[0.04em] transition-colors duration-300 hover:text-midnight">
+                {link.label}
+              </a>
+            ))}
+            <a href="#contact" onClick={() => setMenuOpen(false)}
+              className="mt-2 inline-block text-center bg-blue-500 text-white px-7 py-[12px] rounded-full font-semibold text-[0.9rem] no-underline transition-all duration-300 hover:bg-blue-400">
+              {tx.nav.book}
+            </a>
+          </div>
+        )}
       </nav>
 
       {/* ── HERO ────────────────────────────────────── */}
@@ -465,7 +489,7 @@ export default function Home() {
             </h1>
             <p className="text-[1.1rem] text-white/70 max-w-[480px] leading-[1.75] mb-11 font-light reveal reveal-delay-2">{tx.hero.desc}</p>
             <div className="flex gap-4 items-center flex-wrap reveal reveal-delay-3">
-              <a href="https://wa.me/16104636087?text=Hi%20Tyler%2C%20I%20need%20a%20mobile%20mechanic!" className="inline-flex items-center gap-2.5 bg-blue-500 text-midnight px-9 py-[18px] rounded-full font-semibold text-[0.95rem] no-underline transition-all duration-300 hover:bg-blue-400 hover:-translate-y-0.5 hover:shadow-[0_12px_40px_rgba(59,130,246,0.3)]">
+              <a href="https://wa.me/16104636087?text=Hi%20Tyler%2C%20I%20need%20a%20mobile%20mechanic!" className="inline-flex items-center gap-2.5 bg-blue-500 text-white px-9 py-[18px] rounded-full font-semibold text-[0.95rem] no-underline transition-all duration-300 hover:bg-blue-400 hover:-translate-y-0.5 hover:shadow-[0_12px_40px_rgba(59,130,246,0.3)]">
                 <WhatsAppIcon />
                 <span>{tx.hero.whatsapp}</span>
               </a>
@@ -504,12 +528,12 @@ export default function Home() {
       </div>
 
       {/* ── THE PROCESS ─────────────────────────────── */}
-      <section className="py-[120px] px-10 max-sm:py-20 max-sm:px-5 relative z-[1] bg-[#f7f6f3]" id="how">
+      <section className="py-16 px-10 max-sm:py-12 max-sm:px-5 relative z-[1] bg-white" id="how">
         <div className="max-w-[1100px] mx-auto">
           {/* Header */}
-          <div className="text-center mb-20 max-sm:mb-14 reveal">
-            <h2 className="font-serif italic text-[3.5rem] max-sm:text-[2.5rem] font-normal leading-[1.1] tracking-[-0.01em] text-[#0f1b3d]">
-              {tx.process.title1} {tx.process.title2}
+          <div className="text-center mb-12 max-sm:mb-10 reveal">
+            <h2 className="font-serif text-[3.5rem] max-sm:text-[2.5rem] font-normal leading-[1.1] tracking-[-0.01em] text-[#0f1b3d]">
+              {tx.process.title1} <em className="text-primary-600">{tx.process.title2}</em>
             </h2>
             <p className="text-[#5a6275] text-[1.05rem] max-w-[460px] mt-5 font-light leading-[1.7] mx-auto">{tx.process.desc}</p>
           </div>
@@ -519,11 +543,11 @@ export default function Home() {
             {tx.process.steps.map((step, i) => (
               <div key={i} className={`text-center reveal${i > 0 ? ` reveal-delay-${i}` : ""}`}>
                 {/* Large number */}
-                <span className="block font-serif text-[5.5rem] max-sm:text-[4.5rem] leading-none font-normal text-[#c5a55a]/60 mb-4 select-none tracking-tight">
+                <span className="block font-serif text-[5.5rem] max-sm:text-[4.5rem] leading-none font-normal text-primary-600/40 mb-4 select-none tracking-tight">
                   0{i + 1}
                 </span>
                 {/* Title */}
-                <h3 className="font-serif italic text-[1.3rem] font-semibold text-[#0f1b3d] mb-4 tracking-normal">
+                <h3 className="font-serif text-[1.3rem] font-normal text-[#0f1b3d] mb-4 tracking-normal">
                   {step.title}
                 </h3>
                 {/* Description */}
@@ -537,45 +561,70 @@ export default function Home() {
       </section>
 
       {/* ── SERVICES ────────────────────────────────── */}
-      <section className="py-[120px] px-10 max-sm:py-20 max-sm:px-5 relative z-[1] bg-deep border-t border-white/12 border-b border-b-white/12" id="services">
+      <section className="py-[100px] px-10 max-sm:py-16 max-sm:px-5 relative z-[1] bg-midnight" id="services">
         <div className="max-w-[1280px] mx-auto">
-          <div className="text-center mb-[72px] reveal">
-            <div className="inline-flex items-center gap-3 mb-5 justify-center">
-              <div className={eyebrowLine} /><span className={eyebrowText}>{tx.services.tag}</span><div className={eyebrowLine} />
+          {/* Header — left-aligned */}
+          <div className="mb-16 max-sm:mb-12 reveal">
+            <div className="inline-flex items-center gap-3 mb-5">
+              <div className={eyebrowLine} /><span className={eyebrowText}>{tx.services.tag}</span>
             </div>
             <h2 className="font-serif text-[3rem] max-sm:text-[2rem] font-normal leading-[1.1] tracking-[-0.02em] text-white">
               {tx.services.title1} <em className="text-blue-400">{tx.services.title2}</em>
             </h2>
-            <p className="text-white/45 text-[1.05rem] max-w-[520px] mt-4 font-light leading-[1.7] mx-auto">{tx.services.desc}</p>
+            <p className="text-white/45 text-[1rem] max-w-[500px] mt-4 font-light leading-[1.7]">{tx.services.desc}</p>
           </div>
-          <div className="grid grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1 gap-5">
-            {tx.services.items.map((svc, i) => (
-              <div key={i} className={`bg-midnight border border-white/12 rounded-[20px] flex flex-col relative overflow-hidden transition-all duration-[400ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:border-blue-500/30 hover:-translate-y-1 hover:shadow-[0_16px_48px_rgba(0,0,0,0.25)] reveal${i % 3 > 0 ? ` reveal-delay-${i % 3}` : ""}`}>
-                <img src={serviceImages[i]} alt={svc.name} className="w-full h-40 object-cover border-b border-white/12" />
-                <div className="p-[30px] flex-1">
-                  <div className="w-10 h-10 rounded-[10px] bg-white/8 flex items-center justify-center mb-4 text-white transition-colors duration-300 hover:bg-white/14">
-                    {serviceIcons[i]}
-                  </div>
-                  <h3 className="font-serif text-[1.15rem] font-normal mb-2">{svc.name}</h3>
-                  <p className="text-white/45 text-[0.85rem] leading-[1.7] font-light">{svc.desc}</p>
+
+          {/* 2-column: stacked list + feature image */}
+          <div className="grid grid-cols-[1fr_1.2fr] max-lg:grid-cols-1 gap-10 items-start">
+            {/* Left: service rows */}
+            <div className="flex flex-col gap-px rounded-2xl overflow-hidden reveal">
+              {tx.services.items.map((svc, i) => (
+                <div key={i} className="group p-6 bg-white/[0.03] hover:bg-white/[0.07] transition-all duration-300 cursor-default">
+                  <h3 className="text-[1.05rem] font-semibold text-white mb-1 group-hover:text-blue-400 transition-colors">{svc.name}</h3>
+                  <p className="text-white/40 text-[0.85rem] leading-[1.7] font-light">{svc.desc}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* Right: feature image */}
+            <div className="relative rounded-2xl overflow-hidden max-lg:order-first reveal reveal-delay-1">
+              <img src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=1200&auto=format&fit=crop" alt="Mobile mechanic at work" className="w-full h-full min-h-[520px] max-lg:min-h-[300px] object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-t from-midnight/80 via-transparent to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-8">
+                <div className="flex flex-wrap gap-2">
+                  {tx.services.items.map((svc, i) => (
+                    <span key={i} className="text-[0.75rem] font-medium text-white/80 bg-white/10 backdrop-blur-sm px-3 py-1.5 rounded-full border border-white/10">
+                      {svc.name}
+                    </span>
+                  ))}
                 </div>
               </div>
-            ))}
+            </div>
+          </div>
+
+          {/* Book Now button */}
+          <div className="mt-14 text-center reveal reveal-delay-2">
+            <a href="#contact" className="inline-flex items-center gap-2.5 bg-blue-500 text-white px-9 py-[18px] rounded-full font-semibold text-[0.95rem] no-underline transition-all duration-300 hover:bg-blue-400 hover:-translate-y-0.5 hover:shadow-[0_12px_40px_rgba(59,130,246,0.3)]">
+              {tx.nav.book}
+            </a>
           </div>
         </div>
       </section>
-
       {/* ── BRANDS MARQUEE ──────────────────────────── */}
-      <section className="bg-white overflow-hidden relative z-[2] py-16 max-sm:py-10">
+      <section className="bg-slate-50 overflow-hidden relative z-[2] py-20 max-sm:py-12 border-y border-gray-200">
         <div className="max-w-[1280px] mx-auto px-10 max-sm:px-5">
-          <div className="text-center mb-10 reveal">
-            <h2 className="font-serif text-[3rem] max-sm:text-[2rem] font-normal leading-[1.1] tracking-[-0.02em] text-midnight">{tx.brands.title}</h2>
-            <p className="text-gray-500 text-[1.05rem] max-w-[520px] mt-4 font-light leading-[1.7] mx-auto">{tx.brands.subtitle}</p>
+          <div className="text-center mb-12 reveal">
+            <div className="inline-flex items-center gap-2 mb-4">
+              <span className="w-6 h-px bg-blue-500" />
+              <span className="text-[0.75rem] font-semibold tracking-[0.14em] uppercase text-blue-600">All Makes Welcome</span>
+              <span className="w-6 h-px bg-blue-500" />
+            </div>
+            <h2 className="font-serif text-[2.8rem] max-sm:text-[1.9rem] font-normal leading-[1.1] tracking-[-0.02em] text-midnight">{tx.brands.title}</h2>
           </div>
         </div>
         <div className="relative">
-          <div className="absolute top-0 bottom-0 left-0 w-10 z-[2] pointer-events-none bg-[linear-gradient(to_right,#ffffff,transparent)]" />
-          <div className="absolute top-0 bottom-0 right-0 w-10 z-[2] pointer-events-none bg-[linear-gradient(to_left,#ffffff,transparent)]" />
+          <div className="absolute top-0 bottom-0 left-0 w-24 z-[2] pointer-events-none bg-[linear-gradient(to_right,#f8fafc,transparent)]" />
+          <div className="absolute top-0 bottom-0 right-0 w-24 z-[2] pointer-events-none bg-[linear-gradient(to_left,#f8fafc,transparent)]" />
           <div className="flex w-max animate-marquee items-center brands-track">
             {[...brandsList, ...brandsList].map((brand, i) => (
               <div key={i} className="shrink-0 flex items-center justify-center mx-10 max-sm:mx-6">
@@ -587,33 +636,62 @@ export default function Home() {
       </section>
 
       {/* ── SERVICE AREA ────────────────────────────── */}
-      <section className="py-[120px] px-10 max-sm:py-20 max-sm:px-5 relative z-[1] bg-midnight" id="area">
-        <div className="max-w-[1280px] mx-auto">
-          <div className="mb-[72px] reveal">
+      <section className="relative z-[1] bg-midnight border-t border-white/8" id="area">
+        <div className="max-w-[1280px] mx-auto px-10 max-sm:px-5 py-[100px] max-sm:py-16">
+
+          {/* Header */}
+          <div className="mb-12 reveal">
             <div className="inline-flex items-center gap-3 mb-5">
               <div className={eyebrowLine} /><span className={eyebrowText}>{tx.coverage.tag}</span>
             </div>
-            <h2 className="font-serif text-[3rem] max-lg:text-[2.4rem] max-sm:text-[2rem] font-normal leading-[1.1] tracking-[-0.02em] text-white">
-              {tx.coverage.title1} <em className="text-blue-400">{tx.coverage.title2}</em>
-            </h2>
-            <p className="text-white/45 text-[1.05rem] max-w-[520px] mt-4 font-light leading-[1.7]">{tx.coverage.desc}</p>
-          </div>
-          <div className="grid grid-cols-[1fr_1.1fr] max-lg:grid-cols-1 gap-20 max-lg:gap-12 items-center">
-            <div className="rounded-[28px] p-[60px] max-sm:p-7 text-center relative overflow-hidden border border-white/12 reveal" style={{ background: "linear-gradient(170deg,#151d35,#0f1629)" }}>
-              <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_50%_40%,rgba(59,130,246,0.06),transparent_70%)]" />
-              <div className="font-serif text-[5rem] max-sm:text-[3.5rem] tracking-[0.15em] text-blue-400 leading-none mb-3 relative">DC • MD • VA</div>
-              <div className="text-[0.95rem] text-white/45 font-light relative">Washington D.C. Metro Area &amp; Surrounding Counties</div>
+            <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+              <h2 className="font-serif text-[3rem] max-sm:text-[2.2rem] font-normal leading-[1.1] tracking-[-0.02em] text-white">
+                {tx.coverage.title1} <em className="text-blue-400">{tx.coverage.title2}</em>
+              </h2>
+              <p className="text-white/45 text-[0.95rem] max-w-[340px] font-light leading-[1.7] sm:text-right">{tx.coverage.desc}</p>
             </div>
-            <div className="flex flex-col gap-[18px]">
-              {tx.coverage.areas.map((area, i) => (
-                <div key={i} className={`flex gap-5 items-start px-7 py-6 bg-white/6 border border-white/12 rounded-[18px] transition-all duration-300 hover:border-blue-500/25 hover:bg-blue-500/12 reveal${i > 0 ? ` reveal-delay-${i}` : ""}`}>
-                  <div className="w-2.5 h-2.5 rounded-full bg-white/50 mt-1.5 shrink-0" />
-                  <div>
-                    <h4 className="font-serif text-[1.1rem] font-normal mb-1">{area.name}</h4>
-                    <p className="text-[0.85rem] text-white/45 font-light">{area.desc}</p>
+          </div>
+
+          {/* Map + Cards two-column */}
+          <div className="grid grid-cols-[1fr_420px] max-lg:grid-cols-1 gap-6">
+
+            {/* Interactive map */}
+            <div className="relative rounded-2xl overflow-hidden border border-white/10 min-h-[480px] max-sm:min-h-[320px] reveal">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d213303.92352098727!2d-77.26171428713899!3d38.86284722273665!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzjCsDUwJzUyLjIiTiA3N8KwMDEnMjAuMCJX!5e0!3m2!1sen!2sus!4v1775804283324!5m2!1sen!2sus"
+                className="absolute inset-0 w-full h-full"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="DMV Service Area"
+              />
+              {/* DC • MD • VA overlay badge */}
+              <div className="absolute bottom-4 left-4 z-[2] bg-midnight/80 backdrop-blur-sm border border-white/10 rounded-xl px-5 py-2.5">
+                <span className="font-serif text-[1.1rem] tracking-[0.2em] text-blue-400 font-normal">DC &bull; MD &bull; VA</span>
+              </div>
+            </div>
+
+            {/* Area cards stacked */}
+            <div className="flex flex-col gap-3">
+              {tx.coverage.areas.map((area, i) => {
+                const icons = [
+                  <svg key="dc" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5 shrink-0"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg>,
+                  <svg key="va" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5 shrink-0"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><circle cx="12" cy="11" r="3"/></svg>,
+                  <svg key="md" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5 shrink-0"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0h4"/></svg>,
+                  <svg key="road" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5 shrink-0"><path d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l5.447 2.724A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>,
+                ];
+                return (
+                  <div key={i}
+                    className={`group flex items-start gap-4 py-4 reveal${i > 0 ? ` reveal-delay-${i}` : ""}${i < tx.coverage.areas.length - 1 ? " border-b border-white/8" : ""}`}>
+                    <div className="mt-0.5 text-blue-400/60 group-hover:text-blue-400 transition-colors">{icons[i]}</div>
+                    <div>
+                      <h4 className="font-serif text-[1rem] font-normal text-white mb-1">{area.name}</h4>
+                      <p className="text-[0.82rem] text-white/40 font-light leading-[1.65]">{area.desc}</p>
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>
@@ -624,9 +702,9 @@ export default function Home() {
         <div className="max-w-[1280px] mx-auto">
           <div className="grid grid-cols-[0.85fr_1.15fr] max-lg:grid-cols-1 gap-20 max-lg:gap-12 items-center">
             <div className="relative reveal">
-              <div className="rounded-[28px] h-[500px] max-sm:h-[360px] flex items-center justify-center relative overflow-hidden border border-white/12" style={{ background: "linear-gradient(170deg,#151d35,#0a0f1e)" }}>
-                <div className="absolute bottom-0 left-0 right-0 h-[40%] bg-[linear-gradient(to_top,#0a0f1e,transparent)]" />
-                <span className="text-[6rem] opacity-30">T</span>
+              <div className="rounded-[28px] h-[500px] max-sm:h-[360px] relative overflow-hidden border border-white/12">
+                <img src="/tyler.png" alt="Tyler" className="w-full h-full object-cover object-top" />
+                <div className="absolute bottom-0 left-0 right-0 h-[35%] bg-[linear-gradient(to_top,#0a0f1e,transparent)]" />
               </div>
               <div className="absolute bottom-5 left-5 z-[2] bg-blue-500 text-midnight px-[18px] py-2 rounded-full text-[0.78rem] font-semibold tracking-[0.04em]">{tx.about.tag}</div>
             </div>
@@ -667,9 +745,13 @@ export default function Home() {
             {/* Rating summary badge */}
             <div className="flex items-center gap-3 px-5 py-3 rounded-2xl border border-black/[0.08] bg-black/[0.03] shrink-0 self-start sm:self-auto">
               <img src="/logo.png" alt="Anywhere Auto Repair" className="w-9 h-9 rounded-full object-cover shrink-0" />
-              <GoogleIcon />
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-label="Google Maps">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#EA4335"/>
+                <circle cx="12" cy="9" r="2.5" fill="#fff"/>
+              </svg>
               <div>
                 <div className="flex items-center gap-1.5">
+                  <GoogleIcon />
                   <span className="text-gray-900 font-bold text-[1.1rem] leading-none">{tx.reviews.rating}</span>
                   <div className="flex gap-0.5">{[0,1,2,3,4].map((i) => <StarIcon key={i} />)}</div>
                 </div>
@@ -790,55 +872,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── CTA ─────────────────────────────────────── */}
-      <section className="bg-midnight border-t border-white/12 py-[120px] px-10 max-sm:py-20 max-sm:px-5 relative z-[1] overflow-hidden">
-        <div className="absolute top-[-200px] left-1/2 -translate-x-1/2 w-[700px] h-[700px] pointer-events-none bg-[radial-gradient(circle,rgba(59,130,246,0.06)_0%,transparent_60%)]" />
-        <div className="max-w-[700px] mx-auto text-center relative reveal">
-          <div className="inline-flex items-center gap-3 mb-5 justify-center">
-            <div className={eyebrowLine} /><span className={eyebrowText}>{tx.cta.tag}</span><div className={eyebrowLine} />
-          </div>
-          <h2 className="font-serif text-[3.2rem] max-sm:text-[2.4rem] font-normal tracking-[-0.02em] mb-5 leading-[1.1]">
-            {tx.cta.title1} <em className="text-blue-400">{tx.cta.title2}</em>
-          </h2>
-          <p className="text-white/45 text-[1.05rem] font-light mb-11 leading-[1.7]">{tx.cta.desc}</p>
-          <div className="flex gap-4 justify-center flex-wrap">
-            <a href="https://wa.me/16104636087?text=Hi%20Tyler%2C%20I%20need%20a%20mobile%20mechanic!" className="inline-flex items-center gap-2.5 bg-blue-500 text-midnight px-9 py-[18px] rounded-full font-semibold text-[0.95rem] no-underline transition-all duration-300 hover:bg-blue-400 hover:-translate-y-0.5 hover:shadow-[0_12px_40px_rgba(59,130,246,0.3)]">
-              <WhatsAppIcon /><span>{tx.cta.whatsapp}</span>
-            </a>
-            <a href="tel:+16104636087" className="inline-flex items-center gap-2.5 bg-transparent text-white px-9 py-[18px] rounded-full font-medium text-[0.95rem] no-underline border border-white/12 transition-all duration-300 hover:border-white/45 hover:bg-white/6">
-              <PhoneIcon /><span>{tx.cta.call}</span>
-            </a>
-          </div>
-          <div className="mt-7 text-white/45 text-[0.95rem] font-light">
-            <span>{tx.cta.orText} </span>
-            <a href="sms:+16104636087" className="text-white no-underline font-semibold">(610) 463-6087</a>
-          </div>
-        </div>
-      </section>
-
       {/* ── FOOTER ──────────────────────────────────── */}
       <footer className="bg-[#06090f] border-t border-white/[0.07] relative z-[1]">
-
-        {/* CTA strip */}
-        <div className="border-b border-white/[0.06]" style={{ background: "linear-gradient(120deg,rgba(59,130,246,0.06) 0%,transparent 55%)" }}>
-          <div className="max-w-[1280px] mx-auto px-10 max-sm:px-5 py-10 flex items-center justify-between gap-6 flex-wrap">
-            <div>
-              <p className="text-[0.68rem] font-bold tracking-[0.2em] uppercase text-blue-400/60 mb-2">Mobile Mechanic — DC · MD · VA</p>
-              <h3 className="font-serif text-[1.55rem] max-sm:text-[1.25rem] font-normal text-white leading-snug">Need a mechanic? We come to you.</h3>
-            </div>
-            <div className="flex gap-3 flex-wrap">
-              <a href="https://wa.me/16104636087" target="_blank" rel="noopener"
-                className="inline-flex items-center gap-2 bg-blue-500 hover:bg-blue-400 text-midnight px-6 py-3 rounded-xl font-semibold text-[0.875rem] no-underline transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_28px_rgba(59,130,246,0.3)] whitespace-nowrap">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                WhatsApp Us
-              </a>
-              <a href="tel:+16104636087"
-                className="inline-flex items-center gap-2 border border-white/[0.1] hover:border-white/25 text-white/60 hover:text-white px-6 py-3 rounded-xl font-medium text-[0.875rem] no-underline transition-all whitespace-nowrap">
-                (610) 463-6087
-              </a>
-            </div>
-          </div>
-        </div>
 
         {/* Main columns */}
         <div className="max-w-[1280px] mx-auto px-10 max-sm:px-5 py-14 grid grid-cols-[1.6fr_1fr_1fr] max-lg:grid-cols-2 max-sm:grid-cols-1 gap-12 border-b border-white/[0.05]">
