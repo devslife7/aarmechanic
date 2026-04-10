@@ -56,6 +56,10 @@ export default function DarkChromeDesign() {
         desc: "Getting your car fixed shouldn't mean losing a whole day at the shop. I bring professional-grade tools directly to your driveway, office, or roadside. Honest work, transparent quotes, and zero upsells.",
         badge: "✓ Hablo Español"
       },
+      brands: {
+        title: "We Service Most Cars",
+        subtitle: "Here is a partial list of the more popular vehicles we service. Not all brands we service are shown here."
+      },
       reviews: {
         title: "Don't Take Our Word For It.",
         items: [
@@ -120,6 +124,10 @@ export default function DarkChromeDesign() {
         desc: "Arreglar tu auto no debería significar perder un día entero en el taller. Llevo herramientas de nivel profesional directamente a tu entrada, oficina o en la carretera. Trabajo honesto, cotizaciones transparentes y sin ventas engañosas.",
         badge: "✓ Hablo Español"
       },
+      brands: {
+        title: "Damos Servicio a la Mayoría de Autos",
+        subtitle: "Aquí hay una lista parcial de los vehículos más populares que atendemos. No todas las marcas que servimos aparecen aquí."
+      },
       reviews: {
         title: "No te quedes solo con nuestra palabra.",
         items: [
@@ -137,6 +145,25 @@ export default function DarkChromeDesign() {
       }
     }
   }[lang];
+
+  const carBrands = [
+    { name: "Acura", logo: "/logos/acura.svg" },
+    { name: "Honda", logo: "/logos/honda.svg" },
+    { name: "BMW", logo: "/logos/bmw.svg" },
+    { name: "Toyota", logo: "/logos/toyota.svg" },
+    { name: "Nissan", logo: "/logos/nissan.svg" },
+    { name: "Jeep", logo: "/logos/jeep.svg" },
+    { name: "Ford", logo: "/logos/ford.svg" },
+    { name: "Dodge", logo: "/logos/dodge.svg" },
+    { name: "Mercedes-Benz", logo: "/logos/mercedes-benz.svg" },
+    { name: "Hyundai", logo: "/logos/hyundai.svg" },
+    { name: "Mazda", logo: "/logos/mazda.svg" },
+    { name: "Kia", logo: "/logos/kia.svg" },
+    { name: "Chevrolet", logo: "/logos/chevrolet.svg" },
+    { name: "Subaru", logo: "/logos/subaru.svg" },
+    { name: "Volkswagen", logo: "/logos/volkswagen.svg" },
+    { name: "Lexus", logo: "/logos/lexus.svg" },
+  ];
 
   return (
     <div className="min-h-screen bg-[#05080f] font-sans text-gray-200 selection:bg-blue-500 selection:text-white">
@@ -268,6 +295,45 @@ export default function DarkChromeDesign() {
                     <h4 className="text-xl font-bold text-white mb-2">{service.name}</h4>
                     <p className="text-gray-500 text-sm">{service.desc}</p>
                   </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* WE SERVICE MOST CARS */}
+        <style>{`
+          @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+          }
+        `}</style>
+        <section className="py-16 sm:py-20 bg-white overflow-hidden">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-black text-slate-950 mb-4 uppercase tracking-tight">
+              {t.brands.title}
+            </h2>
+            <p className="text-gray-500 text-base sm:text-lg max-w-2xl mx-auto">
+              {t.brands.subtitle}
+            </p>
+          </div>
+
+          <div className="relative">
+            <div className="absolute left-0 top-0 bottom-0 w-20 sm:w-32 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+            <div className="absolute right-0 top-0 bottom-0 w-20 sm:w-32 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+
+            <div
+              className="flex items-center"
+              style={{ display: "flex", width: "max-content", animation: "marquee 30s linear infinite" }}
+              onMouseEnter={e => (e.currentTarget.style.animationPlayState = "paused")}
+              onMouseLeave={e => (e.currentTarget.style.animationPlayState = "running")}
+            >
+              {[...carBrands, ...carBrands].map((brand, i) => (
+                <div key={i} className="flex-shrink-0 mx-6 sm:mx-10 flex flex-col items-center gap-3">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center p-2">
+                    <img src={brand.logo} alt={brand.name} className="w-full h-full object-contain opacity-70 hover:opacity-100 transition-opacity duration-300" />
+                  </div>
+                  <span className="text-xs text-gray-400 font-medium">{brand.name}</span>
                 </div>
               ))}
             </div>

@@ -21,6 +21,12 @@ export default function Home() {
         >
           Design F — Brand Blue
         </a>
+        <a
+          href="/designs/option-h-sleek-blue.html"
+          className="px-6 py-3 border border-blue-400/50 rounded-lg text-sm font-medium hover:bg-blue-400/20 transition-colors text-blue-200"
+        >
+          Design H — Sleek Blue
+        </a>
       </div>
     </div>
   );

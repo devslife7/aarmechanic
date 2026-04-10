@@ -33,4 +33,16 @@
   --color-accent-400: #6ca6e0;
   --color-accent-500: #4a90d9;
   --color-accent-600: #3578c2;
+
+  /* Animations */
+  --animate-scroll-left: scroll-left 30s linear infinite;
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }

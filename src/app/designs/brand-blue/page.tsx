@@ -60,6 +60,10 @@ export default function BrandBlueDesign() {
         p2: "I bring professional-grade tools and parts directly to you. My goal is simple: honest work, fair prices, and getting you back on the road safely.",
         badge: "Hablo Español"
       },
+      brands: {
+        title: "We Service Most Cars",
+        subtitle: "Here is a partial list of the more popular vehicles we service. Not all brands we service are shown here."
+      },
       reviews: {
         tag: "Real Feedback",
         title: "What our customers say.",
@@ -143,6 +147,10 @@ export default function BrandBlueDesign() {
         p2: "Llevo herramientas y piezas de calidad profesional directamente a ti. Mi objetivo es simple: trabajo honesto, precios justos y regresarte al camino con seguridad.",
         badge: "Hablo Español"
       },
+      brands: {
+        title: "Damos Servicio a la Mayoría de Autos",
+        subtitle: "Aquí hay una lista parcial de los vehículos más populares que atendemos. No todas las marcas que servimos aparecen aquí."
+      },
       reviews: {
         tag: "Comentarios Reales",
         title: "Lo que dicen nuestros clientes.",
@@ -177,37 +185,56 @@ export default function BrandBlueDesign() {
     }
   }[lang];
 
+  const carBrands = [
+    { name: "Acura", logo: "/logos/acura.svg" },
+    { name: "Honda", logo: "/logos/honda.svg" },
+    { name: "BMW", logo: "/logos/bmw.svg" },
+    { name: "Toyota", logo: "/logos/toyota.svg" },
+    { name: "Nissan", logo: "/logos/nissan.svg" },
+    { name: "Jeep", logo: "/logos/jeep.svg" },
+    { name: "Ford", logo: "/logos/ford.svg" },
+    { name: "Dodge", logo: "/logos/dodge.svg" },
+    { name: "Mercedes-Benz", logo: "/logos/mercedes-benz.svg" },
+    { name: "Hyundai", logo: "/logos/hyundai.svg" },
+    { name: "Mazda", logo: "/logos/mazda.svg" },
+    { name: "Kia", logo: "/logos/kia.svg" },
+    { name: "Chevrolet", logo: "/logos/chevrolet.svg" },
+    { name: "Subaru", logo: "/logos/subaru.svg" },
+    { name: "Volkswagen", logo: "/logos/volkswagen.svg" },
+    { name: "Lexus", logo: "/logos/lexus.svg" },
+  ];
+
   return (
     <div className="min-h-screen bg-gray-50 font-sans text-slate-950">
       {/* NAVIGATION */}
-      <nav className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+      <nav className="bg-slate-900/80 backdrop-blur-md border-b border-white/10 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="relative w-12 h-12 rounded-full overflow-hidden shadow-md border-2 border-slate-100 group-hover:border-slate-300 transition-colors">
+            <div className="relative w-12 h-12 rounded-full overflow-hidden shadow-md border-2 border-white/20 group-hover:border-white/40 transition-colors">
               <Image src="/logo.png" alt="Anywhere Auto Repair" fill className="object-cover" />
             </div>
             <div className="flex flex-col">
-              <span className="text-xl font-bold text-slate-900 leading-none tracking-tight">ANYWHERE</span>
-              <span className="text-sm font-semibold text-blue-500 leading-none tracking-widest">AUTO REPAIR</span>
+              <span className="text-xl font-bold text-white leading-none tracking-tight">ANYWHERE</span>
+              <span className="text-sm font-semibold text-blue-400 leading-none tracking-widest">AUTO REPAIR</span>
             </div>
           </Link>
-          <div className="hidden md:flex gap-8 text-sm font-medium text-gray-600">
-            <a href="#how-it-works" className="hover:text-slate-600 transition-colors">{t.nav.how}</a>
-            <a href="#services" className="hover:text-slate-600 transition-colors">{t.nav.services}</a>
-            <a href="#coverage" className="hover:text-slate-600 transition-colors">{t.nav.coverage}</a>
-            <Link href="/designs/brand-blue/contact" className="hover:text-slate-600 transition-colors">{t.nav.contact}</Link>
+          <div className="hidden md:flex gap-8 text-sm font-medium text-slate-300">
+            <a href="#how-it-works" className="hover:text-white transition-colors">{t.nav.how}</a>
+            <a href="#services" className="hover:text-white transition-colors">{t.nav.services}</a>
+            <a href="#coverage" className="hover:text-white transition-colors">{t.nav.coverage}</a>
+            <Link href="/designs/brand-blue/contact" className="hover:text-white transition-colors">{t.nav.contact}</Link>
           </div>
           <div className="flex items-center gap-4">
-            <div className="flex items-center bg-gray-100 rounded-full p-1 border border-gray-200">
-              <button 
+            <div className="flex items-center bg-white/10 rounded-full p-1 border border-white/20">
+              <button
                 onClick={() => setLang("en")}
-                className={`px-3 py-1 rounded-full text-xs font-bold transition-colors ${lang === 'en' ? 'bg-white text-blue-600 shadow-sm' : 'text-gray-500 hover:text-slate-800'}`}
+                className={`px-3 py-1 rounded-full text-xs font-bold transition-colors ${lang === 'en' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-400 hover:text-white'}`}
               >
                 EN
               </button>
-              <button 
+              <button
                 onClick={() => setLang("es")}
-                className={`px-3 py-1 rounded-full text-xs font-bold transition-colors ${lang === 'es' ? 'bg-white text-blue-600 shadow-sm' : 'text-gray-500 hover:text-slate-800'}`}
+                className={`px-3 py-1 rounded-full text-xs font-bold transition-colors ${lang === 'es' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-400 hover:text-white'}`}
               >
                 ES
               </button>
@@ -221,9 +248,13 @@ export default function BrandBlueDesign() {
 
       <main>
         {/* HERO */}
-        <section className="relative bg-gradient-to-b from-slate-900 to-slate-800 text-white overflow-hidden py-20 sm:py-32">
-          {/* Subtle grid pattern background */}
-          <div className="absolute inset-0 opacity-10 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+        <section className="relative text-white overflow-hidden py-20 sm:py-32">
+          {/* Hero background image */}
+          <div className="absolute inset-0">
+            <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=2000&auto=format&fit=crop" alt="" className="w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/85 to-slate-900/60"></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-slate-900/30 via-transparent to-slate-900"></div>
+          </div>
           
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 grid md:grid-cols-2 gap-12 items-center">
             <div>
@@ -269,7 +300,7 @@ export default function BrandBlueDesign() {
         </section>
 
         {/* TRUST BANNER */}
-        <div className="bg-slate-600 text-slate-50 py-4 border-y border-slate-500">
+        <div className="bg-slate-900 text-slate-50 py-4 border-y border-white/10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap justify-center sm:justify-between items-center gap-4 text-sm font-medium">
             {t.trust.map((item, i) => (
               <div key={i} className="flex items-center gap-2">
@@ -323,6 +354,45 @@ export default function BrandBlueDesign() {
                     <h4 className="text-xl font-bold text-slate-900 mb-2">{service.name}</h4>
                     <p className="text-gray-600 text-sm">{service.desc}</p>
                   </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* WE SERVICE MOST CARS */}
+        <style>{`
+          @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+          }
+        `}</style>
+        <section className="py-16 sm:py-20 bg-gray-50 border-y border-gray-200 overflow-hidden">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-950 mb-4 uppercase tracking-tight">
+              {t.brands.title}
+            </h2>
+            <p className="text-gray-500 text-base sm:text-lg max-w-2xl mx-auto">
+              {t.brands.subtitle}
+            </p>
+          </div>
+
+          <div className="relative">
+            <div className="absolute left-0 top-0 bottom-0 w-20 sm:w-32 bg-gradient-to-r from-gray-50 to-transparent z-10 pointer-events-none" />
+            <div className="absolute right-0 top-0 bottom-0 w-20 sm:w-32 bg-gradient-to-l from-gray-50 to-transparent z-10 pointer-events-none" />
+
+            <div
+              className="flex items-center"
+              style={{ display: "flex", width: "max-content", animation: "marquee 30s linear infinite" }}
+              onMouseEnter={e => (e.currentTarget.style.animationPlayState = "paused")}
+              onMouseLeave={e => (e.currentTarget.style.animationPlayState = "running")}
+            >
+              {[...carBrands, ...carBrands].map((brand, i) => (
+                <div key={i} className="flex-shrink-0 mx-6 sm:mx-10 flex flex-col items-center gap-3">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center bg-white rounded-xl border border-gray-200 shadow-sm p-3">
+                    <img src={brand.logo} alt={brand.name} className="w-full h-full object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300" />
+                  </div>
+                  <span className="text-xs text-gray-400 font-medium">{brand.name}</span>
                 </div>
               ))}
             </div>
