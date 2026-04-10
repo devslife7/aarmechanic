@@ -18,14 +18,14 @@ const translations = {
     },
     trust: ["Bilingual EN/ES", "24/7 Messaging", "Upfront Pricing", "Flexible Payments", "Same-Day Available"],
     process: {
-      tag: "How It Works",
-      title1: "Three steps to getting your car",
-      title2: "fixed",
-      desc: "No tow truck. No waiting room. No runaround.",
+      tag: "The Process",
+      title1: "The",
+      title2: "Process",
+      desc: "Three simple steps to automotive peace of mind.",
       steps: [
-        { title: "Reach Out", desc: "Text or WhatsApp us with your car's issue. Photos and videos help us diagnose faster and give you an accurate quote." },
-        { title: "Get a Quote", desc: "We'll give you an honest, upfront estimate. Parts and labor, all included. You know exactly what you're paying." },
-        { title: "We Fix It", desc: "We come to your location — home, office, or roadside — fully equipped and ready to get you back on the road." },
+        { title: "Consultation", desc: "Contact us via text, call, or WhatsApp with your vehicle's symptoms or maintenance needs." },
+        { title: "Transparent Quote", desc: "Receive a clear, upfront estimate covering parts and labor with zero hidden fees." },
+        { title: "On-Site Service", desc: "We arrive fully equipped to your home or office and complete the work professionally." },
       ],
     },
     services: {
@@ -139,14 +139,14 @@ const translations = {
     },
     trust: ["Bilingüe EN/ES", "Mensajería 24/7", "Precios Transparentes", "Pagos Flexibles", "Servicio el Mismo Día"],
     process: {
-      tag: "Cómo Funciona",
-      title1: "Tres pasos para reparar tu auto",
-      title2: "rápido",
-      desc: "Sin grúas, sin salas de espera, sin vueltas.",
+      tag: "El Proceso",
+      title1: "El",
+      title2: "Proceso",
+      desc: "Tres simples pasos para tu tranquilidad automotriz.",
       steps: [
-        { title: "Contáctanos", desc: "Envíanos un mensaje o WhatsApp con el problema de tu vehículo. Las fotos y videos nos ayudan a diagnosticar más rápido." },
-        { title: "Recibe una Cotización", desc: "Te daremos un estimado honesto y transparente. Partes y mano de obra incluidas. Sabrás exactamente qué estás pagando." },
-        { title: "Lo Reparamos", desc: "Vamos a tu ubicación — casa, oficina o carretera — totalmente equipados y listos para ponerte de nuevo en el camino." },
+        { title: "Consulta", desc: "Contáctanos por mensaje, llamada o WhatsApp con los síntomas o necesidades de mantenimiento de tu vehículo." },
+        { title: "Cotización Transparente", desc: "Recibe un estimado claro y directo que cubre partes y mano de obra sin cargos ocultos." },
+        { title: "Servicio a Domicilio", desc: "Llegamos totalmente equipados a tu casa u oficina y completamos el trabajo profesionalmente." },
       ],
     },
     services: {
@@ -503,44 +503,33 @@ export default function Home() {
         </div>
       </div>
 
-      {/* ── HOW IT WORKS ────────────────────────────── */}
-      <section className="py-[120px] px-10 max-sm:py-20 max-sm:px-5 relative z-[1] bg-midnight" id="how">
-        <div className="max-w-[1280px] mx-auto">
-          <div className="text-center mb-[72px] reveal">
-            <div className="inline-flex items-center gap-3 mb-5 justify-center">
-              <div className={eyebrowLine} /><span className={eyebrowText}>{tx.process.tag}</span><div className={eyebrowLine} />
-            </div>
-            <h2 className="font-serif text-[3rem] max-sm:text-[2rem] font-normal leading-[1.1] tracking-[-0.02em] text-white">
-              {tx.process.title1} <em className="text-blue-400">{tx.process.title2}</em>
+      {/* ── THE PROCESS ─────────────────────────────── */}
+      <section className="py-[120px] px-10 max-sm:py-20 max-sm:px-5 relative z-[1] bg-[#f7f6f3]" id="how">
+        <div className="max-w-[1100px] mx-auto">
+          {/* Header */}
+          <div className="text-center mb-20 max-sm:mb-14 reveal">
+            <h2 className="font-serif italic text-[3.5rem] max-sm:text-[2.5rem] font-normal leading-[1.1] tracking-[-0.01em] text-[#0f1b3d]">
+              {tx.process.title1} {tx.process.title2}
             </h2>
-            <p className="text-white/45 text-[1.05rem] max-w-[520px] mt-4 font-light leading-[1.7] mx-auto">{tx.process.desc}</p>
+            <p className="text-[#5a6275] text-[1.05rem] max-w-[460px] mt-5 font-light leading-[1.7] mx-auto">{tx.process.desc}</p>
           </div>
-          <div className="grid grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1 gap-5">
+
+          {/* Steps */}
+          <div className="grid grid-cols-3 max-sm:grid-cols-1 gap-8 max-sm:gap-14">
             {tx.process.steps.map((step, i) => (
-              <div key={i} className={`group relative overflow-hidden rounded-2xl border border-white/[0.07] p-8 flex flex-col transition-all duration-500 hover:-translate-y-1 hover:border-blue-500/20 hover:shadow-[0_24px_60px_rgba(0,0,0,0.35)] reveal${i > 0 ? ` reveal-delay-${i}` : ""}`}
-                style={{ background: "linear-gradient(160deg,rgba(255,255,255,0.03) 0%,rgba(255,255,255,0.01) 100%)" }}>
-
-                {/* Hover glow overlay */}
-                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(59,130,246,0.06),transparent_65%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-
-                {/* Top row: step label + icon */}
-                <div className="flex items-center justify-between mb-8">
-                  <span className="text-[0.68rem] font-bold tracking-[0.2em] uppercase text-blue-400/50 group-hover:text-blue-400/80 transition-colors">
-                    Step 0{i + 1}
-                  </span>
-                  <div className="w-9 h-9 rounded-xl bg-blue-500/[0.08] border border-blue-500/[0.12] flex items-center justify-center text-blue-400/50 group-hover:bg-blue-500/[0.15] group-hover:border-blue-500/25 group-hover:text-blue-400 transition-all">
-                    {processIcons[i]}
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="flex-1">
-                  <h3 className="text-[1.35rem] font-black text-white mb-3 tracking-tight leading-tight">{step.title}</h3>
-                  <p className="text-white/40 text-[0.875rem] leading-[1.75] font-light">{step.desc}</p>
-                </div>
-
-                {/* Bottom glow line on hover */}
-                <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-blue-500/0 to-transparent group-hover:via-blue-500/40 transition-all duration-700" />
+              <div key={i} className={`text-center reveal${i > 0 ? ` reveal-delay-${i}` : ""}`}>
+                {/* Large number */}
+                <span className="block font-serif text-[5.5rem] max-sm:text-[4.5rem] leading-none font-normal text-[#c5a55a]/60 mb-4 select-none tracking-tight">
+                  0{i + 1}
+                </span>
+                {/* Title */}
+                <h3 className="font-serif italic text-[1.3rem] font-semibold text-[#0f1b3d] mb-4 tracking-normal">
+                  {step.title}
+                </h3>
+                {/* Description */}
+                <p className="text-[#5a6275] text-[0.95rem] leading-[1.8] font-light max-w-[300px] mx-auto">
+                  {step.desc}
+                </p>
               </div>
             ))}
           </div>
@@ -677,6 +666,7 @@ export default function Home() {
 
             {/* Rating summary badge */}
             <div className="flex items-center gap-3 px-5 py-3 rounded-2xl border border-black/[0.08] bg-black/[0.03] shrink-0 self-start sm:self-auto">
+              <img src="/logo.png" alt="Anywhere Auto Repair" className="w-9 h-9 rounded-full object-cover shrink-0" />
               <GoogleIcon />
               <div>
                 <div className="flex items-center gap-1.5">
@@ -687,7 +677,7 @@ export default function Home() {
               </div>
               {/* TODO: replace href with Tyler's Google Business review link from Google Business Profile dashboard */}
               <a
-                href="https://g.co/kgs/anywhereautorepair"
+                href="https://maps.app.goo.gl/mtHYV4MtZjDgmWVa9"
                 target="_blank" rel="noopener"
                 className="ml-2 text-[0.72rem] font-semibold text-blue-600 border border-blue-500/40 rounded-lg px-3 py-1.5 hover:bg-blue-50 transition-colors no-underline whitespace-nowrap"
               >
@@ -696,55 +686,30 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Carousel */}
-          <div className="relative reveal reveal-delay-2">
-            {/* Prev button */}
-            <button
-              onClick={() => scrollReviews("left")}
-              aria-label="Scroll left"
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-5 z-10 w-10 h-10 rounded-full bg-white border border-black/[0.10] flex items-center justify-center text-black/40 hover:text-black hover:border-black/25 transition-all max-sm:hidden shadow-sm"
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="15 18 9 12 15 6"/></svg>
-            </button>
-
-            {/* Scrollable track */}
-            <div
-              ref={reviewsRef}
-              className="flex gap-5 overflow-x-auto pb-4 snap-x snap-mandatory"
-              style={{ scrollbarWidth: "none", scrollBehavior: "smooth" }}
-            >
-              {tx.reviews.items.map((review, i) => (
-                <div
-                  key={i}
-                  className="snap-start shrink-0 w-[320px] max-sm:w-[85vw] rounded-3xl border border-black/[0.08] bg-gray-50 px-7 py-8 flex flex-col gap-4 transition-all duration-[400ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:border-blue-300 hover:-translate-y-1 hover:shadow-md"
-                >
-                  {/* Top: avatar + name + Google G */}
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <img src={review.avatar} alt={review.author} className="w-10 h-10 rounded-full shrink-0 object-cover" />
-                      <div>
-                        <div className="text-gray-900 text-[0.88rem] font-medium leading-tight">{review.author}</div>
-                        <div className="text-black/40 text-[0.72rem]">{review.date}</div>
-                      </div>
+          {/* Grid */}
+          <div className="grid grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1 gap-5 reveal reveal-delay-2">
+            {tx.reviews.items.map((review, i) => (
+              <div
+                key={i}
+                className="rounded-3xl border border-black/[0.08] bg-gray-50 px-7 py-8 flex flex-col gap-4 transition-all duration-[400ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:border-blue-300 hover:-translate-y-1 hover:shadow-md"
+              >
+                {/* Top: avatar + name + Google G */}
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <img src={review.avatar} alt={review.author} className="w-10 h-10 rounded-full shrink-0 object-cover" />
+                    <div>
+                      <div className="text-gray-900 text-[0.88rem] font-medium leading-tight">{review.author}</div>
+                      <div className="text-black/40 text-[0.72rem]">{review.date}</div>
                     </div>
-                    <GoogleIcon />
                   </div>
-                  {/* Stars */}
-                  <div className="flex gap-0.5">{[0,1,2,3,4].map((j) => <StarIcon key={j} />)}</div>
-                  {/* Quote */}
-                  <p className="text-gray-600 text-[0.88rem] leading-[1.75] font-light flex-1">{review.quote}</p>
+                  <GoogleIcon />
                 </div>
-              ))}
-            </div>
-
-            {/* Next button */}
-            <button
-              onClick={() => scrollReviews("right")}
-              aria-label="Scroll right"
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-5 z-10 w-10 h-10 rounded-full bg-white border border-black/[0.10] flex items-center justify-center text-black/40 hover:text-black hover:border-black/25 transition-all max-sm:hidden shadow-sm"
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="9 18 15 12 9 6"/></svg>
-            </button>
+                {/* Stars */}
+                <div className="flex gap-0.5">{[0,1,2,3,4].map((j) => <StarIcon key={j} />)}</div>
+                {/* Quote */}
+                <p className="text-gray-600 text-[0.88rem] leading-[1.75] font-light flex-1">{review.quote}</p>
+              </div>
+            ))}
           </div>
 
         </div>
@@ -927,7 +892,7 @@ export default function Home() {
             <p className="text-[0.65rem] font-bold tracking-[0.18em] uppercase text-white/40 mb-5">{tx.footer.quickLinks}</p>
             <ul className="space-y-3 mb-8">
               {[
-                { href: "#how-it-works", label: tx.nav.how },
+                { href: "#how", label: tx.nav.how },
                 { href: "#services",     label: tx.nav.services },
                 { href: "#coverage",     label: tx.nav.coverage },
                 { href: "#about",        label: tx.nav.about },
