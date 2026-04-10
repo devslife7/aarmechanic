@@ -528,7 +528,7 @@ export default function Home() {
       </div>
 
       {/* ── THE PROCESS ─────────────────────────────── */}
-      <section className="py-16 px-10 max-sm:py-12 max-sm:px-5 relative z-[1] bg-white" id="how">
+      <section className="py-16 px-10 max-sm:py-12 max-sm:px-5 relative z-[1] bg-white scroll-mt-[90px]" id="how">
         <div className="max-w-[1100px] mx-auto">
           {/* Header */}
           <div className="text-center mb-12 max-sm:mb-10 reveal">
@@ -561,7 +561,7 @@ export default function Home() {
       </section>
 
       {/* ── SERVICES ────────────────────────────────── */}
-      <section className="py-[100px] px-10 max-sm:py-16 max-sm:px-5 relative z-[1] bg-midnight" id="services">
+      <section className="py-[100px] px-10 max-sm:py-16 max-sm:px-5 relative z-[1] bg-midnight scroll-mt-[90px]" id="services">
         <div className="max-w-[1280px] mx-auto">
           {/* Header — left-aligned */}
           <div className="mb-16 max-sm:mb-12 reveal">
@@ -636,7 +636,7 @@ export default function Home() {
       </section>
 
       {/* ── SERVICE AREA ────────────────────────────── */}
-      <section className="relative z-[1] bg-midnight border-t border-white/8" id="area">
+      <section className="relative z-[1] bg-midnight border-t border-white/8 scroll-mt-[90px]" id="area">
         <div className="max-w-[1280px] mx-auto px-10 max-sm:px-5 py-[100px] max-sm:py-16">
 
           {/* Header */}
@@ -698,7 +698,7 @@ export default function Home() {
       </section>
 
       {/* ── ABOUT ───────────────────────────────────── */}
-      <section className="py-[120px] px-10 max-sm:py-20 max-sm:px-5 relative z-[1] bg-deep border-t border-white/12 border-b border-b-white/12" id="about">
+      <section className="py-[120px] px-10 max-sm:py-20 max-sm:px-5 relative z-[1] bg-deep border-t border-white/12 border-b border-b-white/12 scroll-mt-[90px]" id="about">
         <div className="max-w-[1280px] mx-auto">
           <div className="grid grid-cols-[0.85fr_1.15fr] max-lg:grid-cols-1 gap-20 max-lg:gap-12 items-center">
             <div className="relative reveal">
@@ -728,7 +728,7 @@ export default function Home() {
       </section>
 
       {/* ── GOOGLE REVIEWS ───────────────────────────── */}
-      <section className="py-[120px] px-10 max-sm:py-20 max-sm:px-5 relative z-[1] bg-white" id="reviews">
+      <section className="py-[120px] px-10 max-sm:py-20 max-sm:px-5 relative z-[1] bg-white scroll-mt-[90px]" id="reviews">
         <div className="max-w-[1280px] mx-auto">
 
           {/* Header */}
@@ -745,10 +745,6 @@ export default function Home() {
             {/* Rating summary badge */}
             <div className="flex items-center gap-3 px-5 py-3 rounded-2xl border border-black/[0.08] bg-black/[0.03] shrink-0 self-start sm:self-auto">
               <img src="/logo.png" alt="Anywhere Auto Repair" className="w-9 h-9 rounded-full object-cover shrink-0" />
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-label="Google Maps">
-                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#EA4335"/>
-                <circle cx="12" cy="9" r="2.5" fill="#fff"/>
-              </svg>
               <div>
                 <div className="flex items-center gap-1.5">
                   <GoogleIcon />
@@ -798,7 +794,7 @@ export default function Home() {
       </section>
 
       {/* ── CONTACT ─────────────────────────────────── */}
-      <section className="bg-deep border-t border-white/12 py-[120px] px-10 max-sm:py-20 max-sm:px-5 relative z-[1]" id="contact">
+      <section className="bg-deep border-t border-white/12 py-[120px] px-10 max-sm:py-20 max-sm:px-5 relative z-[1] scroll-mt-[90px]" id="contact">
         <div className="max-w-[1280px] mx-auto grid grid-cols-2 max-lg:grid-cols-1 gap-20 max-lg:gap-12 items-start">
           <div>
             <div className="inline-flex items-center gap-3 mb-5 reveal">
