@@ -186,22 +186,22 @@ export default function BrandBlueDesign() {
   }[lang];
 
   const carBrands = [
-    { name: "Acura", logo: "/logos/acura.svg" },
-    { name: "Honda", logo: "/logos/honda.svg" },
-    { name: "BMW", logo: "/logos/bmw.svg" },
-    { name: "Toyota", logo: "/logos/toyota.svg" },
-    { name: "Nissan", logo: "/logos/nissan.svg" },
-    { name: "Jeep", logo: "/logos/jeep.svg" },
-    { name: "Ford", logo: "/logos/ford.svg" },
-    { name: "Dodge", logo: "/logos/dodge.svg" },
-    { name: "Mercedes-Benz", logo: "/logos/mercedes-benz.svg" },
-    { name: "Hyundai", logo: "/logos/hyundai.svg" },
-    { name: "Mazda", logo: "/logos/mazda.svg" },
-    { name: "Kia", logo: "/logos/kia.svg" },
-    { name: "Chevrolet", logo: "/logos/chevrolet.svg" },
-    { name: "Subaru", logo: "/logos/subaru.svg" },
-    { name: "Volkswagen", logo: "/logos/volkswagen.svg" },
-    { name: "Lexus", logo: "/logos/lexus.svg" },
+    { name: "Acura", logo: "/logos/acura.png" },
+    { name: "Honda", logo: "/logos/honda.png" },
+    { name: "BMW", logo: "/logos/bmw.png" },
+    { name: "Toyota", logo: "/logos/toyota.png" },
+    { name: "Nissan", logo: "/logos/nissan.png" },
+    { name: "Jeep", logo: "/logos/jeep.png" },
+    { name: "Ford", logo: "/logos/ford.png" },
+    { name: "Dodge", logo: "/logos/dodge.png" },
+    { name: "Mercedes-Benz", logo: "/logos/mercedes-benz.png" },
+    { name: "Hyundai", logo: "/logos/hyundai.png" },
+    { name: "Mazda", logo: "/logos/mazda.png" },
+    { name: "Kia", logo: "/logos/kia.png" },
+    { name: "Chevrolet", logo: "/logos/chevrolet.png" },
+    { name: "Subaru", logo: "/logos/subaru.png" },
+    { name: "Volkswagen", logo: "/logos/volkswagen.png" },
+    { name: "Lexus", logo: "/logos/lexus.png" },
   ];
 
   return (
@@ -388,11 +388,11 @@ export default function BrandBlueDesign() {
               onMouseLeave={e => (e.currentTarget.style.animationPlayState = "running")}
             >
               {[...carBrands, ...carBrands].map((brand, i) => (
-                <div key={i} className="flex-shrink-0 mx-6 sm:mx-10 flex flex-col items-center gap-3">
-                  <div className="w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center bg-white rounded-xl border border-gray-200 shadow-sm p-3">
-                    <img src={brand.logo} alt={brand.name} className="w-full h-full object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300" />
+                <div key={i} className="flex-shrink-0 w-[100px] sm:w-[140px] mx-3 sm:mx-5 flex flex-col items-center gap-3">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center">
+                    <img src={brand.logo} alt={brand.name} className="w-full h-full object-contain" />
                   </div>
-                  <span className="text-xs text-gray-400 font-medium">{brand.name}</span>
+                  <span className="text-xs text-gray-400 font-medium text-center whitespace-nowrap">{brand.name}</span>
                 </div>
               ))}
             </div>

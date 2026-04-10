@@ -6,7 +6,7 @@
   <title>Anywhere Auto Repair — Mobile Mechanic | DC &bull; MD &bull; VA</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Teko:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Teko:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -258,7 +258,7 @@
       50% { opacity: 0.3; }
     }
     .hero h1 {
-      font-family: var(--sans);
+      font-family: 'Space Grotesk', system-ui, sans-serif;
       font-size: 5.5rem;
       font-weight: 700;
       line-height: 1.0;
@@ -1206,6 +1206,77 @@
       .contact-form-box { padding: 28px 24px; }
       .form-row { grid-template-columns: 1fr; }
     }
+
+    /* DESIGNS SECTION */
+    .designs-section {
+      padding: 100px 40px;
+      background: var(--deep);
+      border-top: 1px solid var(--cream-ghost);
+      border-bottom: 1px solid var(--cream-ghost);
+      position: relative;
+      z-index: 1;
+    }
+    .designs-section .container { max-width: 1280px; margin: 0 auto; }
+    .designs-heading {
+      font-family: var(--serif);
+      font-size: 2.4rem;
+      color: var(--cream);
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+    .designs-desc {
+      color: var(--cream-muted);
+      font-size: 0.95rem;
+      margin-bottom: 48px;
+    }
+    .designs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .design-card {
+      display: block;
+      background: var(--slate);
+      border: 1px solid var(--cream-ghost);
+      border-radius: 16px;
+      padding: 32px 28px;
+      text-decoration: none;
+      transition: border-color 0.3s, transform 0.25s, box-shadow 0.3s;
+    }
+    .design-card:hover {
+      border-color: var(--blue);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(59, 130, 246, 0.1);
+    }
+    .design-card-label {
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--blue-light);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .design-card-name {
+      font-family: var(--sans);
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--cream);
+      margin-bottom: 8px;
+    }
+    .design-card-desc {
+      font-size: 0.85rem;
+      color: var(--cream-muted);
+      line-height: 1.6;
+    }
+    .design-card-current {
+      border-color: var(--blue);
+      background: var(--blue-dim);
+    }
+    .design-card-current .design-card-label { color: var(--blue); }
+    @media (max-width: 680px) {
+      .designs-section { padding: 80px 20px; }
+      .designs-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -1408,6 +1479,8 @@
     .brands-section {
       background: #ffffff;
       overflow: hidden;
+      position: relative;
+      z-index: 2;
     }
     .brands-section .section-heading {
       color: #0a0f1e;
@@ -1446,27 +1519,24 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 10px;
-      margin: 0 40px;
+      gap: 12px;
+      width: 140px;
+      margin: 0 16px;
     }
     .brand-item img {
       width: 72px;
       height: 72px;
       object-fit: contain;
-      opacity: 0.7;
-      transition: opacity 0.3s;
-    }
-    .brand-item:hover img {
-      opacity: 1;
     }
     .brand-item span {
-      font-size: 0.75rem;
-      color: #9ca3af;
+      font-size: 0.8rem;
+      color: #6b7280;
       font-weight: 500;
       letter-spacing: 0.02em;
+      text-align: center;
     }
     @media (max-width: 768px) {
-      .brand-item { margin: 0 24px; }
+      .brand-item { width: 110px; margin: 0 8px; }
       .brand-item img { width: 56px; height: 56px; }
       .brands-fade-left, .brands-fade-right { width: 60px; }
     }
@@ -1482,39 +1552,39 @@
       <div class="brands-fade-left"></div>
       <div class="brands-fade-right"></div>
       <div class="brands-track">
-        <div class="brand-item"><img src="/logos/acura.svg" alt="Acura"><span>Acura</span></div>
-        <div class="brand-item"><img src="/logos/honda.svg" alt="Honda"><span>Honda</span></div>
-        <div class="brand-item"><img src="/logos/bmw.svg" alt="BMW"><span>BMW</span></div>
-        <div class="brand-item"><img src="/logos/toyota.svg" alt="Toyota"><span>Toyota</span></div>
-        <div class="brand-item"><img src="/logos/nissan.svg" alt="Nissan"><span>Nissan</span></div>
-        <div class="brand-item"><img src="/logos/jeep.svg" alt="Jeep"><span>Jeep</span></div>
-        <div class="brand-item"><img src="/logos/ford.svg" alt="Ford"><span>Ford</span></div>
-        <div class="brand-item"><img src="/logos/dodge.svg" alt="Dodge"><span>Dodge</span></div>
-        <div class="brand-item"><img src="/logos/mercedes-benz.svg" alt="Mercedes-Benz"><span>Mercedes-Benz</span></div>
-        <div class="brand-item"><img src="/logos/hyundai.svg" alt="Hyundai"><span>Hyundai</span></div>
-        <div class="brand-item"><img src="/logos/mazda.svg" alt="Mazda"><span>Mazda</span></div>
-        <div class="brand-item"><img src="/logos/kia.svg" alt="Kia"><span>Kia</span></div>
-        <div class="brand-item"><img src="/logos/chevrolet.svg" alt="Chevrolet"><span>Chevrolet</span></div>
-        <div class="brand-item"><img src="/logos/subaru.svg" alt="Subaru"><span>Subaru</span></div>
-        <div class="brand-item"><img src="/logos/volkswagen.svg" alt="Volkswagen"><span>Volkswagen</span></div>
-        <div class="brand-item"><img src="/logos/lexus.svg" alt="Lexus"><span>Lexus</span></div>
+        <div class="brand-item"><img src="/logos/acura.png" alt="Acura"><span>Acura</span></div>
+        <div class="brand-item"><img src="/logos/honda.png" alt="Honda"><span>Honda</span></div>
+        <div class="brand-item"><img src="/logos/bmw.png" alt="BMW"><span>BMW</span></div>
+        <div class="brand-item"><img src="/logos/toyota.png" alt="Toyota"><span>Toyota</span></div>
+        <div class="brand-item"><img src="/logos/nissan.png" alt="Nissan"><span>Nissan</span></div>
+        <div class="brand-item"><img src="/logos/jeep.png" alt="Jeep"><span>Jeep</span></div>
+        <div class="brand-item"><img src="/logos/ford.png" alt="Ford"><span>Ford</span></div>
+        <div class="brand-item"><img src="/logos/dodge.png" alt="Dodge"><span>Dodge</span></div>
+        <div class="brand-item"><img src="/logos/mercedes-benz.png" alt="Mercedes-Benz"><span>Mercedes-Benz</span></div>
+        <div class="brand-item"><img src="/logos/hyundai.png" alt="Hyundai"><span>Hyundai</span></div>
+        <div class="brand-item"><img src="/logos/mazda.png" alt="Mazda"><span>Mazda</span></div>
+        <div class="brand-item"><img src="/logos/kia.png" alt="Kia"><span>Kia</span></div>
+        <div class="brand-item"><img src="/logos/chevrolet.png" alt="Chevrolet"><span>Chevrolet</span></div>
+        <div class="brand-item"><img src="/logos/subaru.png" alt="Subaru"><span>Subaru</span></div>
+        <div class="brand-item"><img src="/logos/volkswagen.png" alt="Volkswagen"><span>Volkswagen</span></div>
+        <div class="brand-item"><img src="/logos/lexus.png" alt="Lexus"><span>Lexus</span></div>
         <!-- Duplicate for seamless loop -->
-        <div class="brand-item"><img src="/logos/acura.svg" alt="Acura"><span>Acura</span></div>
-        <div class="brand-item"><img src="/logos/honda.svg" alt="Honda"><span>Honda</span></div>
-        <div class="brand-item"><img src="/logos/bmw.svg" alt="BMW"><span>BMW</span></div>
-        <div class="brand-item"><img src="/logos/toyota.svg" alt="Toyota"><span>Toyota</span></div>
-        <div class="brand-item"><img src="/logos/nissan.svg" alt="Nissan"><span>Nissan</span></div>
-        <div class="brand-item"><img src="/logos/jeep.svg" alt="Jeep"><span>Jeep</span></div>
-        <div class="brand-item"><img src="/logos/ford.svg" alt="Ford"><span>Ford</span></div>
-        <div class="brand-item"><img src="/logos/dodge.svg" alt="Dodge"><span>Dodge</span></div>
-        <div class="brand-item"><img src="/logos/mercedes-benz.svg" alt="Mercedes-Benz"><span>Mercedes-Benz</span></div>
-        <div class="brand-item"><img src="/logos/hyundai.svg" alt="Hyundai"><span>Hyundai</span></div>
-        <div class="brand-item"><img src="/logos/mazda.svg" alt="Mazda"><span>Mazda</span></div>
-        <div class="brand-item"><img src="/logos/kia.svg" alt="Kia"><span>Kia</span></div>
-        <div class="brand-item"><img src="/logos/chevrolet.svg" alt="Chevrolet"><span>Chevrolet</span></div>
-        <div class="brand-item"><img src="/logos/subaru.svg" alt="Subaru"><span>Subaru</span></div>
-        <div class="brand-item"><img src="/logos/volkswagen.svg" alt="Volkswagen"><span>Volkswagen</span></div>
-        <div class="brand-item"><img src="/logos/lexus.svg" alt="Lexus"><span>Lexus</span></div>
+        <div class="brand-item"><img src="/logos/acura.png" alt="Acura"><span>Acura</span></div>
+        <div class="brand-item"><img src="/logos/honda.png" alt="Honda"><span>Honda</span></div>
+        <div class="brand-item"><img src="/logos/bmw.png" alt="BMW"><span>BMW</span></div>
+        <div class="brand-item"><img src="/logos/toyota.png" alt="Toyota"><span>Toyota</span></div>
+        <div class="brand-item"><img src="/logos/nissan.png" alt="Nissan"><span>Nissan</span></div>
+        <div class="brand-item"><img src="/logos/jeep.png" alt="Jeep"><span>Jeep</span></div>
+        <div class="brand-item"><img src="/logos/ford.png" alt="Ford"><span>Ford</span></div>
+        <div class="brand-item"><img src="/logos/dodge.png" alt="Dodge"><span>Dodge</span></div>
+        <div class="brand-item"><img src="/logos/mercedes-benz.png" alt="Mercedes-Benz"><span>Mercedes-Benz</span></div>
+        <div class="brand-item"><img src="/logos/hyundai.png" alt="Hyundai"><span>Hyundai</span></div>
+        <div class="brand-item"><img src="/logos/mazda.png" alt="Mazda"><span>Mazda</span></div>
+        <div class="brand-item"><img src="/logos/kia.png" alt="Kia"><span>Kia</span></div>
+        <div class="brand-item"><img src="/logos/chevrolet.png" alt="Chevrolet"><span>Chevrolet</span></div>
+        <div class="brand-item"><img src="/logos/subaru.png" alt="Subaru"><span>Subaru</span></div>
+        <div class="brand-item"><img src="/logos/volkswagen.png" alt="Volkswagen"><span>Volkswagen</span></div>
+        <div class="brand-item"><img src="/logos/lexus.png" alt="Lexus"><span>Lexus</span></div>
       </div>
     </div>
   </section>
@@ -1766,6 +1836,45 @@
       <div class="cta-phone"><span data-i18n="cta.orText">or text</span> <a href="sms:+16104636087">(610) 463-6087</a></div>
     </div>
   </section>
+
+  <!-- OTHER DESIGNS -->
+  <div class="designs-section reveal">
+    <div class="container">
+      <div class="section-eyebrow">
+        <div class="section-eyebrow-line"></div>
+        <span class="section-eyebrow-text">Explore</span>
+      </div>
+      <h2 class="designs-heading">Other Design Concepts</h2>
+      <p class="designs-desc">Browse alternate design directions for the site.</p>
+      <div class="designs-grid">
+        <a href="/designs/option-h-sleek-blue.html" class="design-card design-card-current">
+          <div class="design-card-label">Current</div>
+          <div class="design-card-name">Design H — Sleek Blue</div>
+          <div class="design-card-desc">Dark, minimal layout with sleek typography and subtle blue accents.</div>
+        </a>
+        <a href="/designs/brand-blue" class="design-card">
+          <div class="design-card-label">Design F</div>
+          <div class="design-card-name">Brand Blue</div>
+          <div class="design-card-desc">Hero background image with a professional, brand-forward feel.</div>
+        </a>
+        <a href="/designs/dark-chrome" class="design-card">
+          <div class="design-card-label">Design G</div>
+          <div class="design-card-name">Dark Chrome</div>
+          <div class="design-card-desc">Bold uppercase type with metallic chrome gradients on dark.</div>
+        </a>
+        <a href="/designs/option-a-clean-trustworthy.html" class="design-card">
+          <div class="design-card-label">Design A</div>
+          <div class="design-card-name">Clean & Trustworthy</div>
+          <div class="design-card-desc">Light, approachable layout built around trust and clarity.</div>
+        </a>
+        <a href="/designs/option-d-high-end.html" class="design-card">
+          <div class="design-card-label">Design D</div>
+          <div class="design-card-name">High End</div>
+          <div class="design-card-desc">Premium aesthetic with rich visuals and refined details.</div>
+        </a>
+      </div>
+    </div>
+  </div>
 
   <!-- FOOTER -->
   <footer>
