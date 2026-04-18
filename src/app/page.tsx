@@ -334,6 +334,28 @@ function PhoneIcon({ className }: { className?: string }) {
   );
 }
 
+type LiveReview = {
+  author: string;
+  avatar: string | null;
+  date: string;
+  rating: number;
+  quote: string;
+};
+
+type LiveReviews = {
+  rating: number;
+  userRatingCount: number;
+  reviews: LiveReview[];
+};
+
+const AVATAR_PALETTE = ["%234285F4", "%2334A853", "%23FBBC04", "%23EA4335", "%239C27B0", "%2300ACC1"];
+
+function initialsAvatar(name: string): string {
+  const letter = (name.trim()[0] || "G").toUpperCase();
+  const color = AVATAR_PALETTE[letter.charCodeAt(0) % AVATAR_PALETTE.length];
+  return `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Ccircle cx='20' cy='20' r='20' fill='${color}'/%3E%3Ctext x='20' y='26' text-anchor='middle' font-family='Arial,sans-serif' font-size='18' font-weight='500' fill='white'%3E${letter}%3C/text%3E%3C/svg%3E`;
+}
+
 export default function Home() {
   const [lang, setLang] = useState<Lang>("en");
   const [scrolled, setScrolled] = useState(false);
@@ -346,7 +368,21 @@ export default function Home() {
   const [formSubmitting, setFormSubmitting] = useState(false);
   const [formError, setFormError] = useState("");
   const formRenderTime = useRef(Date.now());
+  const [liveReviews, setLiveReviews] = useState<LiveReviews | null>(null);
   const tx = translations[lang];
+
+  useEffect(() => {
+    const ctrl = new AbortController();
+    fetch(`/api/reviews?lang=${lang}`, { signal: ctrl.signal })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => {
+        if (data && Array.isArray(data.reviews) && data.reviews.length > 0) {
+          setLiveReviews(data);
+        }
+      })
+      .catch(() => {});
+    return () => ctrl.abort();
+  }, [lang]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -748,14 +784,17 @@ export default function Home() {
               <div>
                 <div className="flex items-center gap-1.5">
                   <GoogleIcon />
-                  <span className="text-gray-900 font-bold text-[1.1rem] leading-none">{tx.reviews.rating}</span>
+                  <span className="text-gray-900 font-bold text-[1.1rem] leading-none">
+                    {liveReviews ? liveReviews.rating.toFixed(1) : tx.reviews.rating}
+                  </span>
                   <div className="flex gap-0.5">{[0,1,2,3,4].map((i) => <StarIcon key={i} />)}</div>
                 </div>
-                <div className="text-black/40 text-[0.72rem] mt-0.5">{tx.reviews.total}</div>
+                <div className="text-black/40 text-[0.72rem] mt-0.5">
+                  {liveReviews ? `${liveReviews.userRatingCount} ${tx.reviews.total}` : tx.reviews.total}
+                </div>
               </div>
-              {/* TODO: replace href with Tyler's Google Business review link from Google Business Profile dashboard */}
               <a
-                href="https://maps.app.goo.gl/mtHYV4MtZjDgmWVa9"
+                href="https://g.page/r/CXJEWqpnesoZEBE/review"
                 target="_blank" rel="noopener"
                 className="ml-2 text-[0.72rem] font-semibold text-blue-600 border border-blue-500/40 rounded-lg px-3 py-1.5 hover:bg-blue-50 transition-colors no-underline whitespace-nowrap"
               >
@@ -766,28 +805,39 @@ export default function Home() {
 
           {/* Grid */}
           <div className="grid grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1 gap-5 reveal reveal-delay-2">
-            {tx.reviews.items.map((review, i) => (
-              <div
-                key={i}
-                className="rounded-3xl border border-black/[0.08] bg-gray-50 px-7 py-8 flex flex-col gap-4 transition-all duration-[400ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:border-blue-300 hover:-translate-y-1 hover:shadow-md"
-              >
-                {/* Top: avatar + name + Google G */}
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <img src={review.avatar} alt={review.author} className="w-10 h-10 rounded-full shrink-0 object-cover" />
-                    <div>
-                      <div className="text-gray-900 text-[0.88rem] font-medium leading-tight">{review.author}</div>
-                      <div className="text-black/40 text-[0.72rem]">{review.date}</div>
+            {(liveReviews?.reviews ?? tx.reviews.items).map((review, i) => {
+              const avatarSrc =
+                ("avatar" in review && review.avatar) || initialsAvatar(review.author);
+              const stars = "rating" in review && typeof review.rating === "number" ? review.rating : 5;
+              return (
+                <div
+                  key={i}
+                  className="rounded-3xl border border-black/[0.08] bg-gray-50 px-7 py-8 flex flex-col gap-4 transition-all duration-[400ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:border-blue-300 hover:-translate-y-1 hover:shadow-md"
+                >
+                  {/* Top: avatar + name + Google G */}
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <img
+                        src={avatarSrc}
+                        alt={review.author}
+                        referrerPolicy="no-referrer"
+                        onError={(e) => { (e.currentTarget as HTMLImageElement).src = initialsAvatar(review.author); }}
+                        className="w-10 h-10 rounded-full shrink-0 object-cover"
+                      />
+                      <div>
+                        <div className="text-gray-900 text-[0.88rem] font-medium leading-tight">{review.author}</div>
+                        <div className="text-black/40 text-[0.72rem]">{review.date}</div>
+                      </div>
                     </div>
+                    <GoogleIcon />
                   </div>
-                  <GoogleIcon />
+                  {/* Stars */}
+                  <div className="flex gap-0.5">{[0,1,2,3,4].map((j) => <StarIcon key={j} />)}</div>
+                  {/* Quote */}
+                  <p className="text-gray-600 text-[0.88rem] leading-[1.75] font-light flex-1">{review.quote}</p>
                 </div>
-                {/* Stars */}
-                <div className="flex gap-0.5">{[0,1,2,3,4].map((j) => <StarIcon key={j} />)}</div>
-                {/* Quote */}
-                <p className="text-gray-600 text-[0.88rem] leading-[1.75] font-light flex-1">{review.quote}</p>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
         </div>

@@ -1,29 +1,24 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET() {
+// Anywhere Auto Repair — resolved from https://g.page/r/CXJEWqpnesoZEBE/review
+const PLACE_ID = "ChIJI0mzWuCzt4kRckRaqmd6yhk";
+
+export async function GET(request: NextRequest) {
   const apiKey = process.env.GOOGLE_PLACES_API_KEY;
   if (!apiKey) {
     return NextResponse.json({ error: "Missing API key" }, { status: 500 });
   }
 
-  const res = await fetch("https://places.googleapis.com/v1/places:searchText", {
-    method: "POST",
+  const langParam = request.nextUrl.searchParams.get("lang");
+  const lang = langParam === "es" ? "es" : "en";
+
+  const res = await fetch(`https://places.googleapis.com/v1/places/${PLACE_ID}`, {
     headers: {
-      "Content-Type": "application/json",
       "X-Goog-Api-Key": apiKey,
-      "X-Goog-FieldMask":
-        "places.id,places.displayName,places.rating,places.userRatingCount,places.reviews",
+      "X-Goog-FieldMask": "id,displayName,rating,userRatingCount,reviews,googleMapsUri",
+      "Accept-Language": lang,
     },
-    body: JSON.stringify({
-      textQuery: "Anywhere Auto Repair",
-      locationBias: {
-        circle: {
-          center: { latitude: 38.1319444, longitude: -79.3308385 },
-          radius: 50000.0,
-        },
-      },
-    }),
-    next: { revalidate: 3600 },
+    next: { revalidate: 3600, tags: [`reviews-${lang}`] },
   });
 
   if (!res.ok) {
@@ -31,22 +26,20 @@ export async function GET() {
     return NextResponse.json({ error: err }, { status: res.status });
   }
 
-  const data = await res.json();
-  const place = data.places?.[0];
-
-  if (!place) {
-    return NextResponse.json({ error: "Place not found" }, { status: 404 });
-  }
+  const place = await res.json();
 
   return NextResponse.json({
+    placeId: place.id,
+    name: place.displayName?.text,
     rating: place.rating,
     userRatingCount: place.userRatingCount,
+    googleMapsUri: place.googleMapsUri,
     reviews: (place.reviews ?? []).map((r: any) => ({
       author: r.authorAttribution?.displayName ?? "Google User",
       avatar: r.authorAttribution?.photoUri ?? null,
       date: r.relativePublishTimeDescription ?? "",
       rating: r.rating ?? 5,
-      quote: r.text?.text ?? "",
+      quote: r.text?.text ?? r.originalText?.text ?? "",
     })),
   });
 }
