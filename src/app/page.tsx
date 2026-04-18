@@ -813,7 +813,7 @@ export default function Home() {
               return (
                 <div
                   key={i}
-                  className="rounded-3xl border border-black/[0.08] bg-gray-50 px-7 py-8 flex flex-col gap-4 transition-all duration-[400ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:border-blue-300 hover:-translate-y-1 hover:shadow-md"
+                  className="rounded-3xl border border-black/[0.08] bg-gray-50 px-7 py-8 flex flex-col gap-4"
                 >
                   {/* Top: avatar + name + Google G */}
                   <div className="flex items-center justify-between">
