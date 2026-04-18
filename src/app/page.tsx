@@ -809,6 +809,11 @@ export default function Home() {
             {(liveReviews?.reviews ?? tx.reviews.items).map((review, i) => {
               const avatarSrc =
                 ("avatar" in review && review.avatar) || initialsAvatar(review.author);
+              // Google's photoUri is already circle-cropped (transparent corners) and
+              // may include a Local Guide badge that extends past the circle — don't
+              // re-clip it with rounded-full. Our fallbacks (DiceBear / initials SVG)
+              // are square, so they still need the circular mask.
+              const isGoogleAvatar = typeof avatarSrc === "string" && avatarSrc.includes("googleusercontent.com");
               const stars = "rating" in review && typeof review.rating === "number" ? review.rating : 5;
               return (
                 <div
@@ -823,7 +828,7 @@ export default function Home() {
                         alt={review.author}
                         referrerPolicy="no-referrer"
                         onError={(e) => { (e.currentTarget as HTMLImageElement).src = initialsAvatar(review.author); }}
-                        className="w-10 h-10 rounded-full shrink-0 object-cover"
+                        className={`w-12 h-12 shrink-0 ${isGoogleAvatar ? "object-contain" : "rounded-full object-cover"}`}
                       />
                       <div>
                         <div className="text-gray-900 text-[0.88rem] font-medium leading-tight">{review.author}</div>
