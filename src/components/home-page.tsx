@@ -12,6 +12,7 @@ import type { Locale } from "@/lib/site-config";
 import { getDict } from "@/lib/i18n";
 import { SERVICE_SLUGS, getServiceContent } from "@/lib/content/services";
 import { AREA_SLUGS, getAreaContent } from "@/lib/content/areas";
+import { InstagramSection } from "@/components/instagram-section";
 
 const serviceImages = [
   "https://images.unsplash.com/photo-1486262715619-670810a079e1?q=80&w=800&auto=format&fit=crop",
@@ -470,18 +471,11 @@ export function HomePage({ lang, initialReviews = null }: HomePageProps) {
               })}
             </div>
           </div>
-          <div className="mt-8 flex flex-wrap gap-2 reveal">
-            {AREA_SLUGS.map((slug) => {
-              const area = getAreaContent(slug, lang);
-              return (
-                <Link key={slug} href={`${home}/service-area/${slug}`} className="text-[0.78rem] text-white/50 hover:text-blue-400 border border-white/10 hover:border-blue-400/40 rounded-full px-3 py-1.5 no-underline transition-colors">
-                  {area.name}
-                </Link>
-              );
-            })}
-          </div>
         </div>
       </section>
+
+      {/* ── INSTAGRAM ─────────────────────────────────── */}
+      <InstagramSection lang={lang} />
 
       {/* ── ABOUT ───────────────────────────────────── */}
       <section className="py-[120px] px-10 max-sm:py-20 max-sm:px-5 relative z-[1] bg-deep border-t border-white/12 border-b border-b-white/12 scroll-mt-[90px]" id="about" aria-labelledby="about-heading">

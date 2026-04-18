@@ -85,6 +85,13 @@ export const en = {
       { quote: "I was in a jam stuck in the middle of nowhere with a dead battery that wouldn't jumpstart and Tyler came through helping me install a new one asap.", author: "Will", date: "a month ago", initial: "W", avatar: "https://api.dicebear.com/9.x/avataaars/svg?seed=WillGuide&backgroundColor=d1f4d1" },
     ],
   },
+  instagram: {
+    tag: "Follow Along",
+    title1: "From our shop to your",
+    title2: "feed",
+    desc: "Recent jobs, behind-the-scenes, and the occasional tip — straight from Tyler's Instagram.",
+    cta: "Follow on Instagram",
+  },
   contact: {
     eyebrow: "Get in Touch",
     title1: "Get a free",

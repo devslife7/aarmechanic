@@ -87,6 +87,13 @@ export const es: Dict = {
       { quote: "Estaba varado en medio de la nada con una batería muerta que no arrancaba y Tyler llegó a ayudarme a instalar una nueva de inmediato.", author: "Will", date: "hace un mes", initial: "W", avatar: "https://api.dicebear.com/9.x/avataaars/svg?seed=WillGuide&backgroundColor=d1f4d1" },
     ],
   },
+  instagram: {
+    tag: "Síguenos",
+    title1: "De nuestro taller a tu",
+    title2: "feed",
+    desc: "Trabajos recientes, detrás de cámaras y algún consejo — directo del Instagram de Tyler.",
+    cta: "Seguir en Instagram",
+  },
   contact: {
     eyebrow: "Contáctanos",
     title1: "Obtén una cotización",
