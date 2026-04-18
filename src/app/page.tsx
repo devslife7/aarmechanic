@@ -1,8 +1,12 @@
 "use client";
 
-import { useState, useEffect, useRef, FormEvent } from "react";
+import { useState, useEffect, useRef } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { ChatWidget } from "@/components/chat-widget";
 import { submitContact } from "@/lib/submitContact";
+import { contactSchema, type ContactInput } from "@/lib/contact-schema";
+import { getFieldError } from "@/lib/contact-errors";
 
 type Lang = "en" | "es";
 
@@ -366,11 +370,30 @@ export default function Home() {
     reviewsRef.current?.scrollBy({ left: dir === "right" ? 340 : -340, behavior: "smooth" });
   };
   const [formSubmitted, setFormSubmitted] = useState(false);
-  const [formSubmitting, setFormSubmitting] = useState(false);
   const [formError, setFormError] = useState("");
   const formRenderTime = useRef(Date.now());
   const [liveReviews, setLiveReviews] = useState<LiveReviews | null>(null);
   const tx = translations[lang];
+
+  const {
+    register,
+    handleSubmit: rhfHandleSubmit,
+    reset: rhfReset,
+    setError,
+    formState: { errors, isSubmitting },
+  } = useForm<ContactInput>({
+    resolver: zodResolver(contactSchema),
+    defaultValues: {
+      name: "",
+      phone: "",
+      vehicle: "",
+      vin: "",
+      fuel: "gas",
+      issue: "",
+      website: "",
+    },
+    mode: "onBlur",
+  });
 
   useEffect(() => {
     const ctrl = new AbortController();
@@ -400,35 +423,28 @@ export default function Home() {
     return () => observer.disconnect();
   }, [lang]);
 
-  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+  const handleSubmit = rhfHandleSubmit(async (values) => {
     setFormError("");
-    setFormSubmitting(true);
-
-    const fd = new FormData(e.currentTarget);
-    const result = await submitContact({
-      name: fd.get("name") as string,
-      phone: fd.get("phone") as string,
-      vehicle: fd.get("vehicle") as string,
-      vin: fd.get("vin") as string,
-      fuel: fd.get("fuel") as string,
-      issue: fd.get("issue") as string,
-      website: fd.get("website") as string,
-      _t: formRenderTime.current,
-    });
-
-    setFormSubmitting(false);
+    const result = await submitContact({ ...values, _t: formRenderTime.current });
     if (result.ok) {
       setFormSubmitted(true);
-    } else {
-      setFormError(result.error ?? "Something went wrong");
+      return;
     }
-  }
+    if (result.fieldErrors) {
+      for (const [field, msgs] of Object.entries(result.fieldErrors)) {
+        if (msgs && msgs.length > 0) {
+          setError(field as keyof ContactInput, { message: msgs[0] });
+        }
+      }
+    }
+    setFormError(result.error ?? "Something went wrong");
+  });
 
   function handleFormReset() {
     setFormSubmitted(false);
     setFormError("");
     formRenderTime.current = Date.now();
+    rhfReset();
   }
 
   return (
@@ -894,36 +910,57 @@ export default function Home() {
                 <button onClick={handleFormReset} className="bg-transparent border-none text-blue-500 font-semibold text-[0.9rem] cursor-pointer hover:text-blue-400 transition-colors duration-300">{tx.contact.another}</button>
               </div>
             ) : (
-              <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
+              <form className="flex flex-col gap-6" onSubmit={handleSubmit} noValidate>
                 {/* Honeypot — hidden from real users */}
                 <div className="absolute -left-[9999px]" aria-hidden="true">
-                  <input type="text" name="website" tabIndex={-1} autoComplete="off" />
+                  <input type="text" tabIndex={-1} autoComplete="off" {...register("website")} />
                 </div>
                 <div className="grid grid-cols-2 max-sm:grid-cols-1 gap-5">
-                  <div className="flex flex-col gap-2"><label className={labelClass}>{tx.contact.name}</label><input name="name" type="text" required placeholder={tx.contact.namePh} className={inputClass} /></div>
-                  <div className="flex flex-col gap-2"><label className={labelClass}>{tx.contact.phone}</label><input name="phone" type="tel" required placeholder={tx.contact.phonePh} className={inputClass} /></div>
+                  <div className="flex flex-col gap-2">
+                    <label className={labelClass}>{tx.contact.name}</label>
+                    <input type="text" placeholder={tx.contact.namePh} className={inputClass} aria-invalid={!!errors.name} {...register("name")} />
+                    {errors.name && <p className="text-xs text-red-400">{getFieldError(errors, "name", lang)}</p>}
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <label className={labelClass}>{tx.contact.phone}</label>
+                    <input type="tel" placeholder={tx.contact.phonePh} className={inputClass} aria-invalid={!!errors.phone} {...register("phone")} />
+                    {errors.phone && <p className="text-xs text-red-400">{getFieldError(errors, "phone", lang)}</p>}
+                  </div>
                 </div>
-                <div className="flex flex-col gap-2"><label className={labelClass}>{tx.contact.vehicle}</label><input name="vehicle" type="text" required placeholder={tx.contact.vehiclePh} className={inputClass} /></div>
+                <div className="flex flex-col gap-2">
+                  <label className={labelClass}>{tx.contact.vehicle}</label>
+                  <input type="text" placeholder={tx.contact.vehiclePh} className={inputClass} aria-invalid={!!errors.vehicle} {...register("vehicle")} />
+                  {errors.vehicle && <p className="text-xs text-red-400">{getFieldError(errors, "vehicle", lang)}</p>}
+                </div>
                 <div className="grid grid-cols-2 max-sm:grid-cols-1 gap-5">
-                  <div className="flex flex-col gap-2"><label className={labelClass}>{tx.contact.vin}</label><input name="vin" type="text" placeholder={tx.contact.vinPh} className={inputClass} /></div>
+                  <div className="flex flex-col gap-2">
+                    <label className={labelClass}>{tx.contact.vin}</label>
+                    <input type="text" placeholder={tx.contact.vinPh} className={inputClass} aria-invalid={!!errors.vin} {...register("vin")} />
+                    {errors.vin && <p className="text-xs text-red-400">{getFieldError(errors, "vin", lang)}</p>}
+                  </div>
                   <div className="flex flex-col gap-2">
                     <label className={labelClass}>{tx.contact.fuel}</label>
                     <div className="flex gap-3">
                       <label className="flex-1 flex items-center justify-center gap-2 cursor-pointer rounded-xl border border-white/12 bg-midnight px-4 py-3.5 text-sm font-light text-white/70 transition-all duration-300 has-[:checked]:border-blue-500 has-[:checked]:bg-blue-500/12 has-[:checked]:text-white">
-                        <input type="radio" name="fuel" value="gas" defaultChecked className="sr-only" />
+                        <input type="radio" value="gas" className="sr-only" {...register("fuel")} />
                         {tx.contact.fuelGas}
                       </label>
                       <label className="flex-1 flex items-center justify-center gap-2 cursor-pointer rounded-xl border border-white/12 bg-midnight px-4 py-3.5 text-sm font-light text-white/70 transition-all duration-300 has-[:checked]:border-blue-500 has-[:checked]:bg-blue-500/12 has-[:checked]:text-white">
-                        <input type="radio" name="fuel" value="diesel" className="sr-only" />
+                        <input type="radio" value="diesel" className="sr-only" {...register("fuel")} />
                         {tx.contact.fuelDiesel}
                       </label>
                     </div>
+                    {errors.fuel && <p className="text-xs text-red-400">{getFieldError(errors, "fuel", lang)}</p>}
                   </div>
                 </div>
-                <div className="flex flex-col gap-2"><label className={labelClass}>{tx.contact.issue}</label><textarea name="issue" required placeholder={tx.contact.issuePh} className={`${inputClass} resize-y min-h-[100px] leading-[1.6]`} /></div>
+                <div className="flex flex-col gap-2">
+                  <label className={labelClass}>{tx.contact.issue}</label>
+                  <textarea placeholder={tx.contact.issuePh} aria-invalid={!!errors.issue} className={`${inputClass} resize-y min-h-[100px] leading-[1.6]`} {...register("issue")} />
+                  {errors.issue && <p className="text-xs text-red-400">{getFieldError(errors, "issue", lang)}</p>}
+                </div>
                 {formError && <p className="text-sm text-red-400 text-center">{formError}</p>}
-                <button type="submit" disabled={formSubmitting} className="self-center inline-flex items-center justify-center gap-2.5 bg-blue-500 text-white border-none px-10 py-[18px] rounded-full font-semibold text-base cursor-pointer transition-all duration-300 mt-2 hover:bg-blue-400 hover:-translate-y-0.5 hover:shadow-[0_12px_40px_rgba(59,130,246,0.3)] disabled:opacity-50 disabled:pointer-events-none">
-                  {formSubmitting ? (
+                <button type="submit" disabled={isSubmitting} className="self-center inline-flex items-center justify-center gap-2.5 bg-blue-500 text-white border-none px-10 py-[18px] rounded-full font-semibold text-base cursor-pointer transition-all duration-300 mt-2 hover:bg-blue-400 hover:-translate-y-0.5 hover:shadow-[0_12px_40px_rgba(59,130,246,0.3)] disabled:opacity-50 disabled:pointer-events-none">
+                  {isSubmitting ? (
                     <svg className="animate-spin w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10" strokeOpacity="0.25" /><path d="M12 2a10 10 0 0 1 10 10" /></svg>
                   ) : (
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-[18px] h-[18px]"><line x1="22" y1="2" x2="11" y2="13" /><polygon points="22 2 15 22 11 13 2 9 22 2" /></svg>

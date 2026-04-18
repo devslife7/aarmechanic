@@ -1,8 +1,12 @@
 "use client";
 
-import { useState, useRef, useEffect, type FormEvent } from "react";
+import { useState, useRef, useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { widgetTranslations, type WidgetLang } from "./translations";
 import { submitContact } from "@/lib/submitContact";
+import { contactSchema, type ContactInput } from "@/lib/contact-schema";
+import { getFieldError } from "@/lib/contact-errors";
 
 interface ChatWidgetProps {
   lang: WidgetLang;
@@ -11,48 +15,60 @@ interface ChatWidgetProps {
 export default function ChatWidget({ lang }: ChatWidgetProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
-  const [error, setError] = useState("");
+  const [formError, setFormError] = useState("");
   const renderTime = useRef(Date.now());
   const tx = widgetTranslations[lang];
 
-  // Reset render timestamp when form is shown
+  const {
+    register,
+    handleSubmit,
+    reset,
+    setError,
+    formState: { errors, isSubmitting },
+  } = useForm<ContactInput>({
+    resolver: zodResolver(contactSchema),
+    defaultValues: {
+      name: "",
+      phone: "",
+      vehicle: "",
+      vin: "",
+      fuel: "gas",
+      issue: "",
+      website: "",
+    },
+    mode: "onBlur",
+  });
+
   useEffect(() => {
     if (!formSubmitted) renderTime.current = Date.now();
   }, [formSubmitted]);
 
-  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setError("");
-    setSubmitting(true);
-
-    const fd = new FormData(e.currentTarget);
-    const result = await submitContact({
-      name: fd.get("name") as string,
-      phone: fd.get("phone") as string,
-      vehicle: fd.get("vehicle") as string,
-      vin: fd.get("vin") as string,
-      fuel: fd.get("widget-fuel") as string,
-      issue: fd.get("issue") as string,
-      website: fd.get("website") as string,
-      _t: renderTime.current,
-    });
-
-    setSubmitting(false);
+  const onSubmit = handleSubmit(async (values) => {
+    setFormError("");
+    const result = await submitContact({ ...values, _t: renderTime.current });
     if (result.ok) {
       setFormSubmitted(true);
-    } else {
-      setError(result.error ?? "Something went wrong");
+      return;
     }
-  }
+    if (result.fieldErrors) {
+      for (const [field, msgs] of Object.entries(result.fieldErrors)) {
+        if (msgs && msgs.length > 0) {
+          setError(field as keyof ContactInput, { message: msgs[0] });
+        }
+      }
+    }
+    setFormError(result.error ?? "Something went wrong");
+  });
 
   function handleReset() {
     setFormSubmitted(false);
-    setError("");
+    setFormError("");
+    reset();
   }
 
   const inputClass =
     "w-full rounded-xl border border-white/12 bg-midnight px-4 py-3.5 font-[family-name:var(--font-sans)] text-sm font-light text-white outline-none transition-all duration-300 placeholder:text-white/45 focus:border-blue-500 focus:shadow-[0_0_0_3px_rgba(59,130,246,0.12)]";
+  const errorClass = "mt-1 text-xs text-red-400";
 
   return (
     <>
@@ -150,10 +166,10 @@ export default function ChatWidget({ lang }: ChatWidgetProps) {
               {tx.greeting}
             </div>
 
-            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            <form onSubmit={onSubmit} className="flex flex-col gap-4" noValidate>
               {/* Honeypot — hidden from real users, bots will fill it */}
               <div className="absolute -left-[9999px]" aria-hidden="true">
-                <input type="text" name="website" tabIndex={-1} autoComplete="off" />
+                <input type="text" tabIndex={-1} autoComplete="off" {...register("website")} />
               </div>
 
               {/* Name */}
@@ -161,7 +177,8 @@ export default function ChatWidget({ lang }: ChatWidgetProps) {
                 <label className="text-xs font-medium tracking-wide text-white/[0.88]">
                   {tx.nameLabel}
                 </label>
-                <input name="name" type="text" required placeholder={tx.namePlaceholder} className={inputClass} />
+                <input type="text" placeholder={tx.namePlaceholder} className={inputClass} aria-invalid={!!errors.name} {...register("name")} />
+                {errors.name && <p className={errorClass}>{getFieldError(errors, "name", lang)}</p>}
               </div>
 
               {/* Phone */}
@@ -169,7 +186,8 @@ export default function ChatWidget({ lang }: ChatWidgetProps) {
                 <label className="text-xs font-medium tracking-wide text-white/[0.88]">
                   {tx.phoneLabel}
                 </label>
-                <input name="phone" type="tel" required placeholder={tx.phonePlaceholder} className={inputClass} />
+                <input type="tel" placeholder={tx.phonePlaceholder} className={inputClass} aria-invalid={!!errors.phone} {...register("phone")} />
+                {errors.phone && <p className={errorClass}>{getFieldError(errors, "phone", lang)}</p>}
               </div>
 
               {/* Vehicle */}
@@ -177,7 +195,8 @@ export default function ChatWidget({ lang }: ChatWidgetProps) {
                 <label className="text-xs font-medium tracking-wide text-white/[0.88]">
                   {tx.vehicleLabel}
                 </label>
-                <input name="vehicle" type="text" required placeholder={tx.vehiclePlaceholder} className={inputClass} />
+                <input type="text" placeholder={tx.vehiclePlaceholder} className={inputClass} aria-invalid={!!errors.vehicle} {...register("vehicle")} />
+                {errors.vehicle && <p className={errorClass}>{getFieldError(errors, "vehicle", lang)}</p>}
               </div>
 
               {/* VIN (optional) */}
@@ -185,7 +204,8 @@ export default function ChatWidget({ lang }: ChatWidgetProps) {
                 <label className="text-xs font-medium tracking-wide text-white/[0.88]">
                   {tx.vinLabel}
                 </label>
-                <input name="vin" type="text" placeholder={tx.vinPlaceholder} className={inputClass} />
+                <input type="text" placeholder={tx.vinPlaceholder} className={inputClass} aria-invalid={!!errors.vin} {...register("vin")} />
+                {errors.vin && <p className={errorClass}>{getFieldError(errors, "vin", lang)}</p>}
               </div>
 
               {/* Fuel type */}
@@ -195,14 +215,15 @@ export default function ChatWidget({ lang }: ChatWidgetProps) {
                 </label>
                 <div className="flex gap-2.5">
                   <label className="flex flex-1 cursor-pointer items-center justify-center rounded-xl border border-white/12 bg-midnight px-3 py-3 text-sm font-light text-white/70 transition-all duration-300 has-[:checked]:border-blue-500 has-[:checked]:bg-blue-500/12 has-[:checked]:text-white">
-                    <input type="radio" name="widget-fuel" value="gas" defaultChecked className="sr-only" />
+                    <input type="radio" value="gas" className="sr-only" {...register("fuel")} />
                     {tx.fuelGas}
                   </label>
                   <label className="flex flex-1 cursor-pointer items-center justify-center rounded-xl border border-white/12 bg-midnight px-3 py-3 text-sm font-light text-white/70 transition-all duration-300 has-[:checked]:border-blue-500 has-[:checked]:bg-blue-500/12 has-[:checked]:text-white">
-                    <input type="radio" name="widget-fuel" value="diesel" className="sr-only" />
+                    <input type="radio" value="diesel" className="sr-only" {...register("fuel")} />
                     {tx.fuelDiesel}
                   </label>
                 </div>
+                {errors.fuel && <p className={errorClass}>{getFieldError(errors, "fuel", lang)}</p>}
               </div>
 
               {/* Issue */}
@@ -211,25 +232,24 @@ export default function ChatWidget({ lang }: ChatWidgetProps) {
                   {tx.issueLabel}
                 </label>
                 <textarea
-                  name="issue"
-                  required
                   placeholder={tx.issuePlaceholder}
+                  aria-invalid={!!errors.issue}
                   className="min-h-[72px] w-full resize-y rounded-xl border border-white/12 bg-midnight px-4 py-3.5 font-[family-name:var(--font-sans)] text-sm font-light leading-relaxed text-white outline-none transition-all duration-300 placeholder:text-white/45 focus:border-blue-500 focus:shadow-[0_0_0_3px_rgba(59,130,246,0.12)]"
+                  {...register("issue")}
                 />
+                {errors.issue && <p className={errorClass}>{getFieldError(errors, "issue", lang)}</p>}
               </div>
 
-              {/* Error message */}
-              {error && (
-                <p className="text-sm text-red-400">{error}</p>
-              )}
+              {/* Form-level error */}
+              {formError && <p className="text-sm text-red-400">{formError}</p>}
 
               {/* Submit */}
               <button
                 type="submit"
-                disabled={submitting}
+                disabled={isSubmitting}
                 className="mt-1 inline-flex cursor-pointer items-center justify-center gap-2 self-end rounded-full border-none bg-blue-500 px-7 py-3.5 font-[family-name:var(--font-sans)] text-sm font-semibold text-midnight transition-all duration-300 hover:-translate-y-0.5 hover:bg-blue-400 hover:shadow-[0_8px_24px_rgba(59,130,246,0.3)] disabled:opacity-50 disabled:pointer-events-none"
               >
-                {submitting ? (
+                {isSubmitting ? (
                   <svg className="animate-spin" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10" strokeOpacity="0.25" /><path d="M12 2a10 10 0 0 1 10 10" /></svg>
                 ) : (
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

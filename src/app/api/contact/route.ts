@@ -1,61 +1,41 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
+import { contactSchema, normalizePhone } from "@/lib/contact-schema";
 
 const TO_EMAIL = process.env.CONTACT_EMAIL ?? "tyler@anywhereautorepair.com";
 const FROM_EMAIL = process.env.FROM_EMAIL ?? "Anywhere Auto Repair <onboarding@resend.dev>";
 
-interface ContactBody {
-  name: string;
-  phone: string;
-  vehicle: string;
-  vin?: string;
-  fuel: string;
-  issue: string;
-  // honeypot — must be empty
-  website?: string;
-  // timestamp when form was rendered (ms)
-  _t?: number;
-}
-
 export async function POST(req: NextRequest) {
   try {
-    const body: ContactBody = await req.json();
+    const body = await req.json();
 
-    // ── Bot filtering ──────────────────────────────
-    // 1. Honeypot: if the hidden "website" field is filled, it's a bot
-    if (body.website) {
-      // Return 200 so bots think it worked
+    if (body?.website) {
       return NextResponse.json({ ok: true });
     }
 
-    // 2. Time-based: if form was submitted in under 3 seconds, likely a bot
-    if (body._t && Date.now() - body._t < 3000) {
+    if (body?._t && Date.now() - body._t < 3000) {
       return NextResponse.json({ ok: true });
     }
 
-    // ── Validation ─────────────────────────────────
-    const { name, phone, vehicle, vin, fuel, issue } = body;
-
-    if (!name?.trim() || !phone?.trim() || !vehicle?.trim() || !issue?.trim()) {
+    const parsed = contactSchema.safeParse(body);
+    if (!parsed.success) {
       return NextResponse.json(
-        { error: "Missing required fields" },
-        { status: 400 }
+        {
+          error: "Invalid submission",
+          fieldErrors: parsed.error.flatten().fieldErrors,
+        },
+        { status: 400 },
       );
     }
 
-    if (!fuel || !["gas", "diesel"].includes(fuel)) {
-      return NextResponse.json(
-        { error: "Invalid fuel type" },
-        { status: 400 }
-      );
-    }
+    const { name, phone, vehicle, vin, fuel, issue } = parsed.data;
+    const telHref = normalizePhone(phone);
 
-    // ── Send email via Resend ──────────────────────
     const resend = new Resend(process.env.RESEND_API_KEY);
     const { error } = await resend.emails.send({
       from: `Anywhere Auto Repair <${FROM_EMAIL}>`,
       to: [TO_EMAIL],
-      subject: `New Quote Request from ${name.trim()}`,
+      subject: `New Quote Request from ${name}`,
       replyTo: undefined,
       html: `
         <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 560px; margin: 0 auto; padding: 32px 24px; color: #1a1a1a;">
@@ -63,19 +43,19 @@ export async function POST(req: NextRequest) {
           <table style="width: 100%; border-collapse: collapse;">
             <tr>
               <td style="padding: 10px 0; border-bottom: 1px solid #eee; font-weight: 600; width: 120px; vertical-align: top;">Name</td>
-              <td style="padding: 10px 0; border-bottom: 1px solid #eee;">${escapeHtml(name.trim())}</td>
+              <td style="padding: 10px 0; border-bottom: 1px solid #eee;">${escapeHtml(name)}</td>
             </tr>
             <tr>
               <td style="padding: 10px 0; border-bottom: 1px solid #eee; font-weight: 600; vertical-align: top;">Phone</td>
-              <td style="padding: 10px 0; border-bottom: 1px solid #eee;"><a href="tel:${escapeHtml(phone.trim())}" style="color: #3b82f6;">${escapeHtml(phone.trim())}</a></td>
+              <td style="padding: 10px 0; border-bottom: 1px solid #eee;"><a href="tel:${escapeHtml(telHref)}" style="color: #3b82f6;">${escapeHtml(phone)}</a></td>
             </tr>
             <tr>
               <td style="padding: 10px 0; border-bottom: 1px solid #eee; font-weight: 600; vertical-align: top;">Vehicle</td>
-              <td style="padding: 10px 0; border-bottom: 1px solid #eee;">${escapeHtml(vehicle.trim())}</td>
+              <td style="padding: 10px 0; border-bottom: 1px solid #eee;">${escapeHtml(vehicle)}</td>
             </tr>
             <tr>
               <td style="padding: 10px 0; border-bottom: 1px solid #eee; font-weight: 600; vertical-align: top;">VIN</td>
-              <td style="padding: 10px 0; border-bottom: 1px solid #eee;">${vin?.trim() ? escapeHtml(vin.trim()) : "—"}</td>
+              <td style="padding: 10px 0; border-bottom: 1px solid #eee;">${vin ? escapeHtml(vin) : "—"}</td>
             </tr>
             <tr>
               <td style="padding: 10px 0; border-bottom: 1px solid #eee; font-weight: 600; vertical-align: top;">Fuel</td>
@@ -83,7 +63,7 @@ export async function POST(req: NextRequest) {
             </tr>
             <tr>
               <td style="padding: 10px 0; font-weight: 600; vertical-align: top;">Issue</td>
-              <td style="padding: 10px 0; white-space: pre-wrap;">${escapeHtml(issue.trim())}</td>
+              <td style="padding: 10px 0; white-space: pre-wrap;">${escapeHtml(issue)}</td>
             </tr>
           </table>
           <p style="margin-top: 24px; font-size: 13px; color: #888;">Sent from anywhereautorepair.com</p>

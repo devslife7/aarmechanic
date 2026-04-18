@@ -2,14 +2,18 @@ export interface ContactFormData {
   name: string;
   phone: string;
   vehicle: string;
-  vin: string;
+  vin?: string;
   fuel: string;
   issue: string;
-  website: string; // honeypot
-  _t: number; // render timestamp
+  website?: string;
+  _t?: number;
 }
 
-export async function submitContact(data: ContactFormData): Promise<{ ok: boolean; error?: string }> {
+export type SubmitContactResult =
+  | { ok: true }
+  | { ok: false; error?: string; fieldErrors?: Record<string, string[]> };
+
+export async function submitContact(data: ContactFormData): Promise<SubmitContactResult> {
   try {
     const res = await fetch("/api/contact", {
       method: "POST",
@@ -19,7 +23,11 @@ export async function submitContact(data: ContactFormData): Promise<{ ok: boolea
 
     if (!res.ok) {
       const body = await res.json().catch(() => ({}));
-      return { ok: false, error: body.error ?? "Something went wrong" };
+      return {
+        ok: false,
+        error: body.error ?? "Something went wrong",
+        fieldErrors: body.fieldErrors,
+      };
     }
 
     return { ok: true };
