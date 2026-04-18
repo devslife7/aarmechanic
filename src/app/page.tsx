@@ -16,7 +16,7 @@ const translations = {
       desc: "Professional auto repair that comes to your home, office, or roadside. Honest work, fair pricing, and zero waiting rooms.",
       whatsapp: "Get a Free Quote",
     },
-    trust: ["Bilingual EN/ES", "24/7 Messaging", "Upfront Pricing", "Flexible Payments", "Same-Day Available"],
+    trust: ["Bilingual EN/ES", "24/7 Messaging", "Upfront Pricing", "Flexible Payments", "Same-Day Availability"],
     process: {
       tag: "The Process",
       title1: "The",
@@ -38,7 +38,7 @@ const translations = {
         { name: "Oil Changes", desc: "Synthetic and conventional oil changes with quality filters included." },
         { name: "Brake Repair", desc: "Pads, rotors, brake fluid flush — everything to keep you stopping safely." },
         { name: "Battery & Electrical", desc: "Battery replacement, jump starts, alternator and starter repairs." },
-        { name: "A/C & Cooling", desc: "A/C recharge, coolant flush, radiator and water pump service." },
+        { name: "Car Performance", desc: "Engine enhancing upgrades, tuning, and performance optimization for more power and efficiency." },
         { name: "Tune-Ups", desc: "Spark plugs, serpentine belts, power steering, and general maintenance." },
       ],
     },
@@ -53,9 +53,9 @@ const translations = {
       desc: "We drive to you anywhere in D.C., Maryland, and Virginia.",
       areas: [
         { name: "Washington, D.C.", desc: "All neighborhoods, NW through SE — the full District" },
-        { name: "Virginia", desc: "Springfield, Arlington, Alexandria, Fairfax, and all of Northern Virginia" },
+        { name: "Virginia", desc: "Springfield, Loudoun County, Prince William County" },
         { name: "Maryland", desc: "Silver Spring, Bethesda, College Park, PG County, and beyond" },
-        { name: "Roadside, Anywhere", desc: "Stranded? We'll come to wherever you are in the DMV" },
+        { name: "Roadside", desc: "Tyler is based in Springfield, VA and travels up to 50 miles from there to get the job done." },
       ],
     },
     about: {
@@ -159,7 +159,7 @@ const translations = {
         { name: "Cambio de Aceite", desc: "Cambios de aceite sintético y convencional con filtros de calidad incluidos." },
         { name: "Frenos", desc: "Pastillas, rotores, cambio de líquido de frenos — todo para que frenes con seguridad." },
         { name: "Batería y Eléctrico", desc: "Reemplazo de batería, arranques, reparación de alternador y motor de arranque." },
-        { name: "A/C y Enfriamiento", desc: "Recarga de A/C, cambio de refrigerante, servicio de radiador y bomba de agua." },
+        { name: "Rendimiento del Auto", desc: "Mejoras del motor, ajustes y optimización de rendimiento para más potencia y eficiencia." },
         { name: "Afinaciones", desc: "Bujías, bandas, dirección hidráulica y mantenimiento general." },
       ],
     },
@@ -174,9 +174,9 @@ const translations = {
       desc: "Manejamos hasta ti en cualquier parte de D.C., Maryland y Virginia.",
       areas: [
         { name: "Washington, D.C.", desc: "Todos los vecindarios, de NO a SE — todo el Distrito" },
-        { name: "Virginia", desc: "Springfield, Arlington, Alexandria, Fairfax y todo el Norte de Virginia" },
+        { name: "Virginia", desc: "Springfield, Condado de Loudoun, Condado de Prince William" },
         { name: "Maryland", desc: "Silver Spring, Bethesda, College Park, PG County y más" },
-        { name: "En la Carretera", desc: "¿Varado? Vamos a donde estés en el DMV" },
+        { name: "En la Carretera", desc: "Tyler está basado en Springfield, VA y viaja hasta 50 millas desde allí para hacer el trabajo." },
       ],
     },
     about: {
@@ -273,6 +273,7 @@ const serviceIcons = [
   <svg key="e" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5"><rect x="1" y="6" width="18" height="12" rx="2"/><line x1="23" y1="10" x2="23" y2="14"/></svg>,
   <svg key="ac" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>,
   <svg key="t" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>,
+  <svg key="cp" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>,
 ];
 
 const brandsList = [
@@ -694,7 +695,7 @@ export default function Home() {
             {/* Interactive map */}
             <div className="relative rounded-2xl overflow-hidden border border-white/10 min-h-[480px] max-sm:min-h-[320px] reveal">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d213303.92352098727!2d-77.26171428713899!3d38.86284722273665!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzjCsDUwJzUyLjIiTiA3N8KwMDEnMjAuMCJX!5e0!3m2!1sen!2sus!4v1775804283324!5m2!1sen!2sus"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d187052.85675123945!2d-77.37534235786778!3d38.8234368848983!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89b64de885e53a9d%3A0x67e76f2416faa504!2sSpringfield%2C%20VA!5e0!3m2!1sen!2sus!4v1776476487632!5m2!1sen!2sus"
                 className="absolute inset-0 w-full h-full"
                 style={{ border: 0 }}
                 allowFullScreen
