@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import { Space_Grotesk, Instrument_Serif, Outfit, Teko } from "next/font/google";
 import "./globals.css";
+import { SITE_URL, LOCALE_META, isLocale, DEFAULT_LOCALE } from "@/lib/site-config";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -26,8 +28,7 @@ const teko = Teko({
 });
 
 export const metadata: Metadata = {
-  title: "Anywhere Auto Repair — Mobile Mechanic | DC • MD • VA",
-  description: "Professional mobile mechanic serving Washington DC, Maryland, and Virginia. Honest work, fair pricing, zero waiting rooms.",
+  metadataBase: new URL(SITE_URL),
   icons: {
     icon: [
       { url: "/favicon-32x32.png", type: "image/png", sizes: "32x32" },
@@ -37,25 +38,23 @@ export const metadata: Metadata = {
     shortcut: "/favicon-32x32.png",
   },
   manifest: "/site.webmanifest",
-  openGraph: {
-    title: "Anywhere Auto Repair — Mobile Mechanic | DC • MD • VA",
-    description: "Professional mobile mechanic serving Washington DC, Maryland, and Virginia. Honest work, fair pricing, zero waiting rooms.",
-    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    images: ["/og-image.png"],
+  verification: {
+    google: process.env.NEXT_PUBLIC_GSC_VERIFICATION || undefined,
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const hdrs = await headers();
+  const locHdr = hdrs.get("x-locale");
+  const locale = isLocale(locHdr) ? locHdr : DEFAULT_LOCALE;
+  const htmlLang = LOCALE_META[locale].htmlLang;
+
   return (
-    <html lang="en">
+    <html lang={htmlLang}>
       <body
         className={`${spaceGrotesk.variable} ${instrumentSerif.variable} ${outfit.variable} ${teko.variable} antialiased`}
       >
