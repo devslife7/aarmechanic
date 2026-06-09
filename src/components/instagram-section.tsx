@@ -89,6 +89,8 @@ export function InstagramSection({ lang }: { lang: Locale }) {
           className={
             INSTAGRAM_POSTS.length === 1
               ? "flex justify-center reveal reveal-delay-2"
+              : INSTAGRAM_POSTS.length === 2
+                ? "flex justify-center gap-6 max-md:flex-col max-md:items-center reveal reveal-delay-2"
               : "grid grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1 gap-6 reveal reveal-delay-2"
           }
         >

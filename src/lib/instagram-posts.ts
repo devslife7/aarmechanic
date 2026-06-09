@@ -3,4 +3,5 @@
 // and add/replace an entry below.
 export const INSTAGRAM_POSTS: string[] = [
   "https://www.instagram.com/p/DXQjybRjDTu/",
+  "https://www.instagram.com/reel/DXKwJimEauZ/",
 ];
